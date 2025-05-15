@@ -12,7 +12,11 @@
                 />
             </div>
 
-            <router-link :to="monitorURL(monitor.id)" class="item" :class="{ 'disabled': ! monitor.active }">
+            <router-link :to="monitorURL(monitor.id)" class="item" :class="{ 
+                'disabled': !monitor.active,
+                'monitor-down': isDown,
+                'flash-animation': isDown && flashEnabled
+            }">
                 <div class="row">
                     <div class="col-6 small-padding" :class="{ 'monitor-item': $root.userHeartbeatBar == 'bottom' || $root.userHeartbeatBar == 'none' }">
                         <div class="info">
@@ -140,6 +144,25 @@ export default {
                 marginLeft: `${31 * this.depth}px`,
             };
         },
+        /**
+         * Determine if monitor is down
+         * @returns {boolean} Is the monitor down
+         */
+        isDown() {
+            if (this.monitor.id in this.$root.lastHeartbeatList &&
+                this.$root.lastHeartbeatList[this.monitor.id]) {
+                return this.$root.lastHeartbeatList[this.monitor.id].status === "down";
+            }
+            return false;
+        },
+        /**
+         * Determine if flashing is enabled based on user settings
+         * @returns {boolean} Is flashing enabled
+         */
+        flashEnabled() {
+            // Get from user settings or default to true
+            return this.$root.userSettings?.enableFlashingForDownMonitors !== false;
+        },
     },
     watch: {
         isSelectMode() {
@@ -251,6 +274,41 @@ export default {
     padding-left: 4px;
     position: relative;
     z-index: 15;
+}
+
+/* Styles pour les moniteurs en panne */
+.monitor-down {
+    border-left: 4px solid $danger;
+    background-color: rgba($danger, 0.05);
+    transition: all 0.3s ease;
+    
+    .dark & {
+        background-color: rgba($danger, 0.1);
+    }
+    
+    .info {
+        font-weight: bold;
+    }
+}
+
+/* Animation de clignotement pour les moniteurs en panne */
+.flash-animation {
+    animation: flash-border 2s infinite;
+}
+
+@keyframes flash-border {
+    0% {
+        border-left: 4px solid $danger;
+        box-shadow: 0 0 0 rgba($danger, 0);
+    }
+    50% {
+        border-left: 4px solid lighten($danger, 15%);
+        box-shadow: 0 0 10px rgba($danger, 0.5);
+    }
+    100% {
+        border-left: 4px solid $danger;
+        box-shadow: 0 0 0 rgba($danger, 0);
+    }
 }
 
 </style>
