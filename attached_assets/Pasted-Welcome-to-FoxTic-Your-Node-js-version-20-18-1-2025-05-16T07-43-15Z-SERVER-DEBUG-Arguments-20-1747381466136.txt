@@ -1,0 +1,251 @@
+Welcome to FoxTic
+Your Node.js version: 20.18.1
+2025-05-16T07:43:15Z [SERVER] DEBUG: Arguments
+2025-05-16T07:43:15Z [SERVER] DEBUG: {}
+2025-05-16T07:43:15Z [SERVER] INFO: Env: development
+2025-05-16T07:43:15Z [SERVER] DEBUG: Inside Container: false
+2025-05-16T07:43:16Z [SERVER] INFO: FoxTic Version: 1.0.0-beta.1
+2025-05-16T07:43:16Z [SERVER] INFO: Loading modules
+2025-05-16T07:43:16Z [SERVER] DEBUG: Importing express
+2025-05-16T07:43:16Z [SERVER] DEBUG: Importing redbean-node
+2025-05-16T07:43:16Z [SERVER] DEBUG: Importing jsonwebtoken
+2025-05-16T07:43:16Z [SERVER] DEBUG: Importing http-graceful-shutdown
+2025-05-16T07:43:16Z [SERVER] DEBUG: Importing prometheus-api-metrics
+2025-05-16T07:43:16Z [SERVER] DEBUG: Importing 2FA Modules
+2025-05-16T07:43:16Z [SERVER] INFO: Creating express and socket.io instance
+2025-05-16T07:43:16Z [SERVER] INFO: Server Type: HTTP
+2025-05-16T07:43:16Z [SERVER] DEBUG: Importing Monitor
+2025-05-16T07:43:16Z [SERVER] DEBUG: Importing Settings
+2025-05-16T07:43:16Z [SERVER] DEBUG: Importing Notification
+2025-05-16T07:43:16Z [NOTIFICATION] DEBUG: Prepare Notification Providers
+2025-05-16T07:43:16Z [SERVER] DEBUG: Importing Database
+2025-05-16T07:43:16Z [SERVER] DEBUG: Importing Background Jobs
+2025-05-16T07:43:16Z [SERVER] INFO: Data Dir: ./data/
+2025-05-16T07:43:16Z [SETUP-DATABASE] INFO: db-config.json is not found or invalid: ENOENT: no such file or directory, open 'data/db-config.json'
+2025-05-16T07:43:16Z [SETUP-DATABASE] INFO: Starting Setup Database on 3001
+2025-05-16T07:43:16Z [SETUP-DATABASE] INFO: Open http://localhost:3001 in your browser
+2025-05-16T07:43:16Z [SETUP-DATABASE] INFO: Waiting for user action...
+Request /setup-database-info
+2025-05-16T07:43:39Z [SETUP-DATABASE] INFO: Database is configured, close the setup-database server and start the main server now.
+2025-05-16T07:43:39Z [SETUP-DATABASE] INFO: The setup-database server is closed
+2025-05-16T07:43:39Z [SERVER] DEBUG: Connecting to the database
+2025-05-16T07:43:39Z [DB] INFO: Database Type: sqlite
+2025-05-16T07:43:39Z [SERVER] INFO: Copying Database
+2025-05-16T07:43:39Z [DB] DEBUG: SQLite config:
+2025-05-16T07:43:39Z [DB] DEBUG: [ { journal_mode: 'wal' } ]
+2025-05-16T07:43:39Z [DB] DEBUG: [ { cache_size: -12000 } ]
+2025-05-16T07:43:39Z [DB] DEBUG: SQLite Version: 3.41.1
+2025-05-16T07:43:39Z [SERVER] INFO: Connected to the database
+2025-05-16T07:43:39Z [SETTINGS] DEBUG: Get Setting: database_version: null
+2025-05-16T07:43:39Z [DB] INFO: Your database version: 0
+2025-05-16T07:43:39Z [DB] INFO: Latest database version: 10
+2025-05-16T07:43:39Z [DB] INFO: Database patch is needed
+2025-05-16T07:43:39Z [DB] INFO: Patching ./db/old_migrations/patch1.sql
+2025-05-16T07:43:39Z [DB] INFO: Patched ./db/old_migrations/patch1.sql
+2025-05-16T07:43:39Z [DB] INFO: Patching ./db/old_migrations/patch2.sql
+2025-05-16T07:43:39Z [DB] INFO: Patched ./db/old_migrations/patch2.sql
+2025-05-16T07:43:39Z [DB] INFO: Patching ./db/old_migrations/patch3.sql
+2025-05-16T07:43:39Z [DB] INFO: Patched ./db/old_migrations/patch3.sql
+2025-05-16T07:43:39Z [DB] INFO: Patching ./db/old_migrations/patch4.sql
+2025-05-16T07:43:39Z [DB] INFO: Patched ./db/old_migrations/patch4.sql
+2025-05-16T07:43:39Z [DB] INFO: Patching ./db/old_migrations/patch5.sql
+2025-05-16T07:43:39Z [DB] INFO: Patched ./db/old_migrations/patch5.sql
+2025-05-16T07:43:39Z [DB] INFO: Patching ./db/old_migrations/patch6.sql
+2025-05-16T07:43:39Z [DB] INFO: Patched ./db/old_migrations/patch6.sql
+2025-05-16T07:43:39Z [DB] INFO: Patching ./db/old_migrations/patch7.sql
+2025-05-16T07:43:39Z [DB] INFO: Patched ./db/old_migrations/patch7.sql
+2025-05-16T07:43:39Z [DB] INFO: Patching ./db/old_migrations/patch8.sql
+2025-05-16T07:43:39Z [DB] INFO: Patched ./db/old_migrations/patch8.sql
+2025-05-16T07:43:39Z [DB] INFO: Patching ./db/old_migrations/patch9.sql
+2025-05-16T07:43:39Z [DB] INFO: Patched ./db/old_migrations/patch9.sql
+2025-05-16T07:43:39Z [DB] INFO: Patching ./db/old_migrations/patch10.sql
+2025-05-16T07:43:40Z [DB] INFO: Patched ./db/old_migrations/patch10.sql
+2025-05-16T07:43:40Z [DB] DEBUG: Database Patch 2.0 Process
+2025-05-16T07:43:40Z [SETTINGS] DEBUG: Get Setting: databasePatchedFiles: null
+2025-05-16T07:43:40Z [DB] DEBUG: Patched files:
+2025-05-16T07:43:40Z [DB] DEBUG: {}
+2025-05-16T07:43:40Z [DB] INFO: patch-setting-value-type.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-setting-value-type.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-setting-value-type.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-improve-performance.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-improve-performance.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-improve-performance.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-2fa.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-2fa.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-2fa.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-add-retry-interval-monitor.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-add-retry-interval-monitor.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-add-retry-interval-monitor.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-incident-table.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-incident-table.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-incident-table.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-group-table.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-group-table.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-group-table.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-monitor-push_token.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-monitor-push_token.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-monitor-push_token.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-http-monitor-method-body-and-headers.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-http-monitor-method-body-and-headers.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-http-monitor-method-body-and-headers.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-2fa-invalidate-used-token.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-2fa-invalidate-used-token.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-2fa-invalidate-used-token.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-notification_sent_history.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-notification_sent_history.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-notification_sent_history.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-monitor-basic-auth.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-monitor-basic-auth.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-monitor-basic-auth.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-add-docker-columns.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-add-docker-columns.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-add-docker-columns.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-status-page.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-status-page.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-status-page.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-proxy.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-proxy.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-proxy.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-monitor-expiry-notification.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-monitor-expiry-notification.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-monitor-expiry-notification.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-status-page-footer-css.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-status-page-footer-css.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-status-page-footer-css.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-added-mqtt-monitor.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-added-mqtt-monitor.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-added-mqtt-monitor.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-add-clickable-status-page-link.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-add-clickable-status-page-link.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-add-clickable-status-page-link.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-add-sqlserver-monitor.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-add-sqlserver-monitor.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-add-sqlserver-monitor.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-add-other-auth.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-add-other-auth.sql need parents
+2025-05-16T07:43:40Z [DB] DEBUG: patch-monitor-basic-auth.sql is already patched, skip
+2025-05-16T07:43:40Z [DB] INFO: patch-add-other-auth.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-add-other-auth.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-grpc-monitor.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-grpc-monitor.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-grpc-monitor.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-add-radius-monitor.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-add-radius-monitor.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-add-radius-monitor.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-monitor-add-resend-interval.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-monitor-add-resend-interval.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-monitor-add-resend-interval.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-ping-packet-size.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-ping-packet-size.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-ping-packet-size.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-maintenance-table2.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-maintenance-table2.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-maintenance-table2.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-add-gamedig-monitor.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-add-gamedig-monitor.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-add-gamedig-monitor.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-add-google-analytics-status-page-tag.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-add-google-analytics-status-page-tag.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-add-google-analytics-status-page-tag.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-http-body-encoding.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-http-body-encoding.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-http-body-encoding.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-add-description-monitor.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-add-description-monitor.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-add-description-monitor.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-api-key-table.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-api-key-table.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-api-key-table.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-monitor-tls.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-monitor-tls.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-monitor-tls.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-maintenance-cron.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-maintenance-cron.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-maintenance-cron.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-add-parent-monitor.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-add-parent-monitor.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-add-parent-monitor.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-add-invert-keyword.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-add-invert-keyword.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-add-invert-keyword.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-added-json-query.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-added-json-query.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-added-json-query.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-added-kafka-producer.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-added-kafka-producer.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-added-kafka-producer.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-add-certificate-expiry-status-page.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-add-certificate-expiry-status-page.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-add-certificate-expiry-status-page.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-monitor-oauth-cc.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-monitor-oauth-cc.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-monitor-oauth-cc.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-add-timeout-monitor.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-add-timeout-monitor.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-add-timeout-monitor.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-add-gamedig-given-port.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-add-gamedig-given-port.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-add-gamedig-given-port.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-notification-config.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-notification-config.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-notification-config.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-fix-kafka-producer-booleans.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-fix-kafka-producer-booleans.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-fix-kafka-producer-booleans.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-timeout.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-timeout.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-timeout.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: patch-monitor-tls-info-add-fk.sql is not patched
+2025-05-16T07:43:40Z [DB] INFO: patch-monitor-tls-info-add-fk.sql is patching
+2025-05-16T07:43:40Z [DB] INFO: patch-monitor-tls-info-add-fk.sql was patched successfully
+2025-05-16T07:43:40Z [DB] INFO: Database Patched Successfully
+2025-05-16T07:43:40Z [SETTINGS] DEBUG: Get Setting: title: null
+2025-05-16T07:43:40Z [DB] DEBUG: Enter Migrate Aggregate Table function
+2025-05-16T07:43:40Z [SETTINGS] DEBUG: Get Setting: migrateAggregateTableState: null
+2025-05-16T07:43:40Z [MIGRATION] INFO: Migration server is running on http://localhost:3001
+2025-05-16T07:43:40Z [DB] INFO: Migrating Aggregate Table
+2025-05-16T07:43:40Z [DB] INFO: Getting list of unique monitors
+2025-05-16T07:43:40Z [DB] INFO: Clearing non-important heartbeats
+2025-05-16T07:43:40Z [DB] INFO: No data to migrate
+2025-05-16T07:43:40Z [SERVER] INFO: JWT secret is not found, generate one.
+2025-05-16T07:43:40Z [SERVER] INFO: Stored JWT secret into database
+2025-05-16T07:43:40Z [SERVER] INFO: No user, need setup
+2025-05-16T07:43:40Z [SETTINGS] DEBUG: Get Setting: serverTimezone: null
+2025-05-16T07:43:40Z [TIMEZONE] DEBUG: Using timezone from settings: null
+2025-05-16T07:43:40Z [TIMEZONE] DEBUG: Guessing timezone: UTC
+2025-05-16T07:43:40Z [DEBUG] DEBUG: Timezone: UTC
+2025-05-16T07:43:40Z [DEBUG] DEBUG: Current Time: 2025-05-16T07:43:40Z
+2025-05-16T07:43:40Z [SETTINGS] DEBUG: Get Setting: entryPage: null
+2025-05-16T07:43:40Z [SERVER] DEBUG: Adding route
+2025-05-16T07:43:40Z [SERVER] DEBUG: Adding socket handler
+2025-05-16T07:43:40Z [SERVER] DEBUG: Init the server
+2025-05-16T07:43:40Z [SETTINGS] DEBUG: Get Setting: nscd: null
+2025-05-16T07:43:40Z [SERVER] INFO: Listening on 3001
+2025-05-16T07:43:40Z [SETTINGS] DEBUG: Get Setting: cloudflaredTunnelToken: null
+2025-05-16T07:43:40Z [SETTINGS] DEBUG: Get Setting: checkUpdate: null
+2025-05-16T07:43:40Z [UPDATE-CHECKER] DEBUG: Retrieving latest versions
+2025-05-16T07:43:40Z [UPDATE-CHECKER] INFO: Failed to check for new versions
+2025-05-16T07:43:40Z [UPDATE-CHECKER] DEBUG: Error: getaddrinfo ENOTFOUND foxtic.example.com
+2025-05-16T07:43:40Z [SETTINGS] DEBUG: Get Setting: autoUpdateFallback: null
+2025-05-16T07:43:46Z [SETTINGS] DEBUG: Get Setting: trustProxy: null
+2025-05-16T07:43:46Z [SOCKET] INFO: New polling connection, IP = 172.31.128.95
+2025-05-16T07:43:46Z [SETTINGS] DEBUG: Get Setting: primaryBaseURL: null
+2025-05-16T07:43:46Z [SERVER] INFO: Redirect to setup page
+2025-05-16T07:43:46Z [SERVER] DEBUG: added all socket handlers
+2025-05-16T07:43:46Z [AUTH] DEBUG: check auto login
+2025-05-16T07:43:46Z [SETTINGS] DEBUG: Get Setting: disableAuth: null
+2025-05-16T07:43:46Z [AUTH] DEBUG: need auth
+2025-05-16T07:44:04Z [SETTINGS] DEBUG: Get Setting (cache): trustProxy: null
+2025-05-16T07:44:04Z [AUTH] INFO: Login by username + password. IP=172.31.128.95
+2025-05-16T07:44:04Z [RATE-LIMIT] INFO: remaining requests: 19
+2025-05-16T07:44:04Z [SETTINGS] DEBUG: Get Setting (cache): primaryBaseURL: null
+Trace: ReferenceError: sendProxyList is not defined
+    at afterLogin (/home/runner/workspace/server/server.js:1685:9)
+    at async Socket.<anonymous> (/home/runner/workspace/server/server.js:418:21)
+    at process.unexpectedErrorHandler (/home/runner/workspace/server/server.js:1876:13)
+    at process.emit (node:events:518:28)
+    at emitUnhandledRejection (node:internal/process/promises:250:13)
+    at throwUnhandledRejectionsMode (node:internal/process/promises:385:19)
+    at processPromiseRejections (node:internal/process/promises:470:17)
+    at process.processTicksAndRejections (node:internal/process/task_queues:96:32)
+If you keep encountering errors, please report to https://github.com/louislam/uptime-kuma/issues
