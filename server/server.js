@@ -681,6 +681,10 @@ let needSetup = false;
                 await R.store(user);
 
                 needSetup = false;
+                
+                // Automatically login after setup
+                socket.userID = user.id;
+                socket.join(user.id);
 
                 callback({
                     ok: true,
