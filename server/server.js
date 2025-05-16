@@ -132,7 +132,8 @@ const twoFAVerifyOptions = {
 const testMode = !!args["test"] || false;
 
 // Must be after io instantiation
-const { sendNotificationList, sendHeartbeatList, sendInfo, sendMonitorTypeList, sendProxyList, sendDockerHostList, sendAPIKeyList, sendRemoteBrowserList } = require("./client");
+const client = require("./client");
+const { sendNotificationList, sendHeartbeatList, sendInfo, sendMonitorTypeList } = client;
 const { statusPageSocketHandler } = require("./socket-handlers/status-page-socket-handler");
 const { databaseSocketHandler } = require("./socket-handlers/database-socket-handler");
 // const { remoteBrowserSocketHandler } = require("./socket-handlers/remote-browser-socket-handler");
@@ -1683,10 +1684,10 @@ async function afterLogin(socket, user) {
         sendInfo(socket),
         server.sendMaintenanceList(socket),
         sendNotificationList(socket),
-        sendProxyList(socket),
-        sendDockerHostList(socket),
-        sendAPIKeyList(socket),
-        sendRemoteBrowserList(socket),
+        client.sendProxyList(socket),
+        client.sendDockerHostList(socket),
+        client.sendAPIKeyList(socket),
+        client.sendRemoteBrowserList(socket),
         sendMonitorTypeList(socket),
     ]);
 

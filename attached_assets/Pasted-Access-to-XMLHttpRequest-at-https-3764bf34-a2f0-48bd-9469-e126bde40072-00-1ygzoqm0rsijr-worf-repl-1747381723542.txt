@@ -1,0 +1,236 @@
+Access to XMLHttpRequest at 'https://3764bf34-a2f0-48bd-9469-e126bde40072-00-1ygzoqm0rsijr.worf.replit.dev:3001/socket.io/?EIO=4&transport=polling&t=hy35ah6x' from origin 'https://3764bf34-a2f0-48bd-9469-e126bde40072-00-1ygzoqm0rsijr.worf.replit.dev:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.Understand this error
+socket.js:256 Failed to connect to the backend. Socket.io connect_error: xhr poll error
+overrideMethod @ hook.js:608
+(anonymous) @ socket.js:256
+Emitter.emit @ index.js:136
+onerror @ socket.js:439
+Emitter.emit @ index.js:136
+onError @ manager.js:124
+Emitter.emit @ index.js:136
+_onError @ socket.js:495
+Emitter.emit @ index.js:136
+onError @ transport.js:39
+(anonymous) @ polling-xhr.js:55
+Emitter.emit @ index.js:136
+_onError @ polling-xhr.js:161
+(anonymous) @ polling-xhr.js:135
+setTimeout
+xhr.onreadystatechange @ polling-xhr.js:134
+XMLHttpRequest.send
+_create @ polling-xhr.js:139
+_Request @ polling-xhr.js:75
+request @ polling-xhr.js:253
+doPoll @ polling-xhr.js:52
+_poll @ polling.js:59
+doOpen @ polling.js:19
+open @ transport.js:47
+_open @ socket.js:197
+_SocketWithoutUpgrade @ socket.js:150
+SocketWithUpgrade @ socket.js:565
+Socket @ socket.js:725
+open @ manager.js:111
+Manager @ manager.js:39
+lookup2 @ index.js:29
+initSocketIO @ socket.js:117
+created @ socket.js:71
+callWithErrorHandling @ runtime-core.esm-bundler.js:202
+callWithAsyncErrorHandling @ runtime-core.esm-bundler.js:209
+callWithAsyncErrorHandling @ runtime-core.esm-bundler.js:220
+callHook @ runtime-core.esm-bundler.js:2347
+applyOptions @ runtime-core.esm-bundler.js:2268
+finishComponentSetup @ runtime-core.esm-bundler.js:7834
+setupStatefulComponent @ runtime-core.esm-bundler.js:7757
+setupComponent @ runtime-core.esm-bundler.js:7686
+mountComponent @ runtime-core.esm-bundler.js:4894
+processComponent @ runtime-core.esm-bundler.js:4860
+patch @ runtime-core.esm-bundler.js:4378
+render2 @ runtime-core.esm-bundler.js:5663
+mount @ runtime-core.esm-bundler.js:2654
+app.mount @ runtime-dom.esm-bundler.js:1522
+(anonymous) @ main.js:52Understand this error
+setup:1 Access to XMLHttpRequest at 'https://3764bf34-a2f0-48bd-9469-e126bde40072-00-1ygzoqm0rsijr.worf.replit.dev:3001/socket.io/?EIO=4&transport=polling&t=hy43wd2h' from origin 'https://3764bf34-a2f0-48bd-9469-e126bde40072-00-1ygzoqm0rsijr.worf.replit.dev:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.Understand this error
+socket.js:256 Failed to connect to the backend. Socket.io connect_error: xhr poll error
+overrideMethod @ hook.js:608
+(anonymous) @ socket.js:256
+Emitter.emit @ index.js:136
+onerror @ socket.js:439
+Emitter.emit @ index.js:136
+onError @ manager.js:124
+Emitter.emit @ index.js:136
+_onError @ socket.js:495
+Emitter.emit @ index.js:136
+onError @ transport.js:39
+(anonymous) @ polling-xhr.js:55
+Emitter.emit @ index.js:136
+_onError @ polling-xhr.js:161
+(anonymous) @ polling-xhr.js:135
+setTimeout
+xhr.onreadystatechange @ polling-xhr.js:134
+XMLHttpRequest.send
+_create @ polling-xhr.js:139
+_Request @ polling-xhr.js:75
+request @ polling-xhr.js:253
+doPoll @ polling-xhr.js:52
+_poll @ polling.js:59
+doOpen @ polling.js:19
+open @ transport.js:47
+_open @ socket.js:197
+_SocketWithoutUpgrade @ socket.js:150
+SocketWithUpgrade @ socket.js:565
+Socket @ socket.js:725
+open @ manager.js:111
+(anonymous) @ manager.js:337
+setTimeout
+reconnect @ manager.js:330
+maybeReconnectOnOpen @ manager.js:98
+onError @ manager.js:130
+Emitter.emit @ index.js:136
+_onError @ socket.js:495
+Emitter.emit @ index.js:136
+onError @ transport.js:39
+(anonymous) @ polling-xhr.js:55
+Emitter.emit @ index.js:136
+_onError @ polling-xhr.js:161
+(anonymous) @ polling-xhr.js:135
+setTimeout
+xhr.onreadystatechange @ polling-xhr.js:134
+XMLHttpRequest.send
+_create @ polling-xhr.js:139
+_Request @ polling-xhr.js:75
+request @ polling-xhr.js:253
+doPoll @ polling-xhr.js:52
+_poll @ polling.js:59
+doOpen @ polling.js:19
+open @ transport.js:47
+_open @ socket.js:197
+_SocketWithoutUpgrade @ socket.js:150
+SocketWithUpgrade @ socket.js:565
+Socket @ socket.js:725
+open @ manager.js:111
+Manager @ manager.js:39
+lookup2 @ index.js:29
+initSocketIO @ socket.js:117
+created @ socket.js:71
+callWithErrorHandling @ runtime-core.esm-bundler.js:202
+callWithAsyncErrorHandling @ runtime-core.esm-bundler.js:209
+callWithAsyncErrorHandling @ runtime-core.esm-bundler.js:220
+callHook @ runtime-core.esm-bundler.js:2347
+applyOptions @ runtime-core.esm-bundler.js:2268
+finishComponentSetup @ runtime-core.esm-bundler.js:7834
+setupStatefulComponent @ runtime-core.esm-bundler.js:7757
+setupComponent @ runtime-core.esm-bundler.js:7686
+mountComponent @ runtime-core.esm-bundler.js:4894
+processComponent @ runtime-core.esm-bundler.js:4860
+patch @ runtime-core.esm-bundler.js:4378
+render2 @ runtime-core.esm-bundler.js:5663
+mount @ runtime-core.esm-bundler.js:2654
+app.mount @ runtime-dom.esm-bundler.js:1522
+(anonymous) @ main.js:52Understand this error
+setup:1 Access to XMLHttpRequest at 'https://3764bf34-a2f0-48bd-9469-e126bde40072-00-1ygzoqm0rsijr.worf.replit.dev:3001/socket.io/?EIO=4&transport=polling&t=hy5k7dox' from origin 'https://3764bf34-a2f0-48bd-9469-e126bde40072-00-1ygzoqm0rsijr.worf.replit.dev:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.Understand this error
+socket.js:256 Failed to connect to the backend. Socket.io connect_error: xhr poll error
+overrideMethod @ hook.js:608
+(anonymous) @ socket.js:256
+Emitter.emit @ index.js:136
+onerror @ socket.js:439
+Emitter.emit @ index.js:136
+onError @ manager.js:124
+Emitter.emit @ index.js:136
+_onError @ socket.js:495
+Emitter.emit @ index.js:136
+onError @ transport.js:39
+(anonymous) @ polling-xhr.js:55
+Emitter.emit @ index.js:136
+_onError @ polling-xhr.js:161
+(anonymous) @ polling-xhr.js:135
+setTimeout
+xhr.onreadystatechange @ polling-xhr.js:134
+XMLHttpRequest.send
+_create @ polling-xhr.js:139
+_Request @ polling-xhr.js:75
+request @ polling-xhr.js:253
+doPoll @ polling-xhr.js:52
+_poll @ polling.js:59
+doOpen @ polling.js:19
+open @ transport.js:47
+_open @ socket.js:197
+_SocketWithoutUpgrade @ socket.js:150
+SocketWithUpgrade @ socket.js:565
+Socket @ socket.js:725
+open @ manager.js:111
+(anonymous) @ manager.js:337
+setTimeout
+reconnect @ manager.js:330
+(anonymous) @ manager.js:340
+onError @ manager.js:126
+Emitter.emit @ index.js:136
+_onError @ socket.js:495
+Emitter.emit @ index.js:136
+onError @ transport.js:39
+(anonymous) @ polling-xhr.js:55
+Emitter.emit @ index.js:136
+_onError @ polling-xhr.js:161
+(anonymous) @ polling-xhr.js:135
+setTimeout
+xhr.onreadystatechange @ polling-xhr.js:134
+XMLHttpRequest.send
+_create @ polling-xhr.js:139
+_Request @ polling-xhr.js:75
+request @ polling-xhr.js:253
+doPoll @ polling-xhr.js:52
+_poll @ polling.js:59
+doOpen @ polling.js:19
+open @ transport.js:47
+_open @ socket.js:197
+_SocketWithoutUpgrade @ socket.js:150
+SocketWithUpgrade @ socket.js:565
+Socket @ socket.js:725
+open @ manager.js:111
+(anonymous) @ manager.js:337
+setTimeout
+reconnect @ manager.js:330
+maybeReconnectOnOpen @ manager.js:98
+onError @ manager.js:130
+Emitter.emit @ index.js:136
+_onError @ socket.js:495
+Emitter.emit @ index.js:136
+onError @ transport.js:39
+(anonymous) @ polling-xhr.js:55
+Emitter.emit @ index.js:136
+_onError @ polling-xhr.js:161
+(anonymous) @ polling-xhr.js:135
+setTimeout
+xhr.onreadystatechange @ polling-xhr.js:134
+XMLHttpRequest.send
+_create @ polling-xhr.js:139
+_Request @ polling-xhr.js:75
+request @ polling-xhr.js:253
+doPoll @ polling-xhr.js:52
+_poll @ polling.js:59
+doOpen @ polling.js:19
+open @ transport.js:47
+_open @ socket.js:197
+_SocketWithoutUpgrade @ socket.js:150
+SocketWithUpgrade @ socket.js:565
+Socket @ socket.js:725
+open @ manager.js:111
+Manager @ manager.js:39
+lookup2 @ index.js:29
+initSocketIO @ socket.js:117
+created @ socket.js:71
+callWithErrorHandling @ runtime-core.esm-bundler.js:202
+callWithAsyncErrorHandling @ runtime-core.esm-bundler.js:209
+callWithAsyncErrorHandling @ runtime-core.esm-bundler.js:220
+callHook @ runtime-core.esm-bundler.js:2347
+applyOptions @ runtime-core.esm-bundler.js:2268
+finishComponentSetup @ runtime-core.esm-bundler.js:7834
+setupStatefulComponent @ runtime-core.esm-bundler.js:7757
+setupComponent @ runtime-core.esm-bundler.js:7686
+mountComponent @ runtime-core.esm-bundler.js:4894
+processComponent @ runtime-core.esm-bundler.js:4860
+patch @ runtime-core.esm-bundler.js:4378
+render2 @ runtime-core.esm-bundler.js:5663
+mount @ runtime-core.esm-bundler.js:2654
+app.mount @ runtime-dom.esm-bundler.js:1522
+(anonymous) @ main.js:52Understand this error
+setup:1 Access to XMLHttpRequest at 'https://3764bf34-a2f0-48bd-9469-e126bde40072-00-1ygzoqm0rsijr.worf.replit.dev:3001/socket.io/?EIO=4&transport=polling&t=hy9becw2' from origin 'https://3764bf34-a2f0-48bd-9469-e126bde40072-00-1ygzoqm0rsijr.worf.replit.dev:3000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.Understand this error
+socket.js:256 Failed to connect to the backend. Socket.io connect_error: xhr poll error
