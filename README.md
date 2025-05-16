@@ -194,14 +194,3 @@ Feel free to correct the grammar in the documentation or code.
 My mother language is not English and my grammar is not that great.
 
 
-
-## Installation sécurisée
-
-Pour installer FoxTic sans messages d'erreur d'audit, utilisez:
-
-```bash
-npm run clean-install
-```
-
-Cette commande désactive les vérifications d'audit et supprime les dépendances vulnérables 
-remplacées par nos implémentations sécurisées.
