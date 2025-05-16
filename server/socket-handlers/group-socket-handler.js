@@ -56,10 +56,10 @@ module.exports = (socket) => {
             });
             
         } catch (error) {
-            log.error("group", "Import error: " + error.message);
+            log.error("group", "Import error: " + (error ? error.message : "Unknown error"));
             callback({
                 ok: false,
-                msg: error.message
+                msg: error ? error.message : "An unknown error occurred during import"
             });
         }
     });
@@ -74,12 +74,23 @@ module.exports = (socket) => {
         // Get all groups to export
         let groups = [];
         
+        // Capture original IDs for reference
+        const groupIdMap = {};
+        
         if (groupIDs.length > 0) {
             groups = await R.find("monitor", " id IN (?) AND user_id = ? AND type = ? ", [
                 groupIDs, 
                 userID,
                 "group"
             ]);
+            
+            // Save original IDs
+            for (const group of groups) {
+                groupIdMap[group.id] = true;
+            }
+            
+            // Log for debugging
+            log.debug("group", `Found ${groups.length} groups to export`);
         }
         
         if (groups.length === 0) {
@@ -91,41 +102,48 @@ module.exports = (socket) => {
         const timestamp = Math.floor(Date.now() / 1000); // Export timestamp
         
         for (const group of groups) {
-            // Remove sensitive/irrelevant fields
-            delete group.id;
-            delete group.user_id;
+            const groupId = group.id; // Store ID before deletion for reference
             
-            // Add the group to the export list
-            const exportGroup = {
-                ...group,
-                monitors: []
-            };
+            // Create a copy to avoid modifying the original
+            const exportGroup = { ...group, monitors: [] };
+            
+            // Remove sensitive/irrelevant fields
+            delete exportGroup.id;
+            delete exportGroup.user_id;
             
             // Get all monitors in this group
             const monitors = await R.find("monitor", " parent = ? AND user_id = ? AND type != ? ", [
-                group.id,
+                groupId,
                 userID,
                 "group"
             ]);
             
+            log.debug("group", `Found ${monitors.length} monitors in group ${groupId}`);
+            
             for (const monitor of monitors) {
-                // Remove sensitive/irrelevant fields
-                delete monitor.id;
-                delete monitor.user_id;
-                delete monitor.parent; // We'll restore this when importing
+                // Create a copy of the monitor to avoid modifying the original
+                const exportMonitor = { ...monitor };
                 
-                exportGroup.monitors.push(monitor);
+                // Remove sensitive/irrelevant fields
+                delete exportMonitor.id;
+                delete exportMonitor.user_id;
+                delete exportMonitor.parent; // We'll restore this when importing
+                
+                exportGroup.monitors.push(exportMonitor);
             }
             
             exportGroups.push(exportGroup);
         }
         
-        return {
+        const result = {
             version: 1, // Export version for compatibility checks
             timestamp,
             application: "FoxTic", // Indicates this is a FoxTic export
             groups: exportGroups
         };
+        
+        log.debug("group", `Export complete: ${exportGroups.length} groups with monitors`);
+        return result;
     }
     
     /**
@@ -138,59 +156,142 @@ module.exports = (socket) => {
         let groupCount = 0;
         let monitorCount = 0;
         
-        // Check export version compatibility
-        if (importData.version > 1) {
-            throw new Error(`Unsupported export version: ${importData.version}`);
-        }
-        
-        // Verify this is a FoxTic export
-        if (importData.application !== "FoxTic") {
-            throw new Error("Invalid import file: This file was not exported from FoxTic");
-        }
-        
-        // Import each group
-        for (const exportedGroup of importData.groups) {
-            // Create the group
-            const group = R.dispense("monitor");
+        try {
+            // Check export version compatibility
+            if (importData.version > 1) {
+                throw new Error(`Unsupported export version: ${importData.version}`);
+            }
             
-            // Set the group properties
-            group.name = exportedGroup.name;
-            group.type = "group";
-            group.user_id = userID;
-            group.active = 1;
-            group.active_monitoring = 0;
+            // Make version check more flexible - if version is missing, assume it's version 1
+            if (!importData.version) {
+                log.debug("group", "No version specified in import data, assuming version 1");
+            }
             
-            // Save the group to get its ID
-            const groupID = await R.store(group);
-            groupCount++;
+            // Verify this is a FoxTic export or Uptime Kuma export (for compatibility)
+            const validApplications = ["FoxTic", "Uptime Kuma"];
+            if (importData.application && !validApplications.includes(importData.application)) {
+                throw new Error(`Invalid import file: This file was exported from ${importData.application} which is not supported`);
+            }
             
-            // Import the group's monitors
-            if (exportedGroup.monitors && Array.isArray(exportedGroup.monitors)) {
-                for (const exportedMonitor of exportedGroup.monitors) {
-                    const monitor = R.dispense("monitor");
+            // More flexible validation - if application is missing, attempt import anyway
+            if (!importData.application) {
+                log.debug("group", "No application specified in import data, attempting import anyway");
+            }
+            
+            // Check if groups exist in import data
+            if (!importData.groups || !Array.isArray(importData.groups) || importData.groups.length === 0) {
+                throw new Error("No groups found in import data");
+            }
+            
+            log.debug("group", `Found ${importData.groups.length} groups in import data`);
+            
+            // Import each group
+            for (const exportedGroup of importData.groups) {
+                if (!exportedGroup || typeof exportedGroup !== 'object') {
+                    log.warn("group", "Skipping invalid group in import data");
+                    continue;
+                }
+                
+                // Ensure group has a name
+                if (!exportedGroup.name) {
+                    exportedGroup.name = "Imported Group " + Date.now();
+                    log.debug("group", "Group without name detected, using generated name");
+                }
+                
+                // Check if group already exists
+                let existingGroup = await R.findOne("monitor", " name = ? AND user_id = ? AND type = ? ", [
+                    exportedGroup.name,
+                    userID,
+                    "group"
+                ]);
+                
+                let groupID;
+                
+                if (existingGroup) {
+                    // Use existing group
+                    log.debug("group", `Group '${exportedGroup.name}' already exists, using existing group`);
+                    groupID = existingGroup.id;
+                } else {
+                    // Create the group
+                    const group = R.dispense("monitor");
                     
-                    // Copy all properties from the exported monitor
-                    for (const key in exportedMonitor) {
-                        monitor[key] = exportedMonitor[key];
+                    // Set the group properties
+                    group.name = exportedGroup.name;
+                    group.type = "group";
+                    group.user_id = userID;
+                    group.active = 1;
+                    group.active_monitoring = exportedGroup.active_monitoring || 0;
+                    
+                    // Save the group to get its ID
+                    groupID = await R.store(group);
+                    groupCount++;
+                    
+                    log.debug("group", `Created new group '${exportedGroup.name}' with ID ${groupID}`);
+                }
+                
+                // Import the group's monitors
+                if (exportedGroup.monitors && Array.isArray(exportedGroup.monitors)) {
+                    log.debug("group", `Importing ${exportedGroup.monitors.length} monitors for group '${exportedGroup.name}'`);
+                    
+                    for (const exportedMonitor of exportedGroup.monitors) {
+                        if (!exportedMonitor || typeof exportedMonitor !== 'object') {
+                            log.warn("group", "Skipping invalid monitor in import data");
+                            continue;
+                        }
+                        
+                        // Ensure monitor has a name
+                        if (!exportedMonitor.name) {
+                            exportedMonitor.name = "Imported Monitor " + Date.now();
+                            log.debug("group", "Monitor without name detected, using generated name");
+                        }
+                        
+                        // Check if monitor already exists in group
+                        const existingMonitor = await R.findOne("monitor", " name = ? AND user_id = ? AND parent = ? ", [
+                            exportedMonitor.name,
+                            userID,
+                            groupID
+                        ]);
+                        
+                        if (existingMonitor) {
+                            log.debug("group", `Monitor '${exportedMonitor.name}' already exists in group, skipping`);
+                            continue;
+                        }
+                        
+                        const monitor = R.dispense("monitor");
+                        
+                        // Copy all properties from the exported monitor
+                        for (const key in exportedMonitor) {
+                            if (key !== 'id' && key !== 'user_id' && key !== 'parent') {
+                                monitor[key] = exportedMonitor[key];
+                            }
+                        }
+                        
+                        // Ensure this is a FoxTic monitor
+                        monitor.foxtic_managed = 1;
+                        
+                        // Set the required fields
+                        monitor.user_id = userID;
+                        monitor.parent = groupID;
+                        monitor.active = 1; // Set active by default
+                        
+                        await R.store(monitor);
+                        monitorCount++;
+                        
+                        log.debug("group", `Added monitor '${exportedMonitor.name}' to group`);
                     }
-                    
-                    // Ensure this is a FoxTic monitor
-                    monitor.foxtic_managed = 1;
-                    
-                    // Set the required fields
-                    monitor.user_id = userID;
-                    monitor.parent = groupID;
-                    monitor.active = 1; // Set active by default
-                    
-                    await R.store(monitor);
-                    monitorCount++;
                 }
             }
+            
+            log.debug("group", `Import complete: ${groupCount} groups with ${monitorCount} monitors`);
+            
+            return {
+                groupCount,
+                monitorCount
+            };
+        } catch (error) {
+            log.error("group", "Import error: " + (error ? error.message : "Unknown error"));
+            log.debug("group", "Import data: " + JSON.stringify(importData).substring(0, 200) + "...");
+            throw error;
         }
-        
-        return {
-            groupCount,
-            monitorCount
-        };
     }
 };
