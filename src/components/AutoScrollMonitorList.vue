@@ -159,11 +159,26 @@ export default {
         allGroups() {
             // Groupes existants
             const regularGroups = Object.values(this.$root.monitorList || {}).filter(m => m.type === "group");
+            const allMonitors = Object.values(this.$root.monitorList || {});
+            
+            // Vérifier s'il existe des moniteurs non assignés
+            const unassignedMonitors = allMonitors.filter(m => 
+                m.type !== "group" && 
+                (!m.parent || !allMonitors.find(g => g.id === m.parent && g.type === "group"))
+            );
             
             // Ajouter des groupes spéciaux au début
+            const specialGroups = [
+                { id: -1, name: this.$t('All Monitors'), type: 'special-group', isSpecial: true }
+            ];
+            
+            // Ajouter le groupe Unassigned uniquement s'il contient des moniteurs
+            if (unassignedMonitors.length > 0) {
+                specialGroups.push({ id: -2, name: this.$t('Unassigned'), type: 'special-group', isSpecial: true });
+            }
+            
             return [
-                { id: -1, name: this.$t('All Monitors'), type: 'special-group', isSpecial: true },
-                { id: -2, name: this.$t('Unassigned'), type: 'special-group', isSpecial: true },
+                ...specialGroups,
                 ...regularGroups
             ];
         },
