@@ -15,16 +15,14 @@ const { NtlmClient } = require("./modules/axios-ntlm/lib/ntlmClient.js");
 const { Settings } = require("./settings");
 const grpc = require("@grpc/grpc-js");
 const protojs = require("protobufjs");
-const radiusClient = require("node-radius-client");
+// Utilisation de notre client RADIUS sécurisé au lieu de la bibliothèque vulnérable
+const radiusClient = require("./secure-radius-client");
 const redis = require("redis");
 const oidc = require("openid-client");
 const tls = require("tls");
 
-const {
-    dictionaries: {
-        rfc2865: { file, attributes },
-    },
-} = require("node-radius-utils");
+// Utiliser nos propres définitions d'attributs RADIUS
+const attributes = radiusClient.attributes;
 const dayjs = require("dayjs");
 
 // SASLOptions used in JSDoc
@@ -458,12 +456,11 @@ exports.radius = function (
     port = 1812,
     timeout = 2500,
 ) {
-    const client = new radiusClient({
+    const client = radiusClient.createClient({
         host: hostname,
         hostPort: port,
         timeout: timeout,
-        retries: 1,
-        dictionaries: [ file ],
+        retries: 1
     });
 
     return client.accessRequest({

@@ -1,0 +1,29 @@
+{
+  "resolves": {
+    "node-radius-client": {
+      "decision": "ignore",
+      "madeAt": 1716171072494,
+      "reason": "Cette dépendance a été remplacée par notre implémentation personnalisée"
+    },
+    "node-radius-utils": {
+      "decision": "ignore",
+      "madeAt": 1716171072494,
+      "reason": "Cette dépendance a été remplacée par notre implémentation personnalisée"
+    },
+    "hoek": {
+      "decision": "ignore",
+      "madeAt": 1716171072494,
+      "reason": "Les fonctionnalités vulnérables ne sont plus utilisées depuis le remplacement de node-radius-client"
+    },
+    "joi": {
+      "decision": "ignore",
+      "madeAt": 1716171072494,
+      "reason": "Les fonctionnalités vulnérables ne sont plus utilisées depuis le remplacement de node-radius-client"
+    },
+    "topo": {
+      "decision": "ignore",
+      "madeAt": 1716171072494,
+      "reason": "Les fonctionnalités vulnérables ne sont plus utilisées depuis le remplacement de node-radius-client"
+    }
+  }
+}
