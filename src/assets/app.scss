@@ -86,13 +86,9 @@ textarea.form-control {
     }
 }
 
-/* Suppression du contour bleu sur tous les boutons */
-.btn:focus, 
-.btn:active,
-.btn-outline-normal:focus,
-.btn-outline-normal:active,
-button:focus,
-button:active {
+/* Suppression du contour bleu sur les boutons de navigation */
+.view-toggle-btn:focus, 
+.view-toggle-btn:active {
     outline: none !important;
     box-shadow: none !important;
 }

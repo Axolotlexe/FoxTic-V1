@@ -438,10 +438,13 @@ export default {
             websocketService.on('message', this.handleWebSocketMessage);
             websocketService.on('open', this.handleWebSocketOpen);
             
-            // Établir la connexion
-            websocketService.connect().catch(error => {
-                console.error("Erreur de connexion WebSocket:", error);
-            });
+            // Établir la connexion de manière sécurisée
+            const connectPromise = websocketService.connect();
+            if (connectPromise && typeof connectPromise.catch === 'function') {
+                connectPromise.catch(error => {
+                    console.error("Erreur de connexion WebSocket:", error);
+                });
+            }
         },
         
         /**

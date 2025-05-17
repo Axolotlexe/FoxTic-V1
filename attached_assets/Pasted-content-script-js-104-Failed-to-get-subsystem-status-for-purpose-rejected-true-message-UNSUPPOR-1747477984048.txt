@@ -1,0 +1,62 @@
+content-script.js:104 Failed to get subsystem status for purpose {rejected: true, message: 'UNSUPPORTED_OS'}
+main.js:56 Dev Only: window.app is the vue instance
+socket.js:270 Connected to the socket server
+websocket.js:39 [WebSocket] Tentative de connexion à wss://3764bf34-a2f0-48bd-9469-e126bde40072-00-1ygzoqm0rsijr.worf.replit.dev:3000/ws
+websocket.js:24 [WebSocket] Déjà connecté ou en cours de connexion
+Dashboard.vue:10 [Vue warn]: Unhandled error during execution of mounted hook 
+  at <DashboardHome calculatedHeight=403 onVnodeUnmounted=fn<onVnodeUnmounted> ref=Ref< Proxy(Object) {$i18n: {…}, $t: ƒ, $rt: ƒ, …} > > 
+  at <RouterView key="/dashboard" calculatedHeight=403 > 
+  at <Dashboard onVnodeUnmounted=fn<onVnodeUnmounted> ref=Ref< Proxy(Object) {$i18n: {…}, $t: ƒ, $rt: ƒ, $tc: ƒ, $te: ƒ, …} > > 
+  at <RouterView key=0 > 
+  at <Layout onVnodeUnmounted=fn<onVnodeUnmounted> ref=Ref< Proxy(Object) {$i18n: {…}, $t: ƒ, $rt: ƒ, $tc: ƒ, $te: ƒ, …} > > 
+  at <RouterView > 
+  at <App> 
+  at <App>
+overrideMethod @ hook.js:608
+warn$1 @ runtime-core.esm-bundler.js:51
+logError @ runtime-core.esm-bundler.js:267
+handleError @ runtime-core.esm-bundler.js:259
+callWithErrorHandling @ runtime-core.esm-bundler.js:204
+callWithAsyncErrorHandling @ runtime-core.esm-bundler.js:209
+hook.__weh.hook.__weh @ runtime-core.esm-bundler.js:1532
+flushPostFlushCbs @ runtime-core.esm-bundler.js:386
+flushJobs @ runtime-core.esm-bundler.js:426
+Promise.then
+queueFlush @ runtime-core.esm-bundler.js:326
+queueJob @ runtime-core.esm-bundler.js:320
+scheduler @ runtime-core.esm-bundler.js:5988
+resetScheduling @ reactivity.esm-bundler.js:262
+trigger @ reactivity.esm-bundler.js:402
+set @ reactivity.esm-bundler.js:524
+_createElementVNode.onClick._cache.<computed>._cache.<computed> @ Dashboard.vue:10
+callWithErrorHandling @ runtime-core.esm-bundler.js:202
+callWithAsyncErrorHandling @ runtime-core.esm-bundler.js:209
+invoker @ runtime-dom.esm-bundler.js:693
+DashboardHome.vue:442 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'catch')
+    at Proxy.initWebSocket (DashboardHome.vue:442:39)
+    at Proxy.mounted (DashboardHome.vue:418:14)
+    at runtime-core.esm-bundler.js:1552:40
+    at callWithErrorHandling (runtime-core.esm-bundler.js:202:19)
+    at callWithAsyncErrorHandling (runtime-core.esm-bundler.js:209:17)
+    at hook.__weh.hook.__weh (runtime-core.esm-bundler.js:1532:19)
+    at flushPostFlushCbs (runtime-core.esm-bundler.js:386:32)
+    at flushJobs (runtime-core.esm-bundler.js:426:5)
+initWebSocket @ DashboardHome.vue:442
+mounted @ DashboardHome.vue:418
+(anonymous) @ runtime-core.esm-bundler.js:1552
+callWithErrorHandling @ runtime-core.esm-bundler.js:202
+callWithAsyncErrorHandling @ runtime-core.esm-bundler.js:209
+hook.__weh.hook.__weh @ runtime-core.esm-bundler.js:1532
+flushPostFlushCbs @ runtime-core.esm-bundler.js:386
+flushJobs @ runtime-core.esm-bundler.js:426
+Promise.then
+queueFlush @ runtime-core.esm-bundler.js:326
+queueJob @ runtime-core.esm-bundler.js:320
+scheduler @ runtime-core.esm-bundler.js:5988
+resetScheduling @ reactivity.esm-bundler.js:262
+trigger @ reactivity.esm-bundler.js:402
+set @ reactivity.esm-bundler.js:524
+_createElementVNode.onClick._cache.<computed>._cache.<computed> @ Dashboard.vue:10
+callWithErrorHandling @ runtime-core.esm-bundler.js:202
+callWithAsyncErrorHandling @ runtime-core.esm-bundler.js:209
+invoker @ runtime-dom.esm-bundler.js:693

@@ -5,15 +5,15 @@
                 <!-- Toggle entre le mode normal et le mode défilement automatique -->
                 <div class="view-toggle">
                     <button 
-                        class="btn btn-sm" 
-                        :class="{ 'btn-active': !autoScrollEnabled }"
+                        class="view-toggle-btn" 
+                        :class="{ 'active': !autoScrollEnabled }"
                         @click="autoScrollEnabled = false"
                     >
                         <font-awesome-icon icon="list" /> <span>{{ $t('Normal View') }}</span>
                     </button>
                     <button 
-                        class="btn btn-sm" 
-                        :class="{ 'btn-active': autoScrollEnabled }"
+                        class="view-toggle-btn" 
+                        :class="{ 'active': autoScrollEnabled }"
                         @click="autoScrollEnabled = true"
                     >
                         <font-awesome-icon icon="play-circle" /> <span>{{ $t('Auto Scroll') }}</span>
@@ -230,7 +230,7 @@ export default {
         background-color: $dark-bg;
     }
     
-    .btn {
+    .view-toggle-btn {
         padding: 8px 15px;
         border: none;
         background: transparent;
@@ -241,9 +241,10 @@ export default {
         outline: none !important;
         box-shadow: none !important;
         
-        &:focus {
+        &:focus, &:active {
             outline: none !important;
             box-shadow: none !important;
+            border: none !important;
         }
         margin: 0 2px;
         

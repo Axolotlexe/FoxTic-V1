@@ -7,6 +7,7 @@ class WebSocketService {
         this.socket = null;
         this.reconnectInterval = 3000; // 3 secondes
         this.isConnecting = false;
+        this._hasLoggedConnectionStatus = false;
         this.eventHandlers = {
             message: [],
             open: [],
@@ -21,12 +22,18 @@ class WebSocketService {
      */
     connect() {
         if (this.socket && (this.socket.readyState === WebSocket.OPEN || this.socket.readyState === WebSocket.CONNECTING)) {
-            console.log('[WebSocket] Déjà connecté ou en cours de connexion');
-            return;
+            // En production, on ne loggera pas ce message pour éviter de surcharger la console
+            if (process.env.NODE_ENV === 'development' && !this._hasLoggedConnectionStatus) {
+                console.log('[WebSocket] Déjà connecté ou en cours de connexion');
+                this._hasLoggedConnectionStatus = true;
+                // Réinitialiser après un délai
+                setTimeout(() => { this._hasLoggedConnectionStatus = false; }, 5000);
+            }
+            return Promise.resolve();
         }
 
         if (this.isConnecting) {
-            return;
+            return Promise.resolve();
         }
 
         this.isConnecting = true;
