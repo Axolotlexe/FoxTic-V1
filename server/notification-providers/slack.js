@@ -28,7 +28,7 @@ class Slack extends NotificationProvider {
 
     /**
      * Builds the actions available in the slack message
-     * @param {string} baseURL Uptime Kuma base URL
+     * @param {string} baseURL FoxTic base URL
      * @param {object} monitorJSON The monitor config
      * @returns {Array} The relevant action objects
      */
@@ -71,7 +71,7 @@ class Slack extends NotificationProvider {
 
     /**
      * Builds the different blocks the Slack message consists of.
-     * @param {string} baseURL Uptime Kuma base URL
+     * @param {string} baseURL FoxTic base URL
      * @param {object} monitorJSON The monitor object
      * @param {object} heartbeatJSON The heartbeat object
      * @param {string} title The message title
@@ -143,7 +143,7 @@ class Slack extends NotificationProvider {
 
             const baseURL = await setting("primaryBaseURL");
 
-            const title = "Uptime Kuma Alert";
+            const title = "FoxTic Alert";
             let data = {
                 "channel": notification.slackchannel,
                 "username": notification.slackusername,

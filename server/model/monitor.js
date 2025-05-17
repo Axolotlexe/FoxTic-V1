@@ -14,7 +14,7 @@ const { Proxy } = require("../proxy");
 const { demoMode } = require("../config");
 const version = require("../../package.json").version;
 const apicache = require("../modules/apicache");
-const { UptimeKumaServer } = require("../uptime-kuma-server");
+const { FoxTicServer } = require("../foxtic-server");
 const { DockerHost } = require("../docker");
 const Gamedig = require("gamedig");
 const jwt = require("jsonwebtoken");
@@ -81,7 +81,7 @@ class Monitor extends BeanModel {
         let screenshot = null;
 
         if (this.type === "real-browser") {
-            screenshot = "/screenshots/" + jwt.sign(this.id, UptimeKumaServer.getInstance().jwtSecret) + ".png";
+            screenshot = "/screenshots/" + jwt.sign(this.id, FoxTicServer.getInstance().jwtSecret) + ".png";
         }
 
         const path = preloadData.paths.get(this.id) || [];
@@ -815,10 +815,10 @@ class Monitor extends BeanModel {
                     bean.status = UP;
                     bean.ping = dayjs().valueOf() - startTime;
 
-                } else if (this.type in UptimeKumaServer.monitorTypeList) {
+                } else if (this.type in FoxTicServer.monitorTypeList) {
                     let startTime = dayjs().valueOf();
-                    const monitorType = UptimeKumaServer.monitorTypeList[this.type];
-                    await monitorType.check(this, bean, UptimeKumaServer.getInstance());
+                    const monitorType = FoxTicServer.monitorTypeList[this.type];
+                    await monitorType.check(this, bean, FoxTicServer.getInstance());
                     if (!bean.ping) {
                         bean.ping = dayjs().valueOf() - startTime;
                     }
@@ -901,7 +901,7 @@ class Monitor extends BeanModel {
                 log.debug("monitor", `[${this.name}] apicache clear`);
                 apicache.clear();
 
-                await UptimeKumaServer.getInstance().sendMaintenanceListByUserID(this.user_id);
+                await FoxTicServer.getInstance().sendMaintenanceListByUserID(this.user_id);
 
             } else {
                 bean.important = false;
@@ -977,7 +977,7 @@ class Monitor extends BeanModel {
                 await beat();
             } catch (e) {
                 console.trace(e);
-                UptimeKumaServer.errorLog(e, false);
+                FoxTicServer.errorLog(e, false);
                 log.error("monitor", "Please report to https://github.com/louislam/uptime-kuma/issues");
 
                 if (! this.isStop) {
@@ -1304,8 +1304,8 @@ class Monitor extends BeanModel {
                     }
 
                     // Also provide the time in server timezone
-                    heartbeatJSON["timezone"] = await UptimeKumaServer.getInstance().getTimezone();
-                    heartbeatJSON["timezoneOffset"] = UptimeKumaServer.getInstance().getTimezoneOffset();
+                    heartbeatJSON["timezone"] = await FoxTicServer.getInstance().getTimezone();
+                    heartbeatJSON["timezoneOffset"] = FoxTicServer.getInstance().getTimezoneOffset();
                     heartbeatJSON["localDateTime"] = dayjs.utc(heartbeatJSON["time"]).tz(heartbeatJSON["timezone"]).format(SQL_DATETIME_FORMAT);
 
                     await Notification.send(JSON.parse(notification.config), msg, monitor.toJSON(preloadData, false), heartbeatJSON);
@@ -1442,7 +1442,7 @@ class Monitor extends BeanModel {
         `, [ monitorID ]);
 
         for (const maintenanceID of maintenanceIDList) {
-            const maintenance = await UptimeKumaServer.getInstance().getMaintenance(maintenanceID);
+            const maintenance = await FoxTicServer.getInstance().getMaintenance(maintenanceID);
             if (maintenance && await maintenance.isUnderMaintenance()) {
                 return true;
             }

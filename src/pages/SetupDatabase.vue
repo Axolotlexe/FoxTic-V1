@@ -3,9 +3,9 @@
         <div class="form">
             <form @submit.prevent="submit">
                 <div class="logo-container">
-                    <img src="/icon.svg" alt="Uptime Kuma Logo" class="login-logo">
+                    <img src="/icon.svg" alt="FoxTic Logo" class="login-logo">
                 </div>
-                <h1 class="h3 mb-4 fw-normal login-title">Uptime Kuma</h1>
+                <h1 class="h3 mb-4 fw-normal login-title">FoxTic</h1>
 
                 <div v-if="info.runningSetup" class="mt-5">
                     <div class="setup-progress-container">

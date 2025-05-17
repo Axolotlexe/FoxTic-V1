@@ -41,7 +41,7 @@ class SendGrid extends NotificationProvider {
                 from: { email: notification.sendgridFromEmail.trim() },
                 subject:
           notification.sendgridSubject ||
-          "Notification from Your Uptime Kuma",
+          "Notification from Your FoxTic",
                 content: [
                     {
                         type: "text/plain",

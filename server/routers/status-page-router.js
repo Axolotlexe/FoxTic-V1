@@ -1,6 +1,6 @@
 let express = require("express");
 const apicache = require("../modules/apicache");
-const { UptimeKumaServer } = require("../uptime-kuma-server");
+const { FoxTicServer } = require("../foxtic-server");
 const StatusPage = require("../model/status_page");
 const { allowDevAllOrigin, sendHttpError } = require("../util-server");
 const { R } = require("redbean-node");
@@ -11,7 +11,7 @@ const { FoxticUptimeCalculator } = require("../foxtic-calculator");
 let router = express.Router();
 
 let cache = apicache.middleware;
-const server = UptimeKumaServer.getInstance();
+const server = FoxTicServer.getInstance();
 
 router.get("/status/:slug", cache("5 minutes"), async (request, response) => {
     let slug = request.params.slug;

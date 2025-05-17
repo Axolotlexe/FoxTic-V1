@@ -3,7 +3,7 @@ const { parseTimeObject, parseTimeFromTimeObject, log } = require("../../src/uti
 const { R } = require("redbean-node");
 const dayjs = require("dayjs");
 const Cron = require("croner");
-const { UptimeKumaServer } = require("../uptime-kuma-server");
+const { FoxTicServer } = require("../foxtic-server");
 const apicache = require("../modules/apicache");
 
 class Maintenance extends BeanModel {
@@ -225,7 +225,7 @@ class Maintenance extends BeanModel {
         } else if (this.strategy === "single") {
             this.beanMeta.job = new Cron(this.start_date, { timezone: await this.getTimezone() }, () => {
                 log.info("maintenance", "Maintenance id: " + this.id + " is under maintenance now");
-                UptimeKumaServer.getInstance().sendMaintenanceListByUserID(this.user_id);
+                FoxTicServer.getInstance().sendMaintenanceListByUserID(this.user_id);
                 apicache.clear();
             });
         } else if (this.cron != null) {
@@ -241,12 +241,12 @@ class Maintenance extends BeanModel {
 
                     let duration = this.inferDuration(customDuration);
 
-                    UptimeKumaServer.getInstance().sendMaintenanceListByUserID(this.user_id);
+                    FoxTicServer.getInstance().sendMaintenanceListByUserID(this.user_id);
 
                     this.beanMeta.durationTimeout = setTimeout(() => {
                         // End of maintenance for this timeslot
                         this.beanMeta.status = "scheduled";
-                        UptimeKumaServer.getInstance().sendMaintenanceListByUserID(this.user_id);
+                        FoxTicServer.getInstance().sendMaintenanceListByUserID(this.user_id);
                     }, duration);
                 };
 
@@ -354,7 +354,7 @@ class Maintenance extends BeanModel {
      */
     async getTimezone() {
         if (!this.timezone || this.timezone === "SAME_AS_SERVER") {
-            return await UptimeKumaServer.getInstance().getTimezone();
+            return await FoxTicServer.getInstance().getTimezone();
         }
         return this.timezone;
     }

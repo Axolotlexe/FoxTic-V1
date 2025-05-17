@@ -1,7 +1,7 @@
 const { BeanModel } = require("redbean-node/dist/bean-model");
 const { R } = require("redbean-node");
 const cheerio = require("cheerio");
-const { UptimeKumaServer } = require("../uptime-kuma-server");
+const { FoxTicServer } = require("../foxtic-server");
 const jsesc = require("jsesc");
 const googleAnalytics = require("../google-analytics");
 const { marked } = require("marked");
@@ -33,7 +33,7 @@ class StatusPage extends BeanModel {
         if (statusPage) {
             response.send(await StatusPage.renderRSS(statusPage, slug));
         } else {
-            response.status(404).send(UptimeKumaServer.getInstance().indexHTML);
+            response.status(404).send(FoxTicServer.getInstance().indexHTML);
         }
     }
 
@@ -58,7 +58,7 @@ class StatusPage extends BeanModel {
         if (statusPage) {
             response.send(await StatusPage.renderHTML(indexHTML, statusPage));
         } else {
-            response.status(404).send(UptimeKumaServer.getInstance().indexHTML);
+            response.status(404).send(FoxTicServer.getInstance().indexHTML);
         }
     }
 

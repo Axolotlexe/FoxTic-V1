@@ -108,11 +108,16 @@ class FoxTicBackendServer {
         }
 
         // Set Monitor Types - Only include types for physical hardware and websites monitoring
-        FoxTicBackendServer.monitorTypeList["real-browser"] = new RealBrowserMonitorType();
-        FoxTicBackendServer.monitorTypeList["tailscale-ping"] = new TailscalePing();
-        FoxTicBackendServer.monitorTypeList["dns"] = new DnsMonitorType();
-        FoxTicBackendServer.monitorTypeList["group"] = new GroupMonitorType();
-        FoxTicBackendServer.monitorTypeList["snmp"] = new SNMPMonitorType();
+        try {
+            FoxTicBackendServer.monitorTypeList["real-browser"] = new RealBrowserMonitorType();
+            FoxTicBackendServer.monitorTypeList["tailscale-ping"] = new TailscalePing();
+            FoxTicBackendServer.monitorTypeList["dns"] = new DnsMonitorType();
+            FoxTicBackendServer.monitorTypeList["group"] = new GroupMonitorType();
+            FoxTicBackendServer.monitorTypeList["snmp"] = new SNMPMonitorType();
+        } catch (e) {
+            console.error("Error initializing monitor types:", e);
+            // Continue with partial initialization if some types fail
+        }
 
         // Allow all CORS origins (polling) in development
         let cors = undefined;
@@ -141,7 +146,7 @@ class FoxTicBackendServer {
                 if (transport === "polling") {
                     callback(null, true);
                 } else if (transport === "websocket") {
-                    const bypass = process.env.UPTIME_KUMA_WS_ORIGIN_CHECK === "bypass";
+                    const bypass = process.env.FOXTIC_WS_ORIGIN_CHECK === "bypass" || process.env.UPTIME_KUMA_WS_ORIGIN_CHECK === "bypass";
                     if (bypass) {
                         log.info("auth", "WebSocket origin check is bypassed");
                         callback(null, true);
@@ -475,7 +480,7 @@ class FoxTicBackendServer {
      * @returns {void}
      */
     async startNSCDServices() {
-        if (process.env.UPTIME_KUMA_IS_CONTAINER) {
+        if (process.env.FOXTIC_IS_CONTAINER || process.env.UPTIME_KUMA_IS_CONTAINER) {
             try {
                 log.info("services", "Starting nscd");
                 await childProcessAsync.exec("sudo service nscd start");
@@ -531,8 +536,7 @@ class FoxTicBackendServer {
 
 module.exports = {
     UptimeKumaServer: FoxTicBackendServer, // Legacy alias, to be removed after complete migration
-    FoxTicServer: FoxTicBackendServer, // Alias for compatibility, to be removed after complete migration
-    FoxTicBackendServer
+    FoxTicServer: FoxTicBackendServer
 };
 
 // Must be at the end to avoid circular dependencies

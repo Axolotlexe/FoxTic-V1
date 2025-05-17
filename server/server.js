@@ -672,7 +672,7 @@ let needSetup = false;
                 }
 
                 if ((await R.knex("user").count("id as count").first()).count !== 0) {
-                    throw new Error("Uptime Kuma has been initialized. If you want to run setup again, please delete the database.");
+                    throw new Error("FoxTic has been initialized. If you want to run setup again, please delete the database.");
                 }
 
                 let user = R.dispense("user");
@@ -1744,7 +1744,7 @@ async function initDatabase(testMode = false) {
         log.debug("server", "Load JWT secret from database.");
     }
 
-    // If there is no record in user table, it is a new Uptime Kuma instance, need to setup
+    // If there is no record in user table, it is a new FoxTic instance, need to setup
     if ((await R.knex("user").count("id as count").first()).count === 0) {
         log.info("server", "No user, need setup");
         needSetup = true;
@@ -1884,8 +1884,8 @@ gracefulShutdown(server.httpServer, {
 // Catch unexpected errors here
 let unexpectedErrorHandler = (error, promise) => {
     console.trace(error);
-    UptimeKumaServer.errorLog(error, false);
-    console.error("If you keep encountering errors, please report to https://github.com/louislam/uptime-kuma/issues");
+    FoxTicServer.errorLog(error, false);
+    console.error("If you keep encountering errors, please contact your system administrator.");
 };
 process.addListener("unhandledRejection", unexpectedErrorHandler);
 process.addListener("uncaughtException", unexpectedErrorHandler);
