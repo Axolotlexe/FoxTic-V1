@@ -238,14 +238,22 @@ module.exports = (socket) => {
                     safeLog.debug("group", `Group '${groupName}' already exists, using existing group`);
                     groupID = existingGroup.id;
                 } else {
-                    // Create the group with direct SQL to avoid non-existent columns - SQLite compatible
-                    await R.exec(
-                        "INSERT INTO monitor (name, type, user_id, active) VALUES (?, ?, ?, ?)",
-                        [groupName, "group", userID, 1]
-                    );
+                    // Utiliser une méthode plus simple et fiable
+                    const bean = R.dispense("monitor");
+                    bean.name = groupName;
+                    bean.type = "group";
+                    bean.user_id = userID;
+                    bean.active = 1;
                     
-                    // Get the ID of the last inserted row
-                    const newGroupID = await R.getCell("SELECT last_insert_rowid()");
+                    // Supprimer toute propriété active_monitoring si elle existe
+                    if ('active_monitoring' in bean) {
+                        delete bean.active_monitoring;
+                    }
+                    
+                    // Enregistrer le bean et récupérer l'ID
+                    const newGroupID = await R.store(bean);
+                    
+                    safeLog.debug("group", `Created new group using direct SQL: ${groupName} with ID ${newGroupID}`);
                     
                     // Use the new group ID
                     groupID = newGroupID;
