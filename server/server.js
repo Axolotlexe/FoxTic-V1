@@ -1612,9 +1612,10 @@ let needSetup = false;
     });
 
     await server.start();
-
+    
     // Initialiser le serveur WebSocket
     const { setupWebSocket } = require('./routes');
+    log.info("server", "Initializing WebSocket server on path /ws");
     setupWebSocket(server.httpServer);
 
     server.httpServer.listen(port, hostname, async () => {

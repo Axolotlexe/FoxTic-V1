@@ -40,8 +40,12 @@ class WebSocketService {
 
         return new Promise((resolve, reject) => {
             try {
+                // Utiliser le même hôte et port que l'application web actuelle
                 const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
                 const wsUrl = `${protocol}//${window.location.host}/ws`;
+                
+                // Fallback au cas où le WebSocket n'est pas disponible sur le même port
+                const useMainSocket = true; // Utiliser le Socket.io principal au lieu du WebSocket dédié
                 
                 console.log(`[WebSocket] Tentative de connexion à ${wsUrl}`);
                 this.socket = new WebSocket(wsUrl);

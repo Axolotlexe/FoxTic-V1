@@ -1,8 +1,39 @@
 const { R } = require("redbean-node");
-const util = require("../util-server");
-const log = util.log;
 const { checkLogin } = require("../util-server");
 const Monitor = require("../model/monitor");
+const { log } = require("../../src/util");
+
+// Créer une fonction de journalisation sécurisée qui ne plantera jamais
+const safeLog = {
+    debug: (category, message) => {
+        if (typeof log !== 'undefined' && typeof log.debug === 'function') {
+            log.debug(category, message);
+        } else {
+            console.debug(`[${category}] ${message}`);
+        }
+    },
+    info: (category, message) => {
+        if (typeof log !== 'undefined' && typeof log.info === 'function') {
+            log.info(category, message);
+        } else {
+            console.info(`[${category}] ${message}`);
+        }
+    },
+    warn: (category, message) => {
+        if (typeof log !== 'undefined' && typeof log.warn === 'function') {
+            log.warn(category, message);
+        } else {
+            console.warn(`[${category}] ${message}`);
+        }
+    },
+    error: (category, message) => {
+        if (typeof log !== 'undefined' && typeof log.error === 'function') {
+            log.error(category, message);
+        } else {
+            console.error(`[${category}] ${message}`);
+        }
+    }
+};
 
 /**
  * Group socket handler
@@ -20,7 +51,7 @@ module.exports = (socket) => {
                 throw new Error("Invalid group IDs");
             }
 
-            log.debug("group", `Exporting groups: ${groupIDs.join(", ")}`);
+            safeLog.debug("group", `Exporting groups: ${groupIDs.join(", ")}`);
             
             // Get the groups to export - now in simpler format
             const exportData = await exportGroups(socket.userID, groupIDs);
@@ -47,14 +78,14 @@ module.exports = (socket) => {
                 throw new Error("Format de données d'importation invalide - tableau de groupes attendu");
             }
             
-            log.debug("group", "Importing groups using simplified format");
+            safeLog.debug("group", "Importing groups using simplified format");
             
             // Handle the import within try/catch
             let result;
             try {
                 result = await importGroups(socket.userID, importData);
             } catch (importError) {
-                log.error("group", "Import function error: " + (importError ? importError.toString() : "Unknown error"));
+                safeLog.error("group", "Import function error: " + (importError ? importError.toString() : "Unknown error"));
                 throw new Error("Erreur lors de l'importation: " + (importError ? importError.message : "Erreur inconnue"));
             }
             
@@ -73,12 +104,8 @@ module.exports = (socket) => {
             const safeError = error || new Error("Erreur inconnue lors de l'importation");
             const errorMsg = safeError.message || "Erreur inconnue lors de l'importation";
             
-            // Make sure log is defined
-            if (log && typeof log.error === 'function') {
-                log.error("group", "Import error: " + errorMsg);
-            } else {
-                console.error("Import error:", errorMsg);
-            }
+            // Utiliser notre logger sécurisé
+            safeLog.error("group", "Import error: " + errorMsg);
             
             if (typeof callback === "function") {
                 callback({
@@ -108,7 +135,7 @@ module.exports = (socket) => {
                 "group"
             ]);
             
-            log.debug("group", `Found ${groups.length} groups to export`);
+            safeLog.debug("group", `Found ${groups.length} groups to export`);
         }
         
         if (groups.length === 0) {
@@ -129,7 +156,7 @@ module.exports = (socket) => {
                 "group"
             ]);
             
-            log.debug("group", `Found ${monitors.length} monitors in group ${groupId}`);
+            safeLog.debug("group", `Found ${monitors.length} monitors in group ${groupId}`);
             
             // Create simplified group object
             const exportGroup = {
@@ -154,7 +181,7 @@ module.exports = (socket) => {
             exportResult.push(exportGroup);
         }
         
-        log.debug("group", `Export complete: ${exportResult.length} groups with monitors`);
+        safeLog.debug("group", `Export complete: ${exportResult.length} groups with monitors`);
         return exportResult;
     }
     
@@ -174,13 +201,13 @@ module.exports = (socket) => {
                 throw new Error("No groups found in import data");
             }
             
-            log.debug("group", `Found ${importData.length} groups in import data`);
-            log.debug("group", `Import data: ${JSON.stringify(importData).substring(0, 200)}...`);
+            safeLog.debug("group", `Found ${importData.length} groups in import data`);
+            safeLog.debug("group", `Import data: ${JSON.stringify(importData).substring(0, 200)}...`);
             
             // Import each group using simplified format
             for (const groupData of importData) {
                 if (!groupData || typeof groupData !== 'object') {
-                    log.warn("group", "Skipping invalid group in import data");
+                    safeLog.debug("group", "Skipping invalid group in import data");
                     continue;
                 }
                 
@@ -190,7 +217,7 @@ module.exports = (socket) => {
                     if (groupData.name && typeof groupData.name === 'string') {
                         groupData.group = groupData.name;
                     } else {
-                        log.warn("group", "Group missing valid name property, skipping");
+                        safeLog.debug("group", "Group missing valid name property, skipping");
                         continue;
                     }
                 }
@@ -225,23 +252,23 @@ module.exports = (socket) => {
                     groupID = await R.store(group);
                     groupCount++;
                     
-                    log.debug("group", `Created new group '${groupName}' with ID ${groupID}`);
+                    safeLog.debug("group", `Created new group '${groupName}' with ID ${groupID}`);
                 }
                 
                 // Import the group's monitors
                 if (groupData.monitors && Array.isArray(groupData.monitors)) {
-                    log.debug("group", `Importing ${groupData.monitors.length} monitors for group '${groupName}'`);
+                    safeLog.debug("group", `Importing ${groupData.monitors.length} monitors for group '${groupName}'`);
                     
                     for (const monitorData of groupData.monitors) {
                         if (!monitorData || typeof monitorData !== 'object') {
-                            log.warn("group", "Skipping invalid monitor in import data");
+                            safeLog.warn("group", "Skipping invalid monitor in import data");
                             continue;
                         }
                         
                         // Ensure monitor has a name
                         if (!monitorData.name) {
                             monitorData.name = "Imported Monitor " + Date.now();
-                            log.debug("group", "Monitor without name detected, using generated name");
+                            safeLog.debug("group", "Monitor without name detected, using generated name");
                         }
                         
                         // Check if monitor already exists in group
@@ -252,7 +279,7 @@ module.exports = (socket) => {
                         ]);
                         
                         if (existingMonitor) {
-                            log.debug("group", `Monitor '${monitorData.name}' already exists in group, skipping`);
+                            safeLog.debug("group", `Monitor '${monitorData.name}' already exists in group, skipping`);
                             continue;
                         }
                         
@@ -268,7 +295,7 @@ module.exports = (socket) => {
                         // Make sure there's at least a valid type
                         if (!monitor.type || typeof monitor.type !== 'string') {
                             monitor.type = "http";
-                            log.warn("group", `Monitor without type detected, defaulting to 'http'`);
+                            safeLog.warn("group", `Monitor without type detected, defaulting to 'http'`);
                         }
                         
                         // Ensure this is a FoxTic monitor
@@ -282,20 +309,20 @@ module.exports = (socket) => {
                         await R.store(monitor);
                         monitorCount++;
                         
-                        log.debug("group", `Added monitor '${monitorData.name}' to group`);
+                        safeLog.debug("group", `Added monitor '${monitorData.name}' to group`);
                     }
                 }
             }
             
-            log.debug("group", `Import complete: ${groupCount} groups with ${monitorCount} monitors`);
+            safeLog.debug("group", `Import complete: ${groupCount} groups with ${monitorCount} monitors`);
             
             return {
                 groupCount,
                 monitorCount
             };
         } catch (error) {
-            log.error("group", "Import error: " + (error ? error.message : "Unknown error"));
-            log.debug("group", "Import data: " + JSON.stringify(importData).substring(0, 200) + "...");
+            safeLog.error("group", "Import error: " + (error ? error.message : "Unknown error"));
+            safeLog.debug("group", "Import data: " + JSON.stringify(importData).substring(0, 200) + "...");
             throw error;
         }
     }
