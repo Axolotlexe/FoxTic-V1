@@ -235,22 +235,20 @@ module.exports = (socket) => {
                 
                 if (existingGroup) {
                     // Use existing group
-                    log.debug("group", `Group '${groupName}' already exists, using existing group`);
+                    safeLog.debug("group", `Group '${groupName}' already exists, using existing group`);
                     groupID = existingGroup.id;
                 } else {
-                    // Create the group
-                    const group = R.dispense("monitor");
+                    // Create the group with direct SQL to avoid non-existent columns - SQLite compatible
+                    await R.exec(
+                        "INSERT INTO monitor (name, type, user_id, active) VALUES (?, ?, ?, ?)",
+                        [groupName, "group", userID, 1]
+                    );
                     
-                    // Set the group properties
-                    group.name = groupName;
-                    group.type = "group";
-                    group.user_id = userID;
-                    group.active = 1;
-                    // La colonne active_monitoring n'existe pas dans la base de données
-                    // group.active_monitoring = 0;
+                    // Get the ID of the last inserted row
+                    const newGroupID = await R.getCell("SELECT last_insert_rowid()");
                     
-                    // Save the group to get its ID
-                    groupID = await R.store(group);
+                    // Use the new group ID
+                    groupID = newGroupID;
                     groupCount++;
                     
                     safeLog.debug("group", `Created new group '${groupName}' with ID ${groupID}`);
