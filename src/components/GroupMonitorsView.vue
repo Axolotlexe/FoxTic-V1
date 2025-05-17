@@ -34,6 +34,12 @@
             </div>
         </div>
         
+        <!-- Affichage du titre de la section des moniteurs du groupe -->
+        <div v-if="currentGroup && groupMonitors.length > 0" class="group-monitors-section">
+            <h3 class="group-monitors-title">{{ $t('Moniteurs dans ce groupe') }}</h3>
+            <div class="group-monitors-count">{{ groupMonitors.length }} {{ groupMonitors.length > 1 ? $t('moniteurs') : $t('moniteur') }}</div>
+        </div>
+
         <!-- Tableau des moniteurs -->
         <div class="monitors-table">
             <table class="table">
@@ -270,6 +276,43 @@ export default {
     
     .dark & {
         background-color: rgba(255, 255, 255, 0.03);
+    }
+}
+
+.group-monitors-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    
+    .dark & {
+        border-bottom-color: #333;
+    }
+    
+    .group-monitors-title {
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: $primary;
+        margin: 0;
+        
+        .dark & {
+            color: lighten($primary, 15%);
+        }
+    }
+    
+    .group-monitors-count {
+        font-size: 0.9rem;
+        color: #666;
+        background-color: #f5f5f5;
+        padding: 4px 10px;
+        border-radius: 15px;
+        
+        .dark & {
+            color: #bbb;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
     }
 }
 
