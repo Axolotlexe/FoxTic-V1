@@ -153,6 +153,7 @@ const { resetChrome } = require("./monitor-types/real-browser-monitor-type");
 const { EmbeddedMariaDB } = require("./embedded-mariadb");
 const { SetupDatabase } = require("./setup-database");
 const { chartSocketHandler } = require("./socket-handlers/chart-socket-handler");
+const { initWebSocketServer } = require("./websocket-server");
 
 app.use(express.json());
 
@@ -1614,8 +1615,13 @@ let needSetup = false;
     await server.start();
 
     // Initialiser le serveur WebSocket
-    const { setupWebSocket } = require('./routes');
-    setupWebSocket(server.httpServer);
+    try {
+        const { initWebSocketServer } = require('./websocket-server');
+        const wsServer = initWebSocketServer(server.httpServer);
+        log.info("server", "WebSocket server initialized on path: /ws");
+    } catch (error) {
+        log.error("server", `Failed to initialize WebSocket server: ${error.message}`);
+    }
 
     server.httpServer.listen(port, hostname, async () => {
         if (hostname) {

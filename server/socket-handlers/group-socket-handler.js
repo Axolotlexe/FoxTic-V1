@@ -1,7 +1,12 @@
 const { R } = require("redbean-node");
-const util = require("../util-server");
-const log = util.log;
 const { checkLogin } = require("../util-server");
+// Création d'un objet de log de secours si celui de l'application n'est pas disponible
+const fallbackLog = {
+    debug: console.debug || console.log,
+    info: console.info || console.log,
+    warn: console.warn || console.log,
+    error: console.error || console.log
+};
 const Monitor = require("../model/monitor");
 
 /**
@@ -20,7 +25,7 @@ module.exports = (socket) => {
                 throw new Error("Invalid group IDs");
             }
 
-            log.debug("group", `Exporting groups: ${groupIDs.join(", ")}`);
+            fallbackLog.debug(`Exporting groups: ${groupIDs.join(", ")}`);
             
             // Get the groups to export - now in simpler format
             const exportData = await exportGroups(socket.userID, groupIDs);
@@ -47,7 +52,7 @@ module.exports = (socket) => {
                 throw new Error("Format de données d'importation invalide - tableau de groupes attendu");
             }
             
-            log.debug("group", "Importing groups using simplified format");
+            fallbackLog.debug("Importing groups using simplified format");
             
             // Handle the import within try/catch
             let result;
@@ -73,12 +78,8 @@ module.exports = (socket) => {
             const safeError = error || new Error("Erreur inconnue lors de l'importation");
             const errorMsg = safeError.message || "Erreur inconnue lors de l'importation";
             
-            // Make sure log is defined
-            if (log && typeof log.error === 'function') {
-                log.error("group", "Import error: " + errorMsg);
-            } else {
-                console.error("Import error:", errorMsg);
-            }
+            // Utilisation de l'objet log de secours
+            fallbackLog.error("Import error:", errorMsg);
             
             if (typeof callback === "function") {
                 callback({
@@ -154,7 +155,7 @@ module.exports = (socket) => {
             exportResult.push(exportGroup);
         }
         
-        log.debug("group", `Export complete: ${exportResult.length} groups with monitors`);
+        fallbackLog.debug(`Export complete: ${exportResult.length} groups with monitors`);
         return exportResult;
     }
     
@@ -241,7 +242,7 @@ module.exports = (socket) => {
                         // Ensure monitor has a name
                         if (!monitorData.name) {
                             monitorData.name = "Imported Monitor " + Date.now();
-                            log.debug("group", "Monitor without name detected, using generated name");
+                            fallbackLog.debug("Monitor without name detected, using generated name");
                         }
                         
                         // Check if monitor already exists in group
@@ -252,7 +253,7 @@ module.exports = (socket) => {
                         ]);
                         
                         if (existingMonitor) {
-                            log.debug("group", `Monitor '${monitorData.name}' already exists in group, skipping`);
+                            fallbackLog.debug(`Monitor '${monitorData.name}' already exists in group, skipping`);
                             continue;
                         }
                         
