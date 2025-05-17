@@ -246,7 +246,8 @@ module.exports = (socket) => {
                     group.type = "group";
                     group.user_id = userID;
                     group.active = 1;
-                    group.active_monitoring = 0;
+                    // La colonne active_monitoring n'existe pas dans la base de données
+                    // group.active_monitoring = 0;
                     
                     // Save the group to get its ID
                     groupID = await R.store(group);
