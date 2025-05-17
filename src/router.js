@@ -23,6 +23,7 @@ import APIKeys from "./components/settings/APIKeys.vue";
 import SetupDatabase from "./pages/SetupDatabase.vue";
 import LogsPage from "./pages/LogsPage.vue";
 import WebSocketDebugPage from "./pages/WebSocketDebugPage.vue";
+import AutoScrollView from "./components/AutoScrollView.vue";
 
 // Settings - Sub Pages
 import Appearance from "./components/settings/Appearance.vue";
@@ -184,6 +185,10 @@ const routes = [
                     {
                         path: "/ws-debug",
                         component: WebSocketDebugPage,
+                    },
+                    {
+                        path: "/autoscroll",
+                        component: AutoScrollView,
                     },
                 ],
             },

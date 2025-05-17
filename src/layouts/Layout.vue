@@ -19,6 +19,11 @@
                         <font-awesome-icon icon="tachometer-alt" /> {{ $t("Dashboard") }}
                     </router-link>
                 </li>
+                <li v-if="$root.loggedIn" class="nav-item me-2">
+                    <router-link to="/autoscroll" class="nav-link">
+                        <font-awesome-icon icon="play-circle" /> {{ $t("Auto Scroll") }}
+                    </router-link>
+                </li>
                 <li v-if="$root.loggedIn" class="nav-item">
                     <div class="dropdown dropdown-profile-pic">
                         <div class="nav-link" data-bs-toggle="dropdown">
@@ -107,6 +112,11 @@
             <router-link to="/list" class="nav-link">
                 <div><font-awesome-icon icon="list" /></div>
                 {{ $t("List") }}
+            </router-link>
+            
+            <router-link to="/autoscroll" class="nav-link">
+                <div><font-awesome-icon icon="play-circle" /></div>
+                {{ $t("Auto Scroll") }}
             </router-link>
 
             <router-link to="/add" class="nav-link">

@@ -5,10 +5,10 @@
             <div class="sidebar-header">
                 <h3>{{ $t("Groups") }}</h3>
                 <div class="controls">
-                    <button class="btn btn-sm" @click="togglePause">
+                    <button class="btn btn-sm btn-outline-secondary" @click="togglePause" :title="isPaused ? $t('Resume') : $t('Pause')">
                         <font-awesome-icon :icon="isPaused ? 'play' : 'pause'" />
                     </button>
-                    <button class="btn btn-sm" @click="nextGroup">
+                    <button class="btn btn-sm btn-outline-secondary" @click="nextGroup" :title="$t('Next Group')">
                         <font-awesome-icon icon="step-forward" />
                     </button>
                     <select v-model="interval" class="form-select form-select-sm">
@@ -17,8 +17,8 @@
                         <option value="15000">15s</option>
                     </select>
                     
-                    <button class="btn btn-sm" @click="showGridConfig = true" title="Configure grid layout">
-                        <font-awesome-icon icon="sliders" />
+                    <button class="btn btn-sm btn-outline-secondary" @click="showGridConfig = true" :title="$t('Configure Grid Layout')">
+                        <font-awesome-icon icon="cog" />
                     </button>
                 </div>
             </div>
@@ -349,8 +349,15 @@ export default {
                 if (gridContainer) {
                     // Configurer la grille en utilisant CSS Grid
                     gridContainer.style.display = 'grid';
-                    gridContainer.style.gridTemplateColumns = `repeat(${this.gridConfig.cardsPerRow}, minmax(${this.gridConfig.cardSize}px, 1fr))`;
+                    gridContainer.style.gridTemplateColumns = `repeat(${this.gridConfig.cardsPerRow}, ${this.gridConfig.cardSize}px)`;
                     gridContainer.style.gap = `${this.gridConfig.cardGap}px`;
+                    
+                    // Appliquer les styles aux cartes individuelles
+                    const cards = document.querySelectorAll('.monitor-card');
+                    cards.forEach(card => {
+                        card.style.width = `${this.gridConfig.cardSize}px`;
+                        card.style.height = 'auto';
+                    });
                 }
             });
         }
@@ -570,8 +577,7 @@ export default {
     }
     
     &.monitor-down {
-        animation: flash-red 2s infinite;
-        border-left: 3px solid $danger;
+        border-left: 4px solid $danger;
     }
     
     &.inactive {

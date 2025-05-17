@@ -105,7 +105,7 @@ export default {
                     cardGap: 15
                 },
                 autoscroll: {
-                    cardSize: 320,
+                    cardSize: 300, // Uniformisé avec dashboard
                     cardsPerRow: 3,
                     cardGap: 15
                 }

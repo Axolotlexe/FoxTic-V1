@@ -46,6 +46,57 @@ textarea.form-control {
     color: inherit;
 }
 
+/* Style pour les boutons de vue dans le tableau de bord */
+.view-toggle {
+    display: flex;
+    margin-bottom: 10px;
+    
+    .btn {
+        flex: 1;
+        border-radius: 0;
+        color: #fff;
+        background-color: #2c333a;
+        border: none;
+        transition: background-color 0.2s ease;
+        outline: none !important;
+        box-shadow: none !important;
+        
+        &:first-child {
+            border-top-left-radius: $border-radius;
+            border-bottom-left-radius: $border-radius;
+        }
+        
+        &:last-child {
+            border-top-right-radius: $border-radius;
+            border-bottom-right-radius: $border-radius;
+        }
+        
+        &.btn-active {
+            background-color: $primary;
+        }
+        
+        &:hover:not(.btn-active) {
+            background-color: #3a424a;
+        }
+        
+        &:focus {
+            box-shadow: none !important;
+            outline: none !important;
+        }
+    }
+}
+
+/* Suppression du contour bleu sur tous les boutons */
+.btn:focus, 
+.btn:active,
+.btn-outline-normal:focus,
+.btn-outline-normal:active,
+button:focus,
+button:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
 .list-group {
     border-radius: 10px;
 

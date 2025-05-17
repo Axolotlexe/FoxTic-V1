@@ -238,6 +238,13 @@ export default {
         border-radius: 8px;
         font-size: 16px;
         transition: all 0.2s ease;
+        outline: none !important;
+        box-shadow: none !important;
+        
+        &:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
         margin: 0 2px;
         
         &:hover {
