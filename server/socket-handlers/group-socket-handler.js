@@ -43,25 +43,50 @@ module.exports = (socket) => {
             
             // Validate the import data - accept new simplified format
             if (!importData || !Array.isArray(importData)) {
-                throw new Error("Invalid import data format - expected array of groups");
+                throw new Error("Format de données d'importation invalide - tableau de groupes attendu");
             }
             
             log.debug("group", "Importing groups using simplified format");
             
-            const result = await importGroups(socket.userID, importData);
+            // Handle the import within try/catch
+            let result;
+            try {
+                result = await importGroups(socket.userID, importData);
+            } catch (importError) {
+                log.error("group", "Import function error: " + (importError ? importError.toString() : "Unknown error"));
+                throw new Error("Erreur lors de l'importation: " + (importError ? importError.message : "Erreur inconnue"));
+            }
+            
+            if (!result) {
+                throw new Error("Échec de l'importation: aucun résultat retourné");
+            }
             
             callback({
                 ok: true,
-                msg: `Successfully imported ${result.groupCount} groups with ${result.monitorCount} monitors`
+                msg: `${result.groupCount} groupes et ${result.monitorCount} moniteurs importés avec succès`
             });
             
         } catch (error) {
-            const errorMsg = error && error.message ? error.message : "Unknown error";
-            log.error("group", "Import error: " + errorMsg);
-            callback({
-                ok: false,
-                msg: errorMsg
-            });
+            // Handling all types of errors safely
+            // Error might be null or undefined, create a safe object
+            const safeError = error || new Error("Erreur inconnue lors de l'importation");
+            const errorMsg = safeError.message || "Erreur inconnue lors de l'importation";
+            
+            // Make sure log is defined
+            if (log && typeof log.error === 'function') {
+                log.error("group", "Import error: " + errorMsg);
+            } else {
+                console.error("Import error:", errorMsg);
+            }
+            
+            if (typeof callback === "function") {
+                callback({
+                    ok: false,
+                    msg: errorMsg
+                });
+            } else {
+                log.error("group", "Callback not available for error response");
+            }
         }
     });
     

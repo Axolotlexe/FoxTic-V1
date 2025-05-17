@@ -334,12 +334,31 @@ export default {
             this.successMessage = null;
             this.errorMessage = null;
             
+            // Create a timeout to prevent infinite spinning
+            const importTimeout = setTimeout(() => {
+                if (this.loading) {
+                    this.loading = false;
+                    this.errorMessage = this.$t("L'importation a pris trop de temps. Veuillez réessayer.");
+                    console.error("Import groups timeout");
+                }
+            }, 15000); // 15 seconds timeout
+            
+            console.log("Sending import data to server", JSON.stringify(this.importData).substring(0, 200) + "...");
+            
             // Send the import data to the server
             this.$root.getSocket().emit("importGroups", this.importData, (res) => {
+                clearTimeout(importTimeout);
                 this.loading = false;
                 
+                // Check if response exists
+                if (!res) {
+                    this.errorMessage = this.$t("Aucune réponse du serveur. Veuillez réessayer.");
+                    console.error("No response from server during import");
+                    return;
+                }
+                
                 if (res.ok) {
-                    this.successMessage = res.msg || this.$t("Groups imported successfully");
+                    this.successMessage = res.msg || this.$t("Groupes importés avec succès");
                     
                     // Clear the import data and file input
                     this.importData = null;
@@ -350,7 +369,8 @@ export default {
                     // Trigger a refresh of the monitor list to show the new groups
                     this.$root.getSocket().emit("getMonitorList");
                 } else {
-                    this.errorMessage = res.msg || this.$t("Failed to import groups");
+                    this.errorMessage = res.msg || this.$t("Échec de l'importation des groupes");
+                    console.error("Import error:", res.msg);
                 }
             });
         },
