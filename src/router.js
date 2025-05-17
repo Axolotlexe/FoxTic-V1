@@ -82,6 +82,15 @@ const routes = [
                                         component: DashboardHome,
                                         props: route => ({ groupId: route.params.id })
                                     },
+                                    {
+                                        path: ":monitorId",
+                                        name: "GroupMonitorView",
+                                        component: Details,
+                                        props: route => ({ 
+                                            id: route.params.monitorId,
+                                            groupId: route.params.id
+                                        })
+                                    },
                                 ],
                             },
                         ],

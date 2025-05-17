@@ -208,6 +208,11 @@ export default {
     },
     methods: {
         monitorURL(id) {
+            // Si nous sommes dans un groupe, utiliser l'URL hiérarchique
+            if (this.activeGroupId) {
+                return `/groupe/${this.activeGroupId}/moniteur/${id}`;
+            }
+            // Sinon, utiliser l'URL standard
             return `/dashboard/${id}`;
         },
         
