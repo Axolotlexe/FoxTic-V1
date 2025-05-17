@@ -112,21 +112,23 @@
                             </div>
                             <div class="import-info-item">
                                 <span class="import-label">{{ $t("Groups") }}:</span> 
-                                <span>{{ importData.groups.length }}</span>
+                                <span>{{ Array.isArray(importData) ? importData.length : 0 }}</span>
                             </div>
                             <div class="import-info-item">
                                 <span class="import-label">{{ $t("Monitors") }}:</span>
-                                <span>{{ importData.groups.reduce((total, g) => total + (g.monitors ? g.monitors.length : 0), 0) }}</span>
+                                <span>{{ Array.isArray(importData) ? 
+                                    importData.reduce((total, g) => total + (g.monitors ? g.monitors.length : 0), 0) : 0 
+                                }}</span>
                             </div>
                             <div class="import-info-item">
-                                <span class="import-label">{{ $t("Export Date") }}:</span>
-                                <span>{{ new Date(importData.timestamp * 1000).toLocaleString() }}</span>
+                                <span class="import-label">{{ $t("Format") }}:</span>
+                                <span>{{ Array.isArray(importData) ? "Simplifié" : "Legacy" }}</span>
                             </div>
                         </div>
                         
                         <div class="group-list mt-3">
-                            <div v-for="(group, index) in importData.groups" :key="index" class="group-item">
-                                <strong>{{ group.name }}</strong>
+                            <div v-for="(group, index) in Array.isArray(importData) ? importData : []" :key="index" class="group-item">
+                                <strong>{{ group.group || group.name }}</strong>
                                 <div class="text-muted">
                                     {{ group.monitors ? group.monitors.length : 0 }} {{ $t("monitors") }}
                                 </div>
@@ -263,26 +265,35 @@ export default {
                 try {
                     const data = JSON.parse(e.target.result);
                     
-                    // Validate the data structure
-                    if (!data.version || !data.groups || !Array.isArray(data.groups)) {
-                        this.importError = this.$t("Invalid import file format");
+                    // Validate the data structure - support both formats
+                    let importGroups = null;
+                    
+                    // Check if it's the new simplified array format
+                    if (Array.isArray(data)) {
+                        console.log("Detected new simplified array format");
+                        importGroups = data;
+                    } 
+                    // Check if it's the legacy format with version/groups properties
+                    else if (typeof data === "object" && data.groups && Array.isArray(data.groups)) {
+                        console.log("Detected legacy format with groups property");
+                        importGroups = data.groups;
+                    }
+                    
+                    // If neither format is valid
+                    if (!importGroups) {
+                        this.importError = this.$t("Format de fichier d'import invalide");
+                        console.error("Invalid import format:", data);
                         return;
                     }
                     
-                    // Check version compatibility
-                    if (data.version > 1) {
-                        this.importError = this.$t("Unsupported import version: {0}", [data.version]);
-                        return;
-                    }
-                    
-                    // Verify this is a FoxTic export
-                    if (data.application !== "FoxTic") {
-                        this.importError = this.$t("Invalid import file: This file was not exported from FoxTic");
+                    // Validate that at least one group exists
+                    if (importGroups.length === 0) {
+                        this.importError = this.$t("Le fichier d'import ne contient aucun groupe");
                         return;
                     }
                     
                     // All good, store the import data
-                    this.importData = data;
+                    this.importData = importGroups;
                 } catch (error) {
                     this.importError = this.$t("Failed to parse import file: {0}", [error.message]);
                 }

@@ -1,0 +1,240 @@
+content-script.js:104 Failed to get subsystem status for purpose {rejected: true, message: 'UNSUPPORTED_OS'}
+main.js:56 Dev Only: window.app is the vue instance
+socket.js:270 Connected to the socket server
+websocket.js:46 [WebSocket] Tentative de connexion à wss://3764bf34-a2f0-48bd-9469-e126bde40072-00-1ygzoqm0rsijr.worf.replit.dev:3000/ws
+websocket.js:27 [WebSocket] Déjà connecté ou en cours de connexion
+MonitorList.vue:10 Could not find one or more icon(s) {prefix: 'fas', iconName: 'file-export'} {}
+overrideMethod @ hook.js:608
+log @ index.es.js:343
+watch.immediate @ index.es.js:540
+callWithErrorHandling @ runtime-core.esm-bundler.js:202
+callWithAsyncErrorHandling @ runtime-core.esm-bundler.js:209
+job @ runtime-core.esm-bundler.js:5967
+doWatch @ runtime-core.esm-bundler.js:6004
+watch @ runtime-core.esm-bundler.js:5832
+setup @ index.es.js:538
+callWithErrorHandling @ runtime-core.esm-bundler.js:202
+setupStatefulComponent @ runtime-core.esm-bundler.js:7725
+setupComponent @ runtime-core.esm-bundler.js:7686
+mountComponent @ runtime-core.esm-bundler.js:4894
+processComponent @ runtime-core.esm-bundler.js:4860
+patch @ runtime-core.esm-bundler.js:4378
+mountChildren @ runtime-core.esm-bundler.js:4610
+mountElement @ runtime-core.esm-bundler.js:4533
+processElement @ runtime-core.esm-bundler.js:4498
+patch @ runtime-core.esm-bundler.js:4366
+mountChildren @ runtime-core.esm-bundler.js:4610
+mountElement @ runtime-core.esm-bundler.js:4533
+processElement @ runtime-core.esm-bundler.js:4498
+patch @ runtime-core.esm-bundler.js:4366
+mountChildren @ runtime-core.esm-bundler.js:4610
+mountElement @ runtime-core.esm-bundler.js:4533
+processElement @ runtime-core.esm-bundler.js:4498
+patch @ runtime-core.esm-bundler.js:4366
+mountChildren @ runtime-core.esm-bundler.js:4610
+mountElement @ runtime-core.esm-bundler.js:4533
+processElement @ runtime-core.esm-bundler.js:4498
+patch @ runtime-core.esm-bundler.js:4366
+mountChildren @ runtime-core.esm-bundler.js:4610
+mountElement @ runtime-core.esm-bundler.js:4533
+processElement @ runtime-core.esm-bundler.js:4498
+patch @ runtime-core.esm-bundler.js:4366
+mountChildren @ runtime-core.esm-bundler.js:4610
+mountElement @ runtime-core.esm-bundler.js:4533
+processElement @ runtime-core.esm-bundler.js:4498
+patch @ runtime-core.esm-bundler.js:4366
+componentUpdateFn @ runtime-core.esm-bundler.js:5004
+run @ reactivity.esm-bundler.js:177
+instance.update @ runtime-core.esm-bundler.js:5128
+setupRenderEffect @ runtime-core.esm-bundler.js:5138
+mountComponent @ runtime-core.esm-bundler.js:4906
+processComponent @ runtime-core.esm-bundler.js:4860
+patch @ runtime-core.esm-bundler.js:4378
+mountChildren @ runtime-core.esm-bundler.js:4610
+mountElement @ runtime-core.esm-bundler.js:4533
+processElement @ runtime-core.esm-bundler.js:4498
+patch @ runtime-core.esm-bundler.js:4366
+patchBlockChildren @ runtime-core.esm-bundler.js:4732
+processFragment @ runtime-core.esm-bundler.js:4808
+patch @ runtime-core.esm-bundler.js:4352
+componentUpdateFn @ runtime-core.esm-bundler.js:5084
+run @ reactivity.esm-bundler.js:177
+instance.update @ runtime-core.esm-bundler.js:5128
+callWithErrorHandling @ runtime-core.esm-bundler.js:202
+flushJobs @ runtime-core.esm-bundler.js:416
+Promise.then
+queueFlush @ runtime-core.esm-bundler.js:326
+queueJob @ runtime-core.esm-bundler.js:320
+(anonymous) @ runtime-core.esm-bundler.js:5122
+resetScheduling @ reactivity.esm-bundler.js:262
+trigger @ reactivity.esm-bundler.js:402
+set @ reactivity.esm-bundler.js:524
+_createElementVNode.onClick._cache.<computed>._cache.<computed> @ MonitorList.vue:10
+callWithErrorHandling @ runtime-core.esm-bundler.js:202
+callWithAsyncErrorHandling @ runtime-core.esm-bundler.js:209
+invoker @ runtime-dom.esm-bundler.js:693
+MonitorList.vue:10 Could not find one or more icon(s) {prefix: 'fas', iconName: 'file-import'} {}
+overrideMethod @ hook.js:608
+log @ index.es.js:343
+watch.immediate @ index.es.js:540
+callWithErrorHandling @ runtime-core.esm-bundler.js:202
+callWithAsyncErrorHandling @ runtime-core.esm-bundler.js:209
+job @ runtime-core.esm-bundler.js:5967
+doWatch @ runtime-core.esm-bundler.js:6004
+watch @ runtime-core.esm-bundler.js:5832
+setup @ index.es.js:538
+callWithErrorHandling @ runtime-core.esm-bundler.js:202
+setupStatefulComponent @ runtime-core.esm-bundler.js:7725
+setupComponent @ runtime-core.esm-bundler.js:7686
+mountComponent @ runtime-core.esm-bundler.js:4894
+processComponent @ runtime-core.esm-bundler.js:4860
+patch @ runtime-core.esm-bundler.js:4378
+mountChildren @ runtime-core.esm-bundler.js:4610
+mountElement @ runtime-core.esm-bundler.js:4533
+processElement @ runtime-core.esm-bundler.js:4498
+patch @ runtime-core.esm-bundler.js:4366
+mountChildren @ runtime-core.esm-bundler.js:4610
+mountElement @ runtime-core.esm-bundler.js:4533
+processElement @ runtime-core.esm-bundler.js:4498
+patch @ runtime-core.esm-bundler.js:4366
+mountChildren @ runtime-core.esm-bundler.js:4610
+mountElement @ runtime-core.esm-bundler.js:4533
+processElement @ runtime-core.esm-bundler.js:4498
+patch @ runtime-core.esm-bundler.js:4366
+mountChildren @ runtime-core.esm-bundler.js:4610
+mountElement @ runtime-core.esm-bundler.js:4533
+processElement @ runtime-core.esm-bundler.js:4498
+patch @ runtime-core.esm-bundler.js:4366
+mountChildren @ runtime-core.esm-bundler.js:4610
+mountElement @ runtime-core.esm-bundler.js:4533
+processElement @ runtime-core.esm-bundler.js:4498
+patch @ runtime-core.esm-bundler.js:4366
+mountChildren @ runtime-core.esm-bundler.js:4610
+mountElement @ runtime-core.esm-bundler.js:4533
+processElement @ runtime-core.esm-bundler.js:4498
+patch @ runtime-core.esm-bundler.js:4366
+componentUpdateFn @ runtime-core.esm-bundler.js:5004
+run @ reactivity.esm-bundler.js:177
+instance.update @ runtime-core.esm-bundler.js:5128
+setupRenderEffect @ runtime-core.esm-bundler.js:5138
+mountComponent @ runtime-core.esm-bundler.js:4906
+processComponent @ runtime-core.esm-bundler.js:4860
+patch @ runtime-core.esm-bundler.js:4378
+mountChildren @ runtime-core.esm-bundler.js:4610
+mountElement @ runtime-core.esm-bundler.js:4533
+processElement @ runtime-core.esm-bundler.js:4498
+patch @ runtime-core.esm-bundler.js:4366
+patchBlockChildren @ runtime-core.esm-bundler.js:4732
+processFragment @ runtime-core.esm-bundler.js:4808
+patch @ runtime-core.esm-bundler.js:4352
+componentUpdateFn @ runtime-core.esm-bundler.js:5084
+run @ reactivity.esm-bundler.js:177
+instance.update @ runtime-core.esm-bundler.js:5128
+callWithErrorHandling @ runtime-core.esm-bundler.js:202
+flushJobs @ runtime-core.esm-bundler.js:416
+Promise.then
+queueFlush @ runtime-core.esm-bundler.js:326
+queueJob @ runtime-core.esm-bundler.js:320
+(anonymous) @ runtime-core.esm-bundler.js:5122
+resetScheduling @ reactivity.esm-bundler.js:262
+trigger @ reactivity.esm-bundler.js:402
+set @ reactivity.esm-bundler.js:524
+_createElementVNode.onClick._cache.<computed>._cache.<computed> @ MonitorList.vue:10
+callWithErrorHandling @ runtime-core.esm-bundler.js:202
+callWithAsyncErrorHandling @ runtime-core.esm-bundler.js:209
+invoker @ runtime-dom.esm-bundler.js:693
+GroupImportExport.vue:271 Detected new simplified array format
+GroupImportExport.vue:294 [Vue warn]: Unhandled error during execution of render function 
+  at <GroupImportExport onClose=fn > 
+  at <MonitorList key=0 scrollbar=true > 
+  at <Dashboard onVnodeUnmounted=fn<onVnodeUnmounted> ref=Ref< Proxy(Object) {$i18n: {…}, $t: ƒ, $rt: ƒ, $tc: ƒ, $te: ƒ, …} > > 
+  at <RouterView key=0 > 
+  at <Layout onVnodeUnmounted=fn<onVnodeUnmounted> ref=Ref< Proxy(Object) {$i18n: {…}, $t: ƒ, $rt: ƒ, $tc: ƒ, $te: ƒ, …} > > 
+  at <RouterView > 
+  at <App> 
+  at <App>
+overrideMethod @ hook.js:608
+warn$1 @ runtime-core.esm-bundler.js:51
+logError @ runtime-core.esm-bundler.js:267
+handleError @ runtime-core.esm-bundler.js:259
+renderComponentRoot @ runtime-core.esm-bundler.js:6358
+componentUpdateFn @ runtime-core.esm-bundler.js:5075
+run @ reactivity.esm-bundler.js:177
+instance.update @ runtime-core.esm-bundler.js:5128
+callWithErrorHandling @ runtime-core.esm-bundler.js:202
+flushJobs @ runtime-core.esm-bundler.js:416
+Promise.then
+queueFlush @ runtime-core.esm-bundler.js:326
+queueJob @ runtime-core.esm-bundler.js:320
+(anonymous) @ runtime-core.esm-bundler.js:5122
+resetScheduling @ reactivity.esm-bundler.js:262
+trigger @ reactivity.esm-bundler.js:402
+set @ reactivity.esm-bundler.js:524
+set @ runtime-core.esm-bundler.js:1864
+reader.onload @ GroupImportExport.vue:294
+FileReader
+handleFileChange @ GroupImportExport.vue:300
+_createElementVNode.onChange._cache.<computed>._cache.<computed> @ GroupImportExport.vue:97
+callWithErrorHandling @ runtime-core.esm-bundler.js:202
+callWithAsyncErrorHandling @ runtime-core.esm-bundler.js:209
+invoker @ runtime-dom.esm-bundler.js:693
+GroupImportExport.vue:294 [Vue warn]: Unhandled error during execution of component update 
+  at <GroupImportExport onClose=fn > 
+  at <MonitorList key=0 scrollbar=true > 
+  at <Dashboard onVnodeUnmounted=fn<onVnodeUnmounted> ref=Ref< Proxy(Object) {$i18n: {…}, $t: ƒ, $rt: ƒ, $tc: ƒ, $te: ƒ, …} > > 
+  at <RouterView key=0 > 
+  at <Layout onVnodeUnmounted=fn<onVnodeUnmounted> ref=Ref< Proxy(Object) {$i18n: {…}, $t: ƒ, $rt: ƒ, $tc: ƒ, $te: ƒ, …} > > 
+  at <RouterView > 
+  at <App> 
+  at <App>
+overrideMethod @ hook.js:608
+warn$1 @ runtime-core.esm-bundler.js:51
+logError @ runtime-core.esm-bundler.js:267
+handleError @ runtime-core.esm-bundler.js:259
+callWithErrorHandling @ runtime-core.esm-bundler.js:204
+flushJobs @ runtime-core.esm-bundler.js:416
+Promise.then
+queueFlush @ runtime-core.esm-bundler.js:326
+queueJob @ runtime-core.esm-bundler.js:320
+(anonymous) @ runtime-core.esm-bundler.js:5122
+resetScheduling @ reactivity.esm-bundler.js:262
+trigger @ reactivity.esm-bundler.js:402
+set @ reactivity.esm-bundler.js:524
+set @ runtime-core.esm-bundler.js:1864
+reader.onload @ GroupImportExport.vue:294
+FileReader
+handleFileChange @ GroupImportExport.vue:300
+_createElementVNode.onChange._cache.<computed>._cache.<computed> @ GroupImportExport.vue:97
+callWithErrorHandling @ runtime-core.esm-bundler.js:202
+callWithAsyncErrorHandling @ runtime-core.esm-bundler.js:209
+invoker @ runtime-dom.esm-bundler.js:693
+GroupImportExport.vue:115 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'length')
+    at Proxy._sfc_render (GroupImportExport.vue:115:123)
+    at renderComponentRoot (runtime-core.esm-bundler.js:6322:16)
+    at ReactiveEffect.componentUpdateFn [as fn] (runtime-core.esm-bundler.js:5075:26)
+    at ReactiveEffect.run (reactivity.esm-bundler.js:177:19)
+    at instance.update (runtime-core.esm-bundler.js:5128:16)
+    at callWithErrorHandling (runtime-core.esm-bundler.js:202:33)
+    at flushJobs (runtime-core.esm-bundler.js:416:9)
+_sfc_render @ GroupImportExport.vue:115
+renderComponentRoot @ runtime-core.esm-bundler.js:6322
+componentUpdateFn @ runtime-core.esm-bundler.js:5075
+run @ reactivity.esm-bundler.js:177
+instance.update @ runtime-core.esm-bundler.js:5128
+callWithErrorHandling @ runtime-core.esm-bundler.js:202
+flushJobs @ runtime-core.esm-bundler.js:416
+Promise.then
+queueFlush @ runtime-core.esm-bundler.js:326
+queueJob @ runtime-core.esm-bundler.js:320
+(anonymous) @ runtime-core.esm-bundler.js:5122
+resetScheduling @ reactivity.esm-bundler.js:262
+trigger @ reactivity.esm-bundler.js:402
+set @ reactivity.esm-bundler.js:524
+set @ runtime-core.esm-bundler.js:1864
+reader.onload @ GroupImportExport.vue:294
+FileReader
+handleFileChange @ GroupImportExport.vue:300
+_createElementVNode.onChange._cache.<computed>._cache.<computed> @ GroupImportExport.vue:97
+callWithErrorHandling @ runtime-core.esm-bundler.js:202
+callWithAsyncErrorHandling @ runtime-core.esm-bundler.js:209
+invoker @ runtime-dom.esm-bundler.js:693

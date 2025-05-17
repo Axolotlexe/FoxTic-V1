@@ -1,75 +1,64 @@
-{
-  "version": 1,
-  "timestamp": 1715674089,
-  "application": "FoxTic",
-  "groups": [
-    {
-      "name": "Serveurs Web",
-      "type": "group",
-      "weight": 1,
-      "active_monitoring": 0,
-      "monitors": [
-        {
-          "name": "Site Principal",
-          "type": "http",
-          "url": "https://example.com",
-          "method": "GET",
-          "active": 1,
-          "interval": 60,
-          "retryInterval": 60,
-          "maxretries": 3,
-          "upsideDown": 0,
-          "weight": 1,
-          "foxtic_managed": 1
-        },
-        {
-          "name": "API",
-          "type": "http",
-          "url": "https://api.example.com/health",
-          "method": "GET",
-          "active": 1,
-          "interval": 30,
-          "retryInterval": 30,
-          "maxretries": 3,
-          "upsideDown": 0,
-          "weight": 2,
-          "foxtic_managed": 1
-        }
-      ]
-    },
-    {
-      "name": "Infrastructure",
-      "type": "group",
-      "weight": 2,
-      "active_monitoring": 0,
-      "monitors": [
-        {
-          "name": "Base de données",
-          "type": "tcp",
-          "hostname": "db.example.com",
-          "port": 5432,
-          "active": 1,
-          "interval": 60,
-          "retryInterval": 30,
-          "maxretries": 5,
-          "upsideDown": 0,
-          "weight": 3,
-          "foxtic_managed": 1
-        },
-        {
-          "name": "Redis Cache",
-          "type": "tcp",
-          "hostname": "redis.example.com",
-          "port": 6379,
-          "active": 1,
-          "interval": 60,
-          "retryInterval": 30,
-          "maxretries": 2,
-          "upsideDown": 0,
-          "weight": 2,
-          "foxtic_managed": 1
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "group": "Serveurs Web",
+    "monitors": [
+      {
+        "name": "Site Principal",
+        "type": "http",
+        "url": "https://example.com",
+        "method": "GET",
+        "active": 1,
+        "interval": 60,
+        "retryInterval": 60,
+        "maxretries": 3,
+        "upsideDown": 0,
+        "weight": 1,
+        "foxtic_managed": 1
+      },
+      {
+        "name": "API",
+        "type": "http",
+        "url": "https://api.example.com/health",
+        "method": "GET",
+        "active": 1,
+        "interval": 30,
+        "retryInterval": 30,
+        "maxretries": 3,
+        "upsideDown": 0,
+        "weight": 2,
+        "foxtic_managed": 1
+      }
+    ]
+  },
+  {
+    "group": "Infrastructure",
+    "monitors": [
+      {
+        "name": "Base de données",
+        "type": "tcp",
+        "hostname": "db.example.com",
+        "port": 5432,
+        "active": 1,
+        "interval": 60,
+        "retryInterval": 30,
+        "maxretries": 5,
+        "upsideDown": 0,
+        "weight": 3,
+        "foxtic_managed": 1
+      },
+      {
+        "name": "Redis Cache",
+        "type": "tcp",
+        "hostname": "redis.example.com",
+        "port": 6379,
+        "active": 1,
+        "interval": 60,
+        "retryInterval": 30,
+        "maxretries": 2,
+        "upsideDown": 0,
+        "weight": 2,
+        "foxtic_managed": 1
+      }
+    ]
+  }
+]

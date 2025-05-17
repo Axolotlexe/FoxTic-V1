@@ -1,5 +1,6 @@
 const { R } = require("redbean-node");
-const { log } = require("../util-server");
+const util = require("../util-server");
+const log = util.log;
 const { checkLogin } = require("../util-server");
 const Monitor = require("../model/monitor");
 
