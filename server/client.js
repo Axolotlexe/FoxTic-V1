@@ -3,7 +3,7 @@
  */
 const { TimeLogger } = require("../src/util");
 const { R } = require("redbean-node");
-const { FoxTicServer } = require("./uptime-kuma-server");
+const { FoxTicServer } = require("./foxtic-server");
 const server = FoxTicServer.getInstance();
 const io = server.io;
 const { setting } = require("./util-server");

@@ -107,26 +107,13 @@
                         
                         <div class="import-summary">
                             <div class="import-info-item">
-                                <span class="import-label">{{ $t("Source") }}:</span> 
-                                <span>FoxTic</span>
-                            </div>
-                            <div class="import-info-item">
-                                <span class="import-label">{{ $t("Groups") }}:</span> 
-                                <span>{{ Array.isArray(importData) ? importData.length : 0 }}</span>
-                            </div>
-                            <div class="import-info-item">
-                                <span class="import-label">{{ $t("Monitors") }}:</span>
-                                <span>{{ Array.isArray(importData) ? 
+                                <span>FoxTic - {{ Array.isArray(importData) ? importData.length : 0 }} {{ $t("groups") }}, {{ Array.isArray(importData) ? 
                                     importData.reduce((total, g) => total + (g.monitors ? g.monitors.length : 0), 0) : 0 
-                                }}</span>
-                            </div>
-                            <div class="import-info-item">
-                                <span class="import-label">{{ $t("Format") }}:</span>
-                                <span>{{ Array.isArray(importData) ? "Simplifié" : "Legacy" }}</span>
+                                }} {{ $t("monitors") }}</span>
                             </div>
                         </div>
                         
-                        <div class="group-list mt-3">
+                        <div class="group-list import-group-list mt-3">
                             <div v-for="(group, index) in Array.isArray(importData) ? importData : []" :key="index" class="group-item">
                                 <strong>{{ group.group || group.name }}</strong>
                                 <div class="text-muted">
@@ -419,6 +406,11 @@ export default {
     padding: 10px;
     border: 1px solid #dee2e6;
     border-radius: 5px;
+}
+
+.import-group-list {
+    max-height: 200px;
+    overflow-y: auto;
 }
 
 .group-item {

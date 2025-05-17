@@ -108,16 +108,11 @@ class FoxTicBackendServer {
         }
 
         // Set Monitor Types - Only include types for physical hardware and websites monitoring
-        try {
-            FoxTicBackendServer.monitorTypeList["real-browser"] = new RealBrowserMonitorType();
-            FoxTicBackendServer.monitorTypeList["tailscale-ping"] = new TailscalePing();
-            FoxTicBackendServer.monitorTypeList["dns"] = new DnsMonitorType();
-            FoxTicBackendServer.monitorTypeList["group"] = new GroupMonitorType();
-            FoxTicBackendServer.monitorTypeList["snmp"] = new SNMPMonitorType();
-        } catch (e) {
-            console.error("Error initializing monitor types:", e);
-            // Continue with partial initialization if some types fail
-        }
+        FoxTicBackendServer.monitorTypeList["real-browser"] = new RealBrowserMonitorType();
+        FoxTicBackendServer.monitorTypeList["tailscale-ping"] = new TailscalePing();
+        FoxTicBackendServer.monitorTypeList["dns"] = new DnsMonitorType();
+        FoxTicBackendServer.monitorTypeList["group"] = new GroupMonitorType();
+        FoxTicBackendServer.monitorTypeList["snmp"] = new SNMPMonitorType();
 
         // Allow all CORS origins (polling) in development
         let cors = undefined;

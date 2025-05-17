@@ -80,8 +80,8 @@ log.debug("server", "Importing 2FA Modules");
 const notp = require("notp");
 const base32 = require("thirty-two");
 
-const { UptimeKumaServer } = require("./uptime-kuma-server");
-const server = UptimeKumaServer.getInstance();
+const { FoxTicServer } = require("./foxtic-server");
+const server = FoxTicServer.getInstance();
 const io = module.exports.io = server.io;
 const app = server.app;
 
@@ -305,7 +305,7 @@ let needSetup = false;
     app.use("/upload", express.static(Database.uploadDir));
 
     app.get("/.well-known/change-password", async (_, response) => {
-        response.redirect("https://github.com/louislam/uptime-kuma/wiki/Reset-Password-via-CLI");
+        response.redirect("/dashboard");
     });
 
     // API Router
