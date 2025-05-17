@@ -57,15 +57,6 @@
                             >
                                 <img src="/card-view-icon.svg" alt="Card View" class="view-icon" />
                             </button>
-                            <button 
-                                type="button" 
-                                class="btn toggle-btn ms-2" 
-                                :class="{ 'active': showWebSocketDebug }" 
-                                @click="toggleWebSocketDebug"
-                                title="WebSocket Debug"
-                            >
-                                <font-awesome-icon icon="wifi" />
-                            </button>
                             
                             <!-- Bouton de configuration de la grille (visible uniquement en mode carte) -->
                             <button 
@@ -196,9 +187,6 @@
         @close="showGridConfig = false"
         @grid-updated="updateGridConfig" 
     />
-    
-    <!-- Composant de débogage WebSocket -->
-    <WebSocketDebug v-if="showWebSocketDebug" class="mt-4" />
 </template>
 
 <script>
@@ -209,8 +197,7 @@ import PingChart from "../components/PingChart.vue";
 import SimpleChart from "../components/SimpleChart.vue";
 import MonitorListFilter from "../components/MonitorListFilter.vue";
 import GridConfigDialog from "../components/GridConfigDialog.vue";
-import WebSocketDebug from "../components/WebSocketDebug.vue";
-import webSocketService from "../services/websocket.js";
+import { websocketService } from "../services/websocket.js";
 
 export default {
     components: {
@@ -221,7 +208,6 @@ export default {
         SimpleChart,
         MonitorListFilter,
         GridConfigDialog,
-        WebSocketDebug,
     },
     props: {
         calculatedHeight: {
@@ -255,7 +241,6 @@ export default {
             },
             showGridConfig: false, // Contrôle l'affichage de la fenêtre de configuration de la grille
             gridConfig: null, // Configuration de la grille (chargée depuis localStorage)
-            showWebSocketDebug: true, // Affiche le composant de débogage WebSocket
         };
     },
     computed: {
@@ -439,30 +424,22 @@ export default {
         window.removeEventListener("resize", this.updatePerPage);
         
         // Nettoyer les écouteurs WebSocket
-        webSocketService.off('message', this.handleWebSocketMessage);
-        webSocketService.off('open', this.handleWebSocketOpen);
+        websocketService.off('message', this.handleWebSocketMessage);
+        websocketService.off('open', this.handleWebSocketOpen);
     },
 
     methods: {
-        /**
-         * Active ou désactive l'affichage du débogueur WebSocket
-         * @returns {void}
-         */
-        toggleWebSocketDebug() {
-            this.showWebSocketDebug = !this.showWebSocketDebug;
-        },
-        
         /**
          * Initialise la connexion WebSocket
          * @returns {void}
          */
         initWebSocket() {
             // Ajouter les écouteurs d'événements WebSocket
-            webSocketService.on('message', this.handleWebSocketMessage);
-            webSocketService.on('open', this.handleWebSocketOpen);
+            websocketService.on('message', this.handleWebSocketMessage);
+            websocketService.on('open', this.handleWebSocketOpen);
             
             // Établir la connexion de manière sécurisée
-            const connectPromise = webSocketService.connect();
+            const connectPromise = websocketService.connect();
             if (connectPromise && typeof connectPromise.catch === 'function') {
                 connectPromise.catch(error => {
                     // En mode développement uniquement, on affiche l'erreur complète
