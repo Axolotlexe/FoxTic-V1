@@ -2,6 +2,7 @@ const { R } = require("redbean-node");
 const { checkLogin } = require("../util-server");
 const Monitor = require("../model/monitor");
 const { log } = require("../../src/util");
+const { FoxTicServer } = require("../foxtic-server");
 
 // Créer une fonction de journalisation sécurisée qui ne plantera jamais
 const safeLog = {
@@ -323,10 +324,33 @@ module.exports = (socket) => {
                         monitor.parent = groupID;
                         monitor.active = 1; // Set active by default
                         
-                        await R.store(monitor);
+                        // Enregistrer le moniteur et récupérer son ID
+                        const monitorID = await R.store(monitor);
                         monitorCount++;
                         
-                        safeLog.debug("group", `Added monitor '${monitorData.name}' to group`);
+                        safeLog.debug("group", `Added monitor '${monitorData.name}' to group with ID ${monitorID}`);
+                        
+                        // Démarrer le moniteur immédiatement
+                        try {
+                            // Récupérer l'instance du serveur FoxTic
+                            const server = FoxTicServer.getInstance();
+                            
+                            // Vérifier si le moniteur est actif
+                            if (monitor.active === 1) {
+                                // Charger le moniteur depuis la base de données pour s'assurer d'avoir toutes les propriétés
+                                const monitorBean = await R.findOne("monitor", " id = ? ", [monitorID]);
+                                
+                                // Ajouter le moniteur à la liste des moniteurs du serveur
+                                server.monitorList[monitorID] = monitorBean;
+                                
+                                // Démarrer le moniteur
+                                await monitorBean.start(server.io);
+                                safeLog.debug("group", `Successfully started monitor '${monitorData.name}'`);
+                            }
+                        } catch (startError) {
+                            safeLog.error("group", `Failed to start monitor '${monitorData.name}': ${startError.message}`);
+                            // Continuer l'importation même si le démarrage a échoué
+                        }
                     }
                 }
             }
