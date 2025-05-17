@@ -1613,6 +1613,10 @@ let needSetup = false;
 
     await server.start();
 
+    // Initialiser le serveur WebSocket
+    const { setupWebSocket } = require('./routes');
+    setupWebSocket(server.httpServer);
+
     server.httpServer.listen(port, hostname, async () => {
         if (hostname) {
             log.info("server", `Listening on ${hostname}:${port}`);

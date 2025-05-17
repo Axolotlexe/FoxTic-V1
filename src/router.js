@@ -22,6 +22,7 @@ import DockerHosts from "./components/settings/Docker.vue";
 import APIKeys from "./components/settings/APIKeys.vue";
 import SetupDatabase from "./pages/SetupDatabase.vue";
 import LogsPage from "./pages/LogsPage.vue";
+import WebSocketDebugPage from "./pages/WebSocketDebugPage.vue";
 
 // Settings - Sub Pages
 import Appearance from "./components/settings/Appearance.vue";
@@ -67,6 +68,18 @@ const routes = [
                                     {
                                         path: "/edit/:id",
                                         component: EditMonitor,
+                                    },
+                                ],
+                            },
+                            {
+                                path: "/groupe/:id",
+                                component: EmptyLayout,
+                                children: [
+                                    {
+                                        path: "",
+                                        name: "GroupView",
+                                        component: DashboardHome,
+                                        props: route => ({ groupId: route.params.id })
                                     },
                                 ],
                             },
@@ -167,6 +180,10 @@ const routes = [
                     {
                         path: "/logs",
                         component: LogsPage,
+                    },
+                    {
+                        path: "/ws-debug",
+                        component: WebSocketDebugPage,
                     },
                 ],
             },

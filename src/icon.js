@@ -66,6 +66,7 @@ import {
     faServer,
     faCheckSquare,
     faDownload,
+    faExchangeAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -128,6 +129,7 @@ library.add(
     faServer,
     faCheckSquare,
     faDownload,
+    faExchangeAlt,
 );
 
 export { FontAwesomeIcon };

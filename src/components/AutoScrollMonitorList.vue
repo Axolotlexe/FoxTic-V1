@@ -68,7 +68,15 @@
                             class="me-2 group-icon" 
                             :icon="group.isSpecial ? 'list-alt' : 'folder'" 
                         />
-                        <span class="group-name">{{ group.name }}</span>
+                        <span v-if="group.isSpecial" class="group-name">{{ group.name }}</span>
+                        <router-link 
+                            v-else 
+                            :to="`/groupe/${group.id}`" 
+                            class="group-name"
+                            @click.stop
+                        >
+                            {{ group.name }}
+                        </router-link>
                         <span class="group-count badge">{{ getMonitorsCount(group.id) }}</span>
                     </div>
                     <div v-if="currentGroupIndex === index && !isPaused" class="progress-bar-container">

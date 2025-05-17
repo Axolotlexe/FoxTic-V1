@@ -1,6 +1,14 @@
 <template>
     <transition ref="tableContainer" name="slide-fade" appear>
-        <div v-if="$route.name === 'DashboardHome'" class="dashboard-container">
+        <div v-if="$route.name === 'DashboardHome' || $route.name === 'GroupView'" class="dashboard-container">
+            
+            <!-- Titre du groupe si on est sur une URL /groupe/id -->
+            <div v-if="groupId && groupName" class="shadow-box mb-3 group-header">
+                <h2 class="group-title">
+                    <font-awesome-icon icon="folder" class="me-2" />
+                    {{ groupName }}
+                </h2>
+            </div>
 
             <!-- Mode De Vue Table Card et Filtres -->
             <div class="shadow-box mb-3">
@@ -56,7 +64,7 @@
                                 type="button" 
                                 class="btn toggle-btn ms-2" 
                                 @click="showGridConfig = true"
-                                title="Configure grid layout"
+                                :title="$t('Configure grid layout')"
                             >
                                 <img src="/grid-config-icon.svg" alt="Grid Configuration" class="view-icon" />
                             </button>
@@ -128,7 +136,7 @@
                 <div v-if="Object.keys($root.monitorList).length === 0" class="shadow-box text-center">
                     {{ $t("No monitors to display") }}
                 </div>
-                <div v-else class="row">
+                <div v-else class="row" ref="cardContainer">
                     <div v-for="(monitor, index) in sortedMonitors" :key="index" class="col-12 col-md-6 col-lg-4 mb-4">
                         <div class="monitor-card shadow-box" :class="{ 'monitor-down': monitor.status === 0 }">
                             <div class="monitor-card-header">
@@ -189,6 +197,7 @@ import PingChart from "../components/PingChart.vue";
 import SimpleChart from "../components/SimpleChart.vue";
 import MonitorListFilter from "../components/MonitorListFilter.vue";
 import GridConfigDialog from "../components/GridConfigDialog.vue";
+import { websocketService } from "../services/websocket.js";
 
 export default {
     components: {
@@ -204,6 +213,10 @@ export default {
         calculatedHeight: {
             type: Number,
             default: 0
+        },
+        groupId: {
+            type: [String, Number],
+            default: null
         }
     },
     data() {
@@ -232,11 +245,37 @@ export default {
     },
     computed: {
         /**
+         * Récupère le nom du groupe à partir de son identifiant
+         * @returns {String|null} Nom du groupe ou null si non trouvé
+         */
+        groupName() {
+            if (!this.groupId) return null;
+            
+            // Recherche du groupe dans la liste des moniteurs
+            const group = Object.values(this.$root.monitorList || {}).find(
+                m => m.type === "group" && m.id === parseInt(this.groupId)
+            );
+            
+            return group ? group.name : null;
+        },
+        
+        /**
          * Filtrer les moniteurs en fonction de la recherche et des filtres
          * @returns {Object} Moniteurs filtrés
          */
         filteredMonitors() {
             const monitors = { ...(this.$root.monitorList || {}) };
+            
+            // Filtrer par groupe si un groupId est spécifié
+            if (this.groupId) {
+                Object.keys(monitors).forEach(id => {
+                    const monitor = monitors[id];
+                    // Vérifie si le moniteur appartient au groupe spécifié
+                    if (monitor.parent !== parseInt(this.groupId)) {
+                        delete monitors[id];
+                    }
+                });
+            }
             
             // Filtrer par texte de recherche si nécessaire
             if (this.searchText) {
@@ -374,16 +413,76 @@ export default {
                 });
             }
         });
+        
+        // Initialiser la connexion WebSocket
+        this.initWebSocket();
     },
 
     beforeUnmount() {
         // Supprimer les écouteurs
         this.$root.emitter.off("monitorListUpdated", this.onMonitorUpdate);
-
         window.removeEventListener("resize", this.updatePerPage);
+        
+        // Nettoyer les écouteurs WebSocket
+        websocketService.off('message', this.handleWebSocketMessage);
+        websocketService.off('open', this.handleWebSocketOpen);
     },
 
     methods: {
+        /**
+         * Initialise la connexion WebSocket
+         * @returns {void}
+         */
+        initWebSocket() {
+            // Ajouter les écouteurs d'événements WebSocket
+            websocketService.on('message', this.handleWebSocketMessage);
+            websocketService.on('open', this.handleWebSocketOpen);
+            
+            // Établir la connexion
+            websocketService.connect().catch(error => {
+                console.error("Erreur de connexion WebSocket:", error);
+            });
+        },
+        
+        /**
+         * Gère l'événement d'ouverture de la connexion WebSocket
+         * @param {Event} event - Événement d'ouverture
+         * @returns {void}
+         */
+        handleWebSocketOpen(event) {
+            console.log("WebSocket connecté, demande de mise à jour de statut");
+            
+            // Envoyer une demande de statut initial
+            websocketService.send(JSON.stringify({
+                type: 'request_status',
+                data: {
+                    groupId: this.groupId
+                }
+            }));
+        },
+        
+        /**
+         * Gère les messages reçus via WebSocket
+         * @param {string} data - Message reçu
+         * @returns {void}
+         */
+        handleWebSocketMessage(data) {
+            try {
+                const message = JSON.parse(data);
+                
+                if (message.type === 'status_update') {
+                    console.log("Mise à jour de statut reçue via WebSocket");
+                    
+                    // Mettre à jour la liste des moniteurs si c'est une mise à jour de statut
+                    if (message.data && message.data.monitors) {
+                        this.$root.emitter.emit("monitorListUpdated");
+                    }
+                }
+            } catch (error) {
+                console.error("Erreur lors du traitement du message WebSocket:", error);
+            }
+        },
+        
         /**
          * Gère les mises à jour de la liste des moniteurs
          * @returns {void}
@@ -505,7 +604,10 @@ export default {
             localStorage.setItem('dashboardGridConfig', JSON.stringify(config));
             
             // Appliquer la nouvelle configuration à la grille
-            this.applyGridConfig();
+            // avec un délai pour s'assurer que le DOM est mis à jour
+            setTimeout(() => {
+                this.applyGridConfig();
+            }, 50);
         },
         
         /**
@@ -530,7 +632,8 @@ export default {
             
             // Appliquer les styles CSS à la grille
             this.$nextTick(() => {
-                const cardContainer = document.querySelector('.card-view .row');
+                // Utiliser directement la référence au conteneur de cartes
+                const cardContainer = this.$refs.cardContainer;
                 if (cardContainer) {
                     // Configurer la grille en utilisant CSS Grid
                     cardContainer.style.display = 'grid';
@@ -559,6 +662,20 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/vars";
+
+/* Styles pour l'en-tête de groupe */
+.group-header {
+    padding: 15px 20px;
+    margin-bottom: 20px;
+}
+
+.group-title {
+    font-size: 1.5rem;
+    margin: 0;
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+}
 
 .dashboard-container {
     display: flex;
