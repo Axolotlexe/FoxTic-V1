@@ -292,12 +292,23 @@ module.exports = (socket) => {
                         
                         const monitor = R.dispense("monitor");
                         
-                        // Copy all properties from the monitor data
-                        for (const key in monitorData) {
-                            if (key !== 'id' && key !== 'user_id' && key !== 'parent') {
-                                monitor[key] = monitorData[key];
+                        // Liste des colonnes connues dans la table monitor (excluant foxtic_managed)
+                        const knownColumns = [
+                            'name', 'type', 'active', 'url', 'method', 'interval', 
+                            'retry_interval', 'maxretries', 'weight', 'upside_down'
+                        ];
+                        
+                        // Copier uniquement les propriétés connues
+                        knownColumns.forEach(column => {
+                            if (monitorData[column] !== undefined) {
+                                // Mapper les noms de colonne si nécessaire
+                                const sourceKey = column === 'retry_interval' && monitorData['retryInterval'] !== undefined ? 
+                                    'retryInterval' : column === 'upside_down' && monitorData['upsideDown'] !== undefined ?
+                                    'upsideDown' : column;
+                                
+                                monitor[column] = monitorData[sourceKey];
                             }
-                        }
+                        });
                         
                         // Make sure there's at least a valid type
                         if (!monitor.type || typeof monitor.type !== 'string') {
@@ -305,8 +316,7 @@ module.exports = (socket) => {
                             safeLog.warn("group", `Monitor without type detected, defaulting to 'http'`);
                         }
                         
-                        // Ensure this is a FoxTic monitor
-                        monitor.foxtic_managed = 1;
+                        // Ne pas ajouter foxtic_managed car cette colonne n'existe pas
                         
                         // Set the required fields
                         monitor.user_id = userID;
