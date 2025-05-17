@@ -442,7 +442,10 @@ export default {
             const connectPromise = websocketService.connect();
             if (connectPromise && typeof connectPromise.catch === 'function') {
                 connectPromise.catch(error => {
-                    console.error("Erreur de connexion WebSocket:", error);
+                    // En mode développement uniquement, on affiche l'erreur complète
+                    if (process.env.NODE_ENV === 'development') {
+                        console.error("Erreur de connexion WebSocket:", error);
+                    }
                 });
             }
         },

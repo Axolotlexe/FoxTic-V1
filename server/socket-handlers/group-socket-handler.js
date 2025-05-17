@@ -56,10 +56,11 @@ module.exports = (socket) => {
             });
             
         } catch (error) {
-            log.error("group", "Import error: " + (error ? error.message : "Unknown error"));
+            const errorMsg = error && error.message ? error.message : "Unknown error";
+            log.error("group", "Import error: " + errorMsg);
             callback({
                 ok: false,
-                msg: error ? error.message : "An unknown error occurred during import"
+                msg: errorMsg
             });
         }
     });
@@ -148,6 +149,7 @@ module.exports = (socket) => {
             }
             
             log.debug("group", `Found ${importData.length} groups in import data`);
+            log.debug("group", `Import data: ${JSON.stringify(importData).substring(0, 200)}...`);
             
             // Import each group using simplified format
             for (const groupData of importData) {
@@ -158,8 +160,13 @@ module.exports = (socket) => {
                 
                 // Validate group format in simplified structure
                 if (!groupData.group || typeof groupData.group !== 'string') {
-                    log.warn("group", "Group missing 'group' property or not a string, skipping");
-                    continue;
+                    // Support legacy format or other formats
+                    if (groupData.name && typeof groupData.name === 'string') {
+                        groupData.group = groupData.name;
+                    } else {
+                        log.warn("group", "Group missing valid name property, skipping");
+                        continue;
+                    }
                 }
                 
                 const groupName = groupData.group;
@@ -230,6 +237,12 @@ module.exports = (socket) => {
                             if (key !== 'id' && key !== 'user_id' && key !== 'parent') {
                                 monitor[key] = monitorData[key];
                             }
+                        }
+                        
+                        // Make sure there's at least a valid type
+                        if (!monitor.type || typeof monitor.type !== 'string') {
+                            monitor.type = "http";
+                            log.warn("group", `Monitor without type detected, defaulting to 'http'`);
                         }
                         
                         // Ensure this is a FoxTic monitor

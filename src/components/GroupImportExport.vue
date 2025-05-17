@@ -106,15 +106,21 @@
                         </div>
                         
                         <div class="import-summary">
-                            <div><strong>{{ $t("Source") }}:</strong> <span class="text-primary">FoxTic</span></div>
-                            <div><strong>{{ $t("Groups") }}:</strong> {{ importData.groups.length }}</div>
-                            <div>
-                                <strong>{{ $t("Monitors") }}:</strong> 
-                                {{ importData.groups.reduce((total, g) => total + (g.monitors ? g.monitors.length : 0), 0) }}
+                            <div class="import-info-item">
+                                <span class="import-label">{{ $t("Source") }}:</span> 
+                                <span>FoxTic</span>
                             </div>
-                            <div>
-                                <strong>{{ $t("Export Date") }}:</strong> 
-                                {{ new Date(importData.timestamp * 1000).toLocaleString() }}
+                            <div class="import-info-item">
+                                <span class="import-label">{{ $t("Groups") }}:</span> 
+                                <span>{{ importData.groups.length }}</span>
+                            </div>
+                            <div class="import-info-item">
+                                <span class="import-label">{{ $t("Monitors") }}:</span>
+                                <span>{{ importData.groups.reduce((total, g) => total + (g.monitors ? g.monitors.length : 0), 0) }}</span>
+                            </div>
+                            <div class="import-info-item">
+                                <span class="import-label">{{ $t("Export Date") }}:</span>
+                                <span>{{ new Date(importData.timestamp * 1000).toLocaleString() }}</span>
                             </div>
                         </div>
                         
@@ -398,5 +404,23 @@ export default {
     padding: 10px;
     border-radius: 5px;
     margin-top: 10px;
+    
+    .import-info-item {
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        
+        .import-label {
+            display: inline-block;
+            font-weight: bold;
+            background-color: #0d6efd;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-right: 8px;
+            min-width: 100px;
+            text-align: left;
+        }
+    }
 }
 </style>

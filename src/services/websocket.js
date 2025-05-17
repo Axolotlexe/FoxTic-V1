@@ -49,6 +49,8 @@ class WebSocketService {
                 this.socket.onopen = (event) => {
                     console.log('[WebSocket] Connexion établie');
                     this.isConnecting = false;
+                    // Réinitialiser le compteur de tentatives lors d'une connexion réussie
+                    this._reconnectAttempts = 0;
                     this._triggerEvent('open', event);
                     resolve();
                 };
@@ -64,12 +66,30 @@ class WebSocketService {
                     this.isConnecting = false;
                     this._triggerEvent('close', event);
                     
-                    // Reconnexion automatique
-                    setTimeout(() => this.connect(), this.reconnectInterval);
+                    // Initialiser le compteur de tentatives si nécessaire
+                    if (!this._reconnectAttempts) {
+                        this._reconnectAttempts = 0;
+                    }
+                    
+                    // Limiter les tentatives de reconnexion
+                    if (this._reconnectAttempts < 3) {
+                        this._reconnectAttempts++;
+                        console.log(`[WebSocket] Tentative de reconnexion ${this._reconnectAttempts}/3 dans ${this.reconnectInterval}ms`);
+                        setTimeout(() => this.connect(), this.reconnectInterval);
+                    } else {
+                        console.log('[WebSocket] Nombre maximum de tentatives de reconnexion atteint');
+                    }
                 };
 
                 this.socket.onerror = (error) => {
-                    console.error('[WebSocket] Erreur:', error);
+                    // En mode production, on ne loggera pas toutes les erreurs WebSocket
+                    if (process.env.NODE_ENV === 'development') {
+                        console.error('[WebSocket] Erreur:', error);
+                    } else {
+                        // En production, juste un log discret
+                        console.log('[WebSocket] Connexion interrompue, tentative de reconnexion...');
+                    }
+                    
                     this.isConnecting = false;
                     this._triggerEvent('error', error);
                     reject(error);
