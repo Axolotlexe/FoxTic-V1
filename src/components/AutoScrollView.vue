@@ -11,11 +11,36 @@
                     <button class="btn btn-sm btn-outline-secondary" @click="nextGroup" :title="$t('Next Group')">
                         <font-awesome-icon icon="step-forward" />
                     </button>
-                    <select v-model="interval" class="form-select form-select-sm">
-                        <option value="5000">5s</option>
-                        <option value="10000">10s</option>
-                        <option value="15000">15s</option>
-                    </select>
+                    <div class="time-control">
+                        <select v-model="interval" class="form-select form-select-sm" v-if="!showCustomInterval">
+                            <option value="3000">3s</option>
+                            <option value="5000">5s</option>
+                            <option value="10000">10s</option>
+                            <option value="15000">15s</option>
+                            <option value="20000">20s</option>
+                            <option value="30000">30s</option>
+                            <option value="60000">1m</option>
+                            <option value="custom">{{ $t('Custom') }}</option>
+                        </select>
+                        <div class="custom-interval" v-if="showCustomInterval">
+                            <div class="input-group">
+                                <input 
+                                    type="number" 
+                                    v-model="customIntervalValue"
+                                    class="form-control form-control-sm"
+                                    min="1"
+                                    @keyup.enter="applyCustomInterval"
+                                >
+                                <span class="input-group-text">s</span>
+                            </div>
+                            <button class="btn btn-sm btn-outline-secondary" @click="applyCustomInterval">
+                                <font-awesome-icon icon="check" />
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary" @click="cancelCustomInterval">
+                                <font-awesome-icon icon="times" />
+                            </button>
+                        </div>
+                    </div>
                     
                     <button class="btn btn-sm btn-outline-secondary" @click="showGridConfig = true" :title="$t('Configure Grid Layout')">
                         <font-awesome-icon icon="cog" />
@@ -118,7 +143,9 @@ export default {
             interval: 10000,
             timer: null,
             showGridConfig: false, // Contrôle l'affichage de la fenêtre de configuration de la grille
-            gridConfig: null // Configuration de la grille (chargée depuis localStorage)
+            gridConfig: null, // Configuration de la grille (chargée depuis localStorage)
+            showCustomInterval: false, // Afficher le champ de saisie personnalisé
+            customIntervalValue: 10, // Valeur en secondes de l'intervalle personnalisé
         };
     },
     computed: {
@@ -150,6 +177,14 @@ export default {
             this.$nextTick(() => {
                 this.applyGridConfig();
             });
+        },
+        // Surveiller le changement d'intervalle
+        interval(newValue) {
+            if (newValue === 'custom') {
+                this.showCustomInterval = true;
+            } else {
+                this.restartTimer();
+            }
         }
     },
     mounted() {
@@ -181,9 +216,47 @@ export default {
                 clearInterval(this.timer);
             }
             
+            // Ne pas démarrer le timer si l'intervalle est "custom" et qu'on est en mode saisie
+            if (this.interval === 'custom' && this.showCustomInterval) {
+                return;
+            }
+            
             this.timer = setInterval(() => {
                 this.nextGroup();
             }, parseInt(this.interval));
+        },
+        
+        // Redémarrer le timer avec le nouvel intervalle
+        restartTimer() {
+            if (!this.isPaused) {
+                this.startTimer();
+            }
+        },
+        
+        // Appliquer l'intervalle personnalisé
+        applyCustomInterval() {
+            // Convertir en millisecondes
+            const msValue = this.customIntervalValue * 1000;
+            
+            // Vérifier que la valeur est valide
+            if (msValue <= 0) {
+                this.customIntervalValue = 10; // Valeur par défaut 10 secondes
+                return;
+            }
+            
+            // Appliquer la nouvelle valeur
+            this.interval = msValue.toString();
+            this.showCustomInterval = false;
+            
+            // Redémarrer le timer
+            this.restartTimer();
+        },
+        
+        // Annuler la saisie personnalisée
+        cancelCustomInterval() {
+            // Revenir à la valeur par défaut
+            this.interval = '10000';
+            this.showCustomInterval = false;
         },
         
         // Arrêter le timer
@@ -432,6 +505,37 @@ export default {
             padding: 4px 8px;
             height: auto;
             font-size: 0.9rem;
+        }
+        
+        .time-control {
+            display: flex;
+            
+            .custom-interval {
+                display: flex;
+                align-items: center;
+                gap: 3px;
+                
+                .input-group {
+                    width: 80px;
+                    
+                    input {
+                        padding: 4px 8px;
+                        height: auto;
+                        font-size: 0.9rem;
+                    }
+                    
+                    .input-group-text {
+                        padding: 4px 8px;
+                        font-size: 0.9rem;
+                        height: auto;
+                    }
+                }
+                
+                .btn {
+                    padding: 4px;
+                    height: auto;
+                }
+            }
         }
     }
     

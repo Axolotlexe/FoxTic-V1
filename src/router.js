@@ -195,10 +195,7 @@ const routes = [
                         path: "/ws-debug",
                         component: WebSocketDebugPage,
                     },
-                    {
-                        path: "/autoscroll",
-                        component: AutoScrollView,
-                    },
+
                 ],
             },
         ],
