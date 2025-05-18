@@ -261,6 +261,25 @@ module.exports = (socket) => {
                     groupCount++;
                     
                     safeLog.debug("group", `Created new group '${groupName}' with ID ${groupID}`);
+                    
+                    // Initialiser le groupe immédiatement
+                    try {
+                        // Récupérer l'instance du serveur FoxTic
+                        const server = FoxTicServer.getInstance();
+                        
+                        // Charger le groupe depuis la base de données pour s'assurer d'avoir toutes les propriétés
+                        const groupBean = await R.findOne("monitor", " id = ? ", [newGroupID]);
+                        
+                        // Ajouter le groupe à la liste des moniteurs du serveur
+                        server.monitorList[newGroupID] = groupBean;
+                        
+                        // Démarrer le groupe
+                        await groupBean.start(server.io);
+                        safeLog.debug("group", `Successfully started group '${groupName}'`);
+                    } catch (startError) {
+                        safeLog.error("group", `Failed to start group '${groupName}': ${startError.message}`);
+                        // Continuer l'importation même si le démarrage a échoué
+                    }
                 }
                 
                 // Import the group's monitors
