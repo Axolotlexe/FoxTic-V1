@@ -1,0 +1,33 @@
+ Failed to get subsystem status for purpose Object
+ Dev Only: window.app is the vue instance
+ Connected to the socket server
+ [WebSocket] Tentative de connexion à ws://192.168.229.61:3000/ws
+dashboard:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+dashboard:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+dashboard:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+dashboard:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+dashboard:1 Uncaught (in promise) Error: A listener indicated an asynchronous response by returning true, but the message channel closed before a response was received
+ [WebSocket] Erreur: Event
+overrideMethod @ chrome-extension://f…ld/installHook.js:1
+ Erreur de connexion WebSocket: Event
+overrideMethod @ chrome-extension://f…ld/installHook.js:1
+ [WebSocket] Connexion fermée. Code: 1006, Raison: 
+ [WebSocket] Tentative de reconnexion 1/3 dans 3000ms
+ [WebSocket] Tentative de connexion à ws://192.168.229.61:3000/ws
+ [WebSocket] Erreur: Event
+overrideMethod @ chrome-extension://f…ld/installHook.js:1
+ [WebSocket] Connexion fermée. Code: 1006, Raison: 
+ [WebSocket] Tentative de reconnexion 2/3 dans 3000ms
+src/services/websocket.js:75 Uncaught (in promise) EventisTrusted: truebubbles: falsecancelBubble: falsecancelable: falsecomposed: falsecurrentTarget: WebSocket {url: 'ws://192.168.229.61:3000/ws', readyState: 3, bufferedAmount: 0, onopen: ƒ, onerror: ƒ, …}defaultPrevented: falseeventPhase: 0returnValue: truesrcElement: WebSocket {url: 'ws://192.168.229.61:3000/ws', readyState: 3, bufferedAmount: 0, onopen: ƒ, onerror: ƒ, …}target: WebSocket {url: 'ws://192.168.229.61:3000/ws', readyState: 3, bufferedAmount: 0, onopen: ƒ, onerror: ƒ, …}timeStamp: 501584.3999999985type: "error"[[Prototype]]: Event
+ [WebSocket] Tentative de connexion à ws://192.168.229.61:3000/ws
+ [WebSocket] Erreur: EventisTrusted: truebubbles: falsecancelBubble: falsecancelable: falsecomposed: falsecurrentTarget: WebSocket {url: 'ws://192.168.229.61:3000/ws', readyState: 3, bufferedAmount: 0, onopen: ƒ, onerror: ƒ, …}defaultPrevented: falseeventPhase: 0returnValue: truesrcElement: WebSocket {url: 'ws://192.168.229.61:3000/ws', readyState: 3, bufferedAmount: 0, onopen: ƒ, onerror: ƒ, …}target: WebSocket {url: 'ws://192.168.229.61:3000/ws', readyState: 3, bufferedAmount: 0, onopen: ƒ, onerror: ƒ, …}timeStamp: 744613.1999999955type: "error"[[Prototype]]: Event
+overrideMethod @ chrome-extension://f…ld/installHook.js:1
+ [WebSocket] Connexion fermée. Code: 1006, Raison: 
+ [WebSocket] Tentative de reconnexion 3/3 dans 3000ms
+src/services/websocket.js:75 Uncaught (in promise) Event
+ [WebSocket] Tentative de connexion à ws://192.168.229.61:3000/ws
+ [WebSocket] Erreur: Event
+overrideMethod @ chrome-extension://f…ld/installHook.js:1
+ [WebSocket] Connexion fermée. Code: 1006, Raison: 
+ [WebSocket] Nombre maximum de tentatives de reconnexion atteint
+src/services/websocket.js:75 Uncaught (in promise) Event

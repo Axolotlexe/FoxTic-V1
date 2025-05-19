@@ -5,9 +5,11 @@
 class WebSocketService {
     constructor() {
         this.socket = null;
-        this.reconnectInterval = 3000; // 3 secondes
+        this.reconnectInterval = 5000; // 5 secondes
+        this.reconnectMaxAttempts = 5; // Augmentation du nombre de tentatives
         this.isConnecting = false;
         this._hasLoggedConnectionStatus = false;
+        this._pingTimer = null;
         this.eventHandlers = {
             message: [],
             open: [],
@@ -44,17 +46,31 @@ class WebSocketService {
                 const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
                 const wsUrl = `${protocol}//${window.location.host}/ws`;
                 
-                // Fallback au cas où le WebSocket n'est pas disponible sur le même port
-                const useMainSocket = true; // Utiliser le Socket.io principal au lieu du WebSocket dédié
-                
+                // Configurer le WebSocket avec des paramètres optimisés
                 console.log(`[WebSocket] Tentative de connexion à ${wsUrl}`);
                 this.socket = new WebSocket(wsUrl);
+                
+                // Augmenter le délai d'attente du ping pour éviter les déconnexions trop rapides
+                this._pingInterval = 30000; // 30 secondes
 
                 this.socket.onopen = (event) => {
                     console.log('[WebSocket] Connexion établie');
                     this.isConnecting = false;
                     // Réinitialiser le compteur de tentatives lors d'une connexion réussie
                     this._reconnectAttempts = 0;
+                    
+                    // Configurer un ping périodique pour maintenir la connexion active
+                    if (this._pingTimer) {
+                        clearInterval(this._pingTimer);
+                    }
+                    
+                    this._pingTimer = setInterval(() => {
+                        if (this.socket && this.socket.readyState === WebSocket.OPEN) {
+                            // Envoyer un ping pour maintenir la connexion active
+                            this.send({ type: 'ping', timestamp: Date.now() });
+                        }
+                    }, this._pingInterval || 30000);
+                    
                     this._triggerEvent('open', event);
                     resolve();
                 };
