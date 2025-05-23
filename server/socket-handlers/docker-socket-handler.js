@@ -1,82 +1,41 @@
-const { sendDockerHostList } = require("../client");
-const { checkLogin } = require("../util-server");
-const { DockerHost } = require("../docker");
 const { log } = require("../../src/util");
+const { disabledModules } = require("../config");
 
 /**
- * Handlers for docker hosts
+ * Handlers for docker hosts - DÉSACTIVÉS
+ * Module complètement désactivé pour optimiser les performances avec un grand nombre de sondes
  * @param {Socket} socket Socket.io instance
  * @returns {void}
  */
 module.exports.dockerSocketHandler = (socket) => {
+    // Fonction désactivée pour optimisation des performances
+    const sendModuleDisabledMessage = (callback) => {
+        callback({
+            ok: false,
+            msg: "La fonctionnalité Docker est désactivée pour optimiser les performances avec un grand nombre de sondes.",
+        });
+    };
+
     socket.on("addDockerHost", async (dockerHost, dockerHostID, callback) => {
-        try {
-            checkLogin(socket);
-
-            let dockerHostBean = await DockerHost.save(dockerHost, dockerHostID, socket.userID);
-            await sendDockerHostList(socket);
-
-            callback({
-                ok: true,
-                msg: "Saved.",
-                msgi18n: true,
-                id: dockerHostBean.id,
-            });
-
-        } catch (e) {
-            callback({
-                ok: false,
-                msg: e.message,
-            });
-        }
+        log.debug("docker", "Tentative d'utilisation du module Docker désactivé");
+        sendModuleDisabledMessage(callback);
     });
 
     socket.on("deleteDockerHost", async (dockerHostID, callback) => {
-        try {
-            checkLogin(socket);
-
-            await DockerHost.delete(dockerHostID, socket.userID);
-            await sendDockerHostList(socket);
-
-            callback({
-                ok: true,
-                msg: "successDeleted",
-                msgi18n: true,
-            });
-
-        } catch (e) {
-            callback({
-                ok: false,
-                msg: e.message,
-            });
-        }
+        log.debug("docker", "Tentative d'utilisation du module Docker désactivé");
+        sendModuleDisabledMessage(callback);
     });
 
     socket.on("testDockerHost", async (dockerHost, callback) => {
-        try {
-            checkLogin(socket);
-
-            let amount = await DockerHost.testDockerHost(dockerHost);
-            let msg;
-
-            if (amount >= 1) {
-                msg = "Connected Successfully. Amount of containers: " + amount;
-            } else {
-                msg = "Connected Successfully, but there are no containers?";
-            }
-
-            callback({
-                ok: true,
-                msg,
-            });
-
-        } catch (e) {
-            log.error("docker", e);
-
-            callback({
-                ok: false,
-                msg: e.message,
-            });
-        }
+        log.debug("docker", "Tentative d'utilisation du module Docker désactivé");
+        sendModuleDisabledMessage(callback);
+    });
+    
+    socket.on("getDockerHostList", async (callback) => {
+        log.debug("docker", "Tentative d'utilisation du module Docker désactivé");
+        callback({
+            ok: true,
+            dockerHostList: [],
+        });
     });
 };

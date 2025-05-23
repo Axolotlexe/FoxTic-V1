@@ -1,61 +1,36 @@
-const { checkLogin } = require("../util-server");
-const { Proxy } = require("../proxy");
-const { sendProxyList } = require("../client");
-const { FoxTicServer } = require("../foxtic-server");
-const server = FoxTicServer.getInstance();
+const { log } = require("../../src/util");
+const { disabledModules } = require("../config");
 
 /**
- * Handlers for proxy
+ * Handlers for proxy - DÉSACTIVÉS
+ * Module complètement désactivé pour optimiser les performances avec un grand nombre de sondes
  * @param {Socket} socket Socket.io instance
  * @returns {void}
  */
 module.exports.proxySocketHandler = (socket) => {
+    // Fonction désactivée pour optimisation des performances
+    const sendModuleDisabledMessage = (callback) => {
+        callback({
+            ok: false,
+            msg: "La fonctionnalité Proxy est désactivée pour optimiser les performances avec un grand nombre de sondes.",
+        });
+    };
+
     socket.on("addProxy", async (proxy, proxyID, callback) => {
-        try {
-            checkLogin(socket);
-
-            const proxyBean = await Proxy.save(proxy, proxyID, socket.userID);
-            await sendProxyList(socket);
-
-            if (proxy.applyExisting) {
-                await Proxy.reloadProxy();
-                await server.sendMonitorList(socket);
-            }
-
-            callback({
-                ok: true,
-                msg: "Saved.",
-                msgi18n: true,
-                id: proxyBean.id,
-            });
-
-        } catch (e) {
-            callback({
-                ok: false,
-                msg: e.message,
-            });
-        }
+        log.debug("proxy", "Tentative d'utilisation du module Proxy désactivé");
+        sendModuleDisabledMessage(callback);
     });
 
     socket.on("deleteProxy", async (proxyID, callback) => {
-        try {
-            checkLogin(socket);
-
-            await Proxy.delete(proxyID, socket.userID);
-            await sendProxyList(socket);
-            await Proxy.reloadProxy();
-
-            callback({
-                ok: true,
-                msg: "successDeleted",
-                msgi18n: true,
-            });
-
-        } catch (e) {
-            callback({
-                ok: false,
-                msg: e.message,
-            });
-        }
+        log.debug("proxy", "Tentative d'utilisation du module Proxy désactivé");
+        sendModuleDisabledMessage(callback);
+    });
+    
+    socket.on("getProxyList", async (callback) => {
+        log.debug("proxy", "Tentative d'utilisation du module Proxy désactivé");
+        callback({
+            ok: true,
+            proxyList: [],
+        });
     });
 };

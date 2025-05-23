@@ -11,12 +11,13 @@ const { R } = require("redbean-node");
 const { BeanModel } = require("redbean-node/dist/bean-model");
 const { Notification } = require("../notification");
 const { Proxy } = require("../proxy");
-const { demoMode } = require("../config");
+const { demoMode, disabledModules, performanceOptimizations } = require("../config");
 const version = require("../../package.json").version;
 const apicache = require("../modules/apicache");
 const { FoxTicServer } = require("../foxtic-server");
-const { DockerHost } = require("../docker");
-const Gamedig = require("gamedig");
+// Modules supprimés pour optimisation:
+// const { DockerHost } = require("../docker");
+// const Gamedig = require("gamedig");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const { FoxticUptimeCalculator } = require("../foxtic-calculator");
