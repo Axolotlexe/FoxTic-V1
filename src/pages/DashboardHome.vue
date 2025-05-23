@@ -9,6 +9,9 @@
                     {{ groupName }}
                 </h2>
             </div>
+            
+            <!-- Information sur le mode optimisé -->
+            <OptimizedModesInfo class="mb-3" v-if="showOptimizedInfo" />
 
             <!-- Mode De Vue Table Card et Filtres -->
             <div class="shadow-box mb-3">
@@ -197,6 +200,7 @@ import PingChart from "../components/PingChart.vue";
 import SimpleChart from "../components/SimpleChart.vue";
 import MonitorListFilter from "../components/MonitorListFilter.vue";
 import GridConfigDialog from "../components/GridConfigDialog.vue";
+import OptimizedModesInfo from "../components/OptimizedModesInfo.vue";
 import { websocketService } from "../services/websocket.js";
 
 export default {
@@ -208,6 +212,7 @@ export default {
         SimpleChart,
         MonitorListFilter,
         GridConfigDialog,
+        OptimizedModesInfo,
     },
     props: {
         calculatedHeight: {
@@ -241,6 +246,7 @@ export default {
             },
             showGridConfig: false, // Contrôle l'affichage de la fenêtre de configuration de la grille
             gridConfig: null, // Configuration de la grille (chargée depuis localStorage)
+            showOptimizedInfo: true, // Afficher l'information sur le mode optimisé
         };
     },
     computed: {

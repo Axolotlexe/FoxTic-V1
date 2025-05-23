@@ -21,7 +21,7 @@ class Database {
      * Boostrap database for SQLite
      * @type {string}
      */
-    static templatePath = "./db/kuma.db";
+    static templatePath = "./db/foxtic.db";
 
     /**
      * Data Dir (Default: ./data)

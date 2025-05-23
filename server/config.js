@@ -42,6 +42,33 @@ const disabledModules = {
     apiKeys: true,          // Désactiver la gestion des clés API
     remoteDevTools: true,   // Désactiver les outils de développement à distance
     browserRemote: true,    // Désactiver le support des navigateurs à distance
+    
+    // Types de sondes additionnels à désactiver
+    jsonRequest: true,      // Désactiver les sondes HTTP(s) - Requête JSON
+    grpcKeyword: true,      // Désactiver les sondes gRPC(s) - Mot-clé
+    browserEngine: true,    // Désactiver les sondes HTTP(s) - Browser Engine (Chrome/Chromium)
+    passiveMonitor: true,   // Désactiver le type de sonde passive
+    pushMonitor: true,      // Désactiver les sondes Push
+    
+    // IMPORTANT: Garder l'HTTP(s) Ping activé (false)
+    httpPing: false,        // NE PAS désactiver HTTP(s) Ping - Type principal de sonde
+    
+    // Sondes de base de données
+    mssqlMonitor: true,     // Désactiver Microsoft SQL Server
+    postgresqlMonitor: true, // Désactiver PostgreSQL
+    mysqlMonitor: true,     // Désactiver MySQL/MariaDB
+    mongodbMonitor: true,   // Désactiver MongoDB
+    
+    // Sondes de services spécifiques
+    radiusMonitor: true,    // Désactiver Radius
+    redisMonitor: true,     // Désactiver Redis
+    mqttMonitor: true,      // Désactiver MQTT
+    rabbitMQMonitor: true,  // Désactiver RabbitMQ
+    kafkaProducer: true,    // Désactiver Kafka Producer
+    
+    // Sondes de jeux
+    steamGameServer: true,  // Désactiver les serveurs de jeux Steam
+    gamedigMonitor: true,   // Désactiver GameDig
 };
 
 // Configuration pour optimiser les performances avec de nombreuses sondes (200+)
