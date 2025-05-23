@@ -12,7 +12,14 @@ const dayjs = require("dayjs");
 const childProcessAsync = require("promisify-child-process");
 const path = require("path");
 const axios = require("axios");
-const { isSSL, sslKey, sslCert, sslKeyPassphrase } = require("./config");
+const { 
+    isSSL, 
+    sslKey, 
+    sslCert, 
+    sslKeyPassphrase,
+    disabledModules,
+    performanceOptimizations
+} = require("./config");
 // DO NOT IMPORT HERE IF THE MODULES USED `FoxTicBackendServer.getInstance()`, put at the bottom of this file instead.
 
 /**

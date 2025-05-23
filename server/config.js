@@ -33,6 +33,28 @@ const localWebSocketURL = getLocalWebSocketURL();
 
 const demoMode = args["demo"] || false;
 
+// Configuration des modules à désactiver
+const disabledModules = {
+    docker: true,           // Désactiver la gestion des hôtes Docker
+    steamGameServer: true,  // Désactiver les moniteurs de serveurs de jeux Steam
+    reverseProxy: true,     // Désactiver le support de reverse proxy avancé
+    cloudflaredTunnel: true, // Désactiver le support des tunnels Cloudflare
+    apiKeys: true,          // Désactiver la gestion des clés API
+    remoteDevTools: true,   // Désactiver les outils de développement à distance
+    browserRemote: true,    // Désactiver le support des navigateurs à distance
+};
+
+// Configuration pour optimiser les performances avec de nombreuses sondes
+const performanceOptimizations = {
+    reduceLogging: true,             // Réduire le niveau de journalisation
+    increaseMonitorTimeout: 60000,   // Augmenter le délai d'expiration pour les moniteurs (ms)
+    socketPingInterval: 30000,       // Intervalle pour maintenir les connexions WebSocket (ms)
+    maxWebSocketClients: 10,         // Limiter le nombre de clients WebSocket simultanés
+    cacheTimeout: 300,               // Durée du cache (secondes)
+    maxConcurrentChecks: 30,         // Limite de vérifications simultanées
+    memoryOptimization: true,        // Activer les optimisations de mémoire
+};
+
 module.exports = {
     args,
     hostname,
@@ -43,4 +65,6 @@ module.exports = {
     isSSL,
     localWebSocketURL,
     demoMode,
+    disabledModules,
+    performanceOptimizations,
 };
