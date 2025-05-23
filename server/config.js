@@ -44,15 +44,21 @@ const disabledModules = {
     browserRemote: true,    // Désactiver le support des navigateurs à distance
 };
 
-// Configuration pour optimiser les performances avec de nombreuses sondes
+// Configuration pour optimiser les performances avec de nombreuses sondes (200+)
 const performanceOptimizations = {
     reduceLogging: true,             // Réduire le niveau de journalisation
-    increaseMonitorTimeout: 60000,   // Augmenter le délai d'expiration pour les moniteurs (ms)
+    increaseMonitorTimeout: 120000,  // Augmenter le délai d'expiration pour les moniteurs (ms) - doublé pour plus de robustesse
     socketPingInterval: 30000,       // Intervalle pour maintenir les connexions WebSocket (ms)
-    maxWebSocketClients: 10,         // Limiter le nombre de clients WebSocket simultanés
-    cacheTimeout: 300,               // Durée du cache (secondes)
-    maxConcurrentChecks: 30,         // Limite de vérifications simultanées
+    maxWebSocketClients: 5,          // Réduit pour éviter la surcharge de connexions simultanées
+    cacheTimeout: 600,               // Durée du cache augmentée (secondes)
+    maxConcurrentChecks: 20,         // Limite de vérifications simultanées - ajustée pour éviter les saturations
     memoryOptimization: true,        // Activer les optimisations de mémoire
+    batchUpdates: true,              // Regrouper les mises à jour multiples
+    heartbeatLimit: 100,             // Limiter le nombre de battements de cœur stockés par moniteur
+    checkDelay: true,                // Ajouter un délai léger entre les vérifications pour éviter les pics de charge
+    reduceHistorySize: true,         // Réduire la taille de l'historique pour les installations avec beaucoup de sondes
+    compressResponses: true,         // Compresser les réponses volumineuses
+    incrementalLoading: true         // Charger les données de manière incrémentale dans l'interface
 };
 
 module.exports = {

@@ -2,28 +2,24 @@
 
 ## Reporting a Vulnerability
 
-1. Please report security issues to
-   <https://github.com/louislam/uptime-kuma/security/advisories/new>.
-2. Please also create an empty security issue to alert me, as GitHub Advisories
-   do not send a notification, I probably will miss it without this.
-   <https://github.com/louislam/uptime-kuma/issues/new?assignees=&labels=help&template=security.md>
+1. Veuillez signaler les problèmes de sécurité à travers notre système de rapports interne.
+2. Pour les problèmes urgents, créez également un ticket vide pour nous alerter, 
+   car certains systèmes n'envoient pas de notification.
 
-Do not use the public issue tracker or discuss it in public as it will cause
-more damage.
+N'utilisez pas le système public de suivi des problèmes et ne discutez pas publiquement 
+des vulnérabilités car cela pourrait causer plus de dommages.
 
-## Do you accept other 3rd-party bug bounty platforms?
+## Acceptez-vous d'autres plateformes de primes aux bugs tierces ?
 
-At this moment, I DO NOT accept other bug bounty platforms, because I am not
-familiar with these platforms and someone has tried to send a phishing link to
-me by doing this already. To minimize my own risk, please report through GitHub
-Advisories only. I will ignore all 3rd-party bug bounty platforms emails.
+Pour le moment, nous N'acceptons PAS d'autres plateformes de primes aux bugs, afin de 
+minimiser les risques. Veuillez signaler uniquement via notre système officiel.
 
-## Supported Versions
+## Versions supportées
 
-### Uptime Kuma Versions
+### Versions de FoxTic
 
-You should use or upgrade to the latest version of Uptime Kuma. All `1.X.X`
-versions are upgradable to the latest version.
+Vous devriez utiliser ou mettre à niveau vers la dernière version de FoxTic. Toutes les versions 
+`1.X.X` peuvent être mises à niveau vers la dernière version.
 
 ### Upgradable Docker Tags
 
