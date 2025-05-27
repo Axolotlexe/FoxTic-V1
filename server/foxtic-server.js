@@ -12,14 +12,7 @@ const dayjs = require("dayjs");
 const childProcessAsync = require("promisify-child-process");
 const path = require("path");
 const axios = require("axios");
-const { 
-    isSSL, 
-    sslKey, 
-    sslCert, 
-    sslKeyPassphrase,
-    disabledModules,
-    performanceOptimizations
-} = require("./config");
+const { isSSL, sslKey, sslCert, sslKeyPassphrase } = require("./config");
 // DO NOT IMPORT HERE IF THE MODULES USED `FoxTicBackendServer.getInstance()`, put at the bottom of this file instead.
 
 /**
@@ -153,7 +146,7 @@ class FoxTicBackendServer {
                 if (transport === "polling") {
                     callback(null, true);
                 } else if (transport === "websocket") {
-                    const bypass = process.env.FOXTIC_WS_ORIGIN_CHECK === "bypass" || process.env.UPTIME_KUMA_WS_ORIGIN_CHECK === "bypass";
+                    const bypass = process.env.UPTIME_KUMA_WS_ORIGIN_CHECK === "bypass";
                     if (bypass) {
                         log.info("auth", "WebSocket origin check is bypassed");
                         callback(null, true);
@@ -487,7 +480,7 @@ class FoxTicBackendServer {
      * @returns {void}
      */
     async startNSCDServices() {
-        if (process.env.FOXTIC_IS_CONTAINER || process.env.UPTIME_KUMA_IS_CONTAINER) {
+        if (process.env.UPTIME_KUMA_IS_CONTAINER) {
             try {
                 log.info("services", "Starting nscd");
                 await childProcessAsync.exec("sudo service nscd start");
@@ -543,7 +536,8 @@ class FoxTicBackendServer {
 
 module.exports = {
     UptimeKumaServer: FoxTicBackendServer, // Legacy alias, to be removed after complete migration
-    FoxTicServer: FoxTicBackendServer
+    FoxTicServer: FoxTicBackendServer, // Alias for compatibility, to be removed after complete migration
+    FoxTicBackendServer
 };
 
 // Must be at the end to avoid circular dependencies
