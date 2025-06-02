@@ -2,31 +2,18 @@ const { log } = require("../../src/util");
 const { Settings } = require("../settings");
 const { sendInfo } = require("../client");
 const { checkLogin } = require("../util-server");
-const GameResolver = require("gamedig/lib/GameResolver");
-const { testChrome } = require("../monitor-types/real-browser-monitor-type");
+// Modules GameDig et real-browser supprimés pour optimisation FoxTic
 const fs = require("fs");
 const path = require("path");
 
-let gameResolver = new GameResolver();
+// GameResolver supprimé pour optimisation FoxTic
 let gameList = null;
 
 /**
- * Get a game list via GameDig
- * @returns {object[]} list of games supported by GameDig
+ * GameDig supprimé pour optimisation FoxTic
  */
 function getGameList() {
-    if (gameList == null) {
-        gameList = gameResolver._readGames().games.sort((a, b) => {
-            if ( a.pretty < b.pretty ) {
-                return -1;
-            }
-            if ( a.pretty > b.pretty ) {
-                return 1;
-            }
-            return 0;
-        });
-    }
-    return gameList;
+    return []; // Liste vide car GameDig désactivé
 }
 
 /**

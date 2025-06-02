@@ -140,7 +140,7 @@ const { statusPageSocketHandler } = require("./socket-handlers/status-page-socke
 const groupSocketHandler = require("./socket-handlers/group-socket-handler");
 const TwoFA = require("./2fa");
 const StatusPage = require("./model/status_page");
-const { cloudflaredSocketHandler, autoStart: cloudflaredAutoStart, stop: cloudflaredStop } = require("./socket-handlers/cloudflared-socket-handler");
+// Module cloudflared supprimé pour optimisation FoxTic
 // const { proxySocketHandler } = require("./socket-handlers/proxy-socket-handler");
 // const { dockerSocketHandler } = require("./socket-handlers/docker-socket-handler");
 // Maintenance socket handler removed
@@ -1572,8 +1572,8 @@ let needSetup = false;
 
         // Status Page Socket Handler for admin only
         statusPageSocketHandler(socket);
-        cloudflaredSocketHandler(socket);
-        databaseSocketHandler(socket);
+        // cloudflaredSocketHandler supprimé pour optimisation FoxTic
+        // databaseSocketHandler supprimé pour optimisation FoxTic
         // proxySocketHandler(socket);
         // dockerSocketHandler(socket);
         // Maintenance socket handler removed
