@@ -650,7 +650,17 @@ class Database {
             });
 
         for (let statement of statements) {
-            await R.exec(statement);
+            try {
+                await R.exec(statement);
+            } catch (error) {
+                // Handle common migration conflicts for FoxTic optimization
+                if (error.message.includes("duplicate column name") || 
+                    error.message.includes("already exists")) {
+                    log.warn("db", `Skipping duplicate operation: ${error.message}`);
+                    continue;
+                }
+                throw error;
+            }
         }
     }
 
