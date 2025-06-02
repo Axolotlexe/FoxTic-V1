@@ -202,6 +202,7 @@ import MonitorListFilter from "../components/MonitorListFilter.vue";
 import GridConfigDialog from "../components/GridConfigDialog.vue";
 import OptimizedModesInfo from "../components/OptimizedModesInfo.vue";
 import { websocketService } from "../services/websocket.js";
+import soundManager from '../components/SoundManager.js';
 
 export default {
     components: {
@@ -484,6 +485,17 @@ export default {
                 
                 if (message.type === 'status_update') {
                     console.log("Mise à jour de statut reçue via WebSocket");
+                    
+                    // Déclencher les notifications sonores pour les changements de statut
+                    if (message.data && message.data.monitor) {
+                        const monitor = message.data.monitor;
+                        const heartbeat = message.data.heartbeat;
+                        
+                        if (heartbeat && heartbeat.status !== undefined) {
+                            const status = heartbeat.status === 1 ? "up" : "down";
+                            soundManager.playNotificationSound(status);
+                        }
+                    }
                     
                     // Mettre à jour la liste des moniteurs si c'est une mise à jour de statut
                     if (message.data && message.data.monitors) {

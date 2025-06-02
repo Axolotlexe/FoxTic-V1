@@ -36,6 +36,7 @@ const Security = () => import("./components/settings/Security.vue");
 import Proxies from "./components/settings/Proxies.vue";
 import About from "./components/settings/About.vue";
 import RemoteBrowsers from "./components/settings/RemoteBrowsers.vue";
+import NotificationSounds from "./components/settings/NotificationSounds.vue";
 
 const routes = [
     {
@@ -160,6 +161,10 @@ const routes = [
                             {
                                 path: "about",
                                 component: About,
+                            },
+                            {
+                                path: "notification-sounds",
+                                component: NotificationSounds,
                             },
                         ]
                     },

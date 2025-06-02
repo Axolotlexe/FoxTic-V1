@@ -92,6 +92,9 @@ export default {
                 notifications: {
                     title: this.$t("Notifications"),
                 },
+                "notification-sounds": {
+                    title: this.$t("Notification Sound Library"),
+                },
                 "monitor-history": {
                     title: this.$t("Monitor History"),
                 },
