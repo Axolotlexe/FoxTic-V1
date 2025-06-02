@@ -4,7 +4,7 @@ const { setSetting, setting } = require("./util-server");
 const { log, sleep } = require("../src/util");
 const knex = require("knex");
 const path = require("path");
-const { EmbeddedMariaDB } = require("./embedded-mariadb");
+// Module EmbeddedMariaDB supprimé pour optimisation FoxTic
 const mysql = require("mysql2/promise");
 const { Settings } = require("./settings");
 const { FoxticUptimeCalculator } = require("./foxtic-calculator");
@@ -289,26 +289,8 @@ class Database {
                 pool: mariadbPoolConfig,
             };
         } else if (dbConfig.type === "embedded-mariadb") {
-            let embeddedMariaDB = EmbeddedMariaDB.getInstance();
-            await embeddedMariaDB.start();
-            log.info("mariadb", "Embedded MariaDB started");
-            config = {
-                client: "mysql2",
-                connection: {
-                    socketPath: embeddedMariaDB.socketPath,
-                    user: embeddedMariaDB.username,
-                    database: "kuma",
-                    timezone: "Z",
-                    typeCast: function (field, next) {
-                        if (field.type === "DATETIME") {
-                            // Do not perform timezone conversion
-                            return field.string();
-                        }
-                        return next();
-                    },
-                },
-                pool: mariadbPoolConfig,
-            };
+            // Module EmbeddedMariaDB désactivé pour optimisation FoxTic
+            throw new Error("Embedded MariaDB désactivé - utilisez SQLite pour FoxTic");
         } else {
             throw new Error("Unknown Database type: " + dbConfig.type);
         }

@@ -149,8 +149,7 @@ const { cloudflaredSocketHandler, autoStart: cloudflaredAutoStart, stop: cloudfl
 const { generalSocketHandler } = require("./socket-handlers/general-socket-handler");
 const { Settings } = require("./settings");
 const apicache = require("./modules/apicache");
-const { resetChrome } = require("./monitor-types/real-browser-monitor-type");
-const { EmbeddedMariaDB } = require("./embedded-mariadb");
+// Modules supprimés pour optimisation FoxTic
 const { SetupDatabase } = require("./setup-database");
 const { chartSocketHandler } = require("./socket-handlers/chart-socket-handler");
 

@@ -91,11 +91,10 @@ class SetupDatabase {
     }
 
     /**
-     * Check if the embedded MariaDB is enabled
-     * @returns {boolean} true if the embedded MariaDB is enabled
+     * Module EmbeddedMariaDB désactivé pour optimisation FoxTic
      */
     isEnabledEmbeddedMariaDB() {
-        return process.env.FOXTIC_ENABLE_EMBEDDED_MARIADB === "1" || process.env.UPTIME_KUMA_ENABLE_EMBEDDED_MARIADB === "1";
+        return false; // Toujours désactivé pour FoxTic
     }
 
     /**

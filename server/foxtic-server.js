@@ -541,10 +541,6 @@ module.exports = {
 };
 
 // Must be at the end to avoid circular dependencies
-// Only include monitor types for physical hardware and websites
-const { RealBrowserMonitorType } = require("./monitor-types/real-browser-monitor-type");
-const { TailscalePing } = require("./monitor-types/tailscale-ping");
-const { DnsMonitorType } = require("./monitor-types/dns");
+// Only HTTP(s) Ping monitor type for FoxTic optimization
 const { GroupMonitorType } = require("./monitor-types/group");
-const { SNMPMonitorType } = require("./monitor-types/snmp");
 const Monitor = require("./model/monitor");

@@ -162,94 +162,11 @@ exports.pingAsync = function (hostname, ipv6 = false, size = 56) {
 };
 
 /**
- * Monitor Kafka using Producer
- * @param {string[]} brokers List of kafka brokers to connect, host and
- * port joined by ':'
- * @param {string} topic Topic name to produce into
- * @param {string} message Message to produce
- * @param {object} options Kafka client options. Contains ssl, clientId,
- * allowAutoTopicCreation and interval (interval defaults to 20,
- * allowAutoTopicCreation defaults to false, clientId defaults to
- * "Uptime-Kuma" and ssl defaults to false)
- * @param {SASLOptions} saslOptions Options for kafka client
- * Authentication (SASL) (defaults to {})
- * @returns {Promise<string>} Status message
+ * Fonction Kafka supprimée pour optimisation FoxTic
+ * Module désactivé dans la configuration pour améliorer les performances
  */
-exports.kafkaProducerAsync = function (brokers, topic, message, options = {}, saslOptions = {}) {
-    return new Promise((resolve, reject) => {
-        const { interval = 20, allowAutoTopicCreation = false, ssl = false, clientId = "Uptime-Kuma" } = options;
-
-        let connectedToKafka = false;
-
-        const timeoutID = setTimeout(() => {
-            log.debug("kafkaProducer", "KafkaProducer timeout triggered");
-            connectedToKafka = true;
-            reject(new Error("Timeout"));
-        }, interval * 1000 * 0.8);
-
-        if (saslOptions.mechanism === "None") {
-            saslOptions = undefined;
-        }
-
-        let client = new Kafka({
-            brokers: brokers,
-            clientId: clientId,
-            sasl: saslOptions,
-            retry: {
-                retries: 0,
-            },
-            ssl: ssl,
-        });
-
-        let producer = client.producer({
-            allowAutoTopicCreation: allowAutoTopicCreation,
-            retry: {
-                retries: 0,
-            }
-        });
-
-        producer.connect().then(
-            () => {
-                producer.send({
-                    topic: topic,
-                    messages: [{
-                        value: message,
-                    }],
-                }).then((_) => {
-                    resolve("Message sent successfully");
-                }).catch((e) => {
-                    connectedToKafka = true;
-                    producer.disconnect();
-                    clearTimeout(timeoutID);
-                    reject(new Error("Error sending message: " + e.message));
-                }).finally(() => {
-                    connectedToKafka = true;
-                    clearTimeout(timeoutID);
-                });
-            }
-        ).catch(
-            (e) => {
-                connectedToKafka = true;
-                producer.disconnect();
-                clearTimeout(timeoutID);
-                reject(new Error("Error in producer connection: " + e.message));
-            }
-        );
-
-        producer.on("producer.network.request_timeout", (_) => {
-            if (!connectedToKafka) {
-                clearTimeout(timeoutID);
-                reject(new Error("producer.network.request_timeout"));
-            }
-        });
-
-        producer.on("producer.disconnect", (_) => {
-            if (!connectedToKafka) {
-                clearTimeout(timeoutID);
-                reject(new Error("producer.disconnect"));
-            }
-        });
-    });
+exports.kafkaProducerAsync = function () {
+    return Promise.reject(new Error("Module Kafka désactivé pour optimisation des performances"));
 };
 
 /**
@@ -429,87 +346,17 @@ exports.mysqlQuery = function (connectionString, query, password = undefined) {
 };
 
 /**
- * Query radius server
- * @param {string} hostname Hostname of radius server
- * @param {string} username Username to use
- * @param {string} password Password to use
- * @param {string} calledStationId ID of called station
- * @param {string} callingStationId ID of calling station
- * @param {string} secret Secret to use
- * @param {number} port Port to contact radius server on
- * @param {number} timeout Timeout for connection to use
- * @returns {Promise<any>} Response from server
+ * Module Radius supprimé pour optimisation FoxTic
  */
-exports.radius = function (
-    hostname,
-    username,
-    password,
-    calledStationId,
-    callingStationId,
-    secret,
-    port = 1812,
-    timeout = 2500,
-) {
-    const client = radiusClient.createClient({
-        host: hostname,
-        hostPort: port,
-        timeout: timeout,
-        retries: 1
-    });
-
-    return client.accessRequest({
-        secret: secret,
-        attributes: [
-            [ attributes.USER_NAME, username ],
-            [ attributes.USER_PASSWORD, password ],
-            [ attributes.CALLING_STATION_ID, callingStationId ],
-            [ attributes.CALLED_STATION_ID, calledStationId ],
-        ],
-    }).catch((error) => {
-        if (error.response?.code) {
-            throw Error(error.response.code);
-        } else {
-            throw Error(error.message);
-        }
-    });
+exports.radius = function () {
+    return Promise.reject(new Error("Module Radius désactivé pour optimisation des performances"));
 };
 
 /**
- * Redis server ping
- * @param {string} dsn The redis connection string
- * @param {boolean} rejectUnauthorized If false, allows unverified server certificates.
- * @returns {Promise<any>} Response from server
+ * Module Redis supprimé pour optimisation FoxTic
  */
-exports.redisPingAsync = function (dsn, rejectUnauthorized) {
-    return new Promise((resolve, reject) => {
-        const client = redis.createClient({
-            url: dsn,
-            socket: {
-                rejectUnauthorized
-            }
-        });
-        client.on("error", (err) => {
-            if (client.isOpen) {
-                client.disconnect();
-            }
-            reject(err);
-        });
-        client.connect().then(() => {
-            if (!client.isOpen) {
-                client.emit("error", new Error("connection isn't open"));
-            }
-            client.ping().then((res, err) => {
-                if (client.isOpen) {
-                    client.disconnect();
-                }
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(res);
-                }
-            }).catch(error => reject(error));
-        });
-    });
+exports.redisPingAsync = function () {
+    return Promise.reject(new Error("Module Redis désactivé pour optimisation des performances"));
 };
 
 /**
