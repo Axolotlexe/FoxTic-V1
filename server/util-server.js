@@ -15,19 +15,13 @@ const { NtlmClient } = require("./modules/axios-ntlm/lib/ntlmClient.js");
 const { Settings } = require("./settings");
 const grpc = require("@grpc/grpc-js");
 const protojs = require("protobufjs");
-// Utilisation de notre client RADIUS sécurisé au lieu de la bibliothèque vulnérable
-const radiusClient = require("./secure-radius-client");
-const redis = require("redis");
 const oidc = require("openid-client");
 const tls = require("tls");
-
-// Utiliser nos propres définitions d'attributs RADIUS
-const attributes = radiusClient.attributes;
 const dayjs = require("dayjs");
 
 // SASLOptions used in JSDoc
 // eslint-disable-next-line no-unused-vars
-const { Kafka, SASLOptions } = require("kafkajs");
+// Module Kafka supprimé pour optimisation
 const crypto = require("crypto");
 
 const isWindows = process.platform === /^win/.test(process.platform);
