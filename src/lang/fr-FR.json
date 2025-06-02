@@ -761,9 +761,6 @@
     "lunaseaDeviceID": "Identifiant de l'appareil",
     "lunaseaUserID": "Identifiant de l'utilisateur",
     "Add New Tag": "Ajouter une étiquette",
-    
-    // === BIBLIOTHEQUE SONS NOTIFICATION - Traductions françaises ===
-    // Interface de configuration des alertes audio pour changements d'état moniteurs
     "Notification Sound Library": "Bibliothèque de sons de notification",
     "Current Sound Settings": "Paramètres de son actuels",
     "Sound for Monitor Down": "Son pour sonde hors ligne",
@@ -784,7 +781,6 @@
     "Sound uploaded successfully": "Son téléchargé avec succès",
     "Failed to upload sound": "Échec du téléchargement du son",
     "Are you sure you want to delete this sound?": "Êtes-vous sûr de vouloir supprimer ce son ?",
-    // === FIN BIBLIOTHEQUE SONS ===
     "lunaseaTarget": "Cible",
     "statusPageRefreshIn": "Actualisation dans : {0}",
     "twilioFromNumber": "Du Nombre",
