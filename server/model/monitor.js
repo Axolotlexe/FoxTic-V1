@@ -468,19 +468,7 @@ class Monitor extends BeanModel {
                         };
                     }
 
-                    if (this.proxy_id) {
-                        const proxy = await R.load("proxy", this.proxy_id);
-
-                        if (proxy && proxy.active) {
-                            const { httpAgent, httpsAgent } = Proxy.createAgents(proxy, {
-                                httpsAgentOptions: httpsAgentOptions,
-                            });
-
-                            options.proxy = false;
-                            options.httpAgent = httpAgent;
-                            options.httpsAgent = httpsAgent;
-                        }
-                    }
+                    // Module Proxy désactivé pour optimisation FoxTic
 
                     if (!options.httpsAgent) {
                         let jar = new CookieJar();

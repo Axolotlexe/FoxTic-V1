@@ -135,7 +135,7 @@ const testMode = !!args["test"] || false;
 const client = require("./client");
 const { sendNotificationList, sendHeartbeatList, sendInfo, sendMonitorTypeList } = client;
 const { statusPageSocketHandler } = require("./socket-handlers/status-page-socket-handler");
-const { databaseSocketHandler } = require("./socket-handlers/database-socket-handler");
+// Module database-socket-handler supprimé pour optimisation FoxTic
 // const { remoteBrowserSocketHandler } = require("./socket-handlers/remote-browser-socket-handler");
 const groupSocketHandler = require("./socket-handlers/group-socket-handler");
 const TwoFA = require("./2fa");

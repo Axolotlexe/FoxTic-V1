@@ -107,13 +107,9 @@ class FoxTicBackendServer {
             }
         }
 
-        // Set Monitor Types - Only include types for physical hardware and websites monitoring
+        // Set Monitor Types - Only Group for FoxTic optimization
         try {
-            FoxTicBackendServer.monitorTypeList["real-browser"] = new RealBrowserMonitorType();
-            FoxTicBackendServer.monitorTypeList["tailscale-ping"] = new TailscalePing();
-            FoxTicBackendServer.monitorTypeList["dns"] = new DnsMonitorType();
             FoxTicBackendServer.monitorTypeList["group"] = new GroupMonitorType();
-            FoxTicBackendServer.monitorTypeList["snmp"] = new SNMPMonitorType();
         } catch (e) {
             console.error("Error initializing monitor types:", e);
             // Continue with partial initialization if some types fail
