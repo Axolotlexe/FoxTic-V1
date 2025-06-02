@@ -436,20 +436,14 @@ export default {
     },
 
     methods: {
-        /**
-         * Initialise la connexion WebSocket
-         * @returns {void}
-         */
+        /** Initialise WebSocket avec écouteurs et gestion d'erreurs */
         initWebSocket() {
-            // Ajouter les écouteurs d'événements WebSocket
             websocketService.on('message', this.handleWebSocketMessage);
             websocketService.on('open', this.handleWebSocketOpen);
             
-            // Établir la connexion de manière sécurisée
             const connectPromise = websocketService.connect();
             if (connectPromise && typeof connectPromise.catch === 'function') {
                 connectPromise.catch(error => {
-                    // En mode développement uniquement, on affiche l'erreur complète
                     if (process.env.NODE_ENV === 'development') {
                         console.error("Erreur de connexion WebSocket:", error);
                     }
@@ -457,15 +451,10 @@ export default {
             }
         },
         
-        /**
-         * Gère l'événement d'ouverture de la connexion WebSocket
-         * @param {Event} event - Événement d'ouverture
-         * @returns {void}
-         */
+        /** Demande statut initial à l'ouverture WebSocket */
         handleWebSocketOpen(event) {
             console.log("WebSocket connecté, demande de mise à jour de statut");
             
-            // Envoyer une demande de statut initial
             websocketService.send(JSON.stringify({
                 type: 'request_status',
                 data: {
@@ -474,10 +463,9 @@ export default {
             }));
         },
         
-        /**
-         * Gère les messages reçus via WebSocket
-         * @param {string} data - Message reçu
-         * @returns {void}
+        /** 
+         * Traite les messages WebSocket et déclenche notifications sonores
+         * Integration: soundManager pour lecture automatique selon statut moniteur
          */
         handleWebSocketMessage(data) {
             try {
@@ -486,7 +474,7 @@ export default {
                 if (message.type === 'status_update') {
                     console.log("Mise à jour de statut reçue via WebSocket");
                     
-                    // Déclencher les notifications sonores pour les changements de statut
+                    // Notification sonore automatique pour changements statut
                     if (message.data && message.data.monitor) {
                         const monitor = message.data.monitor;
                         const heartbeat = message.data.heartbeat;
@@ -497,7 +485,6 @@ export default {
                         }
                     }
                     
-                    // Mettre à jour la liste des moniteurs si c'est une mise à jour de statut
                     if (message.data && message.data.monitors) {
                         this.$root.emitter.emit("monitorListUpdated");
                     }

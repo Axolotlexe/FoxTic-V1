@@ -1,5 +1,7 @@
 /**
- * Gestionnaire de sons pour les notifications FoxTic
+ * SoundManager - Gestionnaire central des notifications sonores FoxTic
+ * Gère la lecture automatique des sons lors des changements d'état des moniteurs
+ * Stockage local des préférences utilisateur et support des sons personnalisés
  */
 class SoundManager {
     constructor() {
@@ -8,6 +10,7 @@ class SoundManager {
         this.initAudioContext();
     }
 
+    /** Charge les paramètres depuis localStorage avec valeurs par défaut */
     loadSettings() {
         const defaultSettings = {
             enabled: true,
@@ -20,10 +23,12 @@ class SoundManager {
         return saved ? { ...defaultSettings, ...JSON.parse(saved) } : defaultSettings;
     }
 
+    /** Sauvegarde les paramètres dans localStorage */
     saveSettings() {
         localStorage.setItem("foxtic-sound-settings", JSON.stringify(this.settings));
     }
 
+    /** Initialise le contexte audio pour la génération de sons */
     initAudioContext() {
         try {
             this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -32,15 +37,21 @@ class SoundManager {
         }
     }
 
+    /** Met à jour et sauvegarde les nouveaux paramètres */
     updateSettings(newSettings) {
         this.settings = { ...this.settings, ...newSettings };
         this.saveSettings();
     }
 
+    /** Vérifie si les notifications sonores sont activées */
     isEnabled() {
         return this.settings.enabled;
     }
 
+    /** 
+     * Joue automatiquement le son approprié selon l'état du moniteur
+     * @param {string} monitorStatus - "up" ou "down" 
+     */
     async playNotificationSound(monitorStatus) {
         if (!this.settings.enabled) return;
 
@@ -58,6 +69,7 @@ class SoundManager {
         }
     }
 
+    /** Retourne le chemin du fichier pour les sons prédéfinis ou personnalisés */
     getSoundFile(soundId) {
         const soundMap = {
             "alert": "/sounds/alert.mp3"
@@ -66,20 +78,22 @@ class SoundManager {
         return soundMap[soundId] || this.getCustomSoundFile(soundId);
     }
 
+    /** Vérifie si le son est généré programmatiquement */
     isGeneratedSound(soundId) {
         const generatedSounds = ["beep", "chime", "success", "warning"];
         return generatedSounds.includes(soundId);
     }
 
+    /** Récupère les sons personnalisés depuis localStorage */
     getCustomSoundFile(soundId) {
         const customSounds = JSON.parse(localStorage.getItem("foxtic-custom-sounds") || "[]");
         const sound = customSounds.find(s => s.id === soundId);
         return sound ? sound.file : null;
     }
 
+    /** Joue un fichier audio avec gestion du volume et des erreurs */
     async playSound(soundFile) {
         try {
-            // Reprendre le contexte audio si nécessaire
             if (this.audioContext && this.audioContext.state === 'suspended') {
                 await this.audioContext.resume();
             }
@@ -97,6 +111,7 @@ class SoundManager {
         }
     }
 
+    /** Test d'un son spécifique pour l'interface utilisateur */
     testSound(soundId) {
         const soundFile = this.getSoundFile(soundId);
         if (soundFile) {

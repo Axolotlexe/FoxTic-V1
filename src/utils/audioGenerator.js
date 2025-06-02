@@ -1,14 +1,15 @@
 /**
- * Générateur de sons audio pour FoxTic
- * Crée des sons de notification programmatiquement
+ * AudioGenerator - Générateur de sons de notification programmatiques
+ * Utilise Web Audio API pour créer des sons sans fichiers audio
+ * Types disponibles: beep, chime, success, warning
  */
-
 class AudioGenerator {
     constructor() {
         this.audioContext = null;
         this.initAudioContext();
     }
 
+    /** Initialise le contexte Web Audio API */
     initAudioContext() {
         try {
             this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -17,7 +18,11 @@ class AudioGenerator {
         }
     }
 
-    // Génère un son de bip simple
+    /** 
+     * Génère un bip simple avec oscillateur sinusoïdal
+     * @param {number} frequency - Fréquence en Hz (défaut: 800)
+     * @param {number} duration - Durée en secondes (défaut: 0.3)
+     */
     generateBeep(frequency = 800, duration = 0.3) {
         if (!this.audioContext) return null;
 
@@ -40,13 +45,10 @@ class AudioGenerator {
         return { oscillator, gainNode };
     }
 
-    // Génère un carillon (notes multiples)
+    /** Séquence de carillon harmonique (C5, E5, G5) */
     generateChime() {
         if (!this.audioContext) return;
-
-        const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
-        const startTime = this.audioContext.currentTime;
-
+        const notes = [523.25, 659.25, 783.99];
         notes.forEach((frequency, index) => {
             setTimeout(() => {
                 this.generateBeep(frequency, 0.4);
@@ -54,11 +56,10 @@ class AudioGenerator {
         });
     }
 
-    // Génère un son de succès (montant)
+    /** Mélodie ascendante pour succès (A4, C#5, E5) */
     generateSuccess() {
         if (!this.audioContext) return;
-
-        const frequencies = [440, 554.37, 659.25]; // A4, C#5, E5
+        const frequencies = [440, 554.37, 659.25];
         frequencies.forEach((freq, index) => {
             setTimeout(() => {
                 this.generateBeep(freq, 0.2);
@@ -66,10 +67,9 @@ class AudioGenerator {
         });
     }
 
-    // Génère un son d'avertissement (oscillant)
+    /** Alternance haute/basse pour avertissement */
     generateWarning() {
         if (!this.audioContext) return;
-
         for (let i = 0; i < 3; i++) {
             setTimeout(() => {
                 this.generateBeep(800, 0.2);
@@ -80,7 +80,10 @@ class AudioGenerator {
         }
     }
 
-    // Joue un son généré
+    /** 
+     * Joue le son demandé après reprise du contexte audio
+     * @param {string} type - Type de son: beep, chime, success, warning
+     */
     async playGeneratedSound(type) {
         if (!this.audioContext) return;
 

@@ -36,6 +36,7 @@ const Security = () => import("./components/settings/Security.vue");
 import Proxies from "./components/settings/Proxies.vue";
 import About from "./components/settings/About.vue";
 import RemoteBrowsers from "./components/settings/RemoteBrowsers.vue";
+// Bibliothèque de sons de notification - Interface de configuration des alertes audio
 import NotificationSounds from "./components/settings/NotificationSounds.vue";
 
 const routes = [
@@ -163,6 +164,9 @@ const routes = [
                                 component: About,
                             },
                             {
+                                // Route: /settings/notification-sounds
+                                // Interface complète de gestion des sons de notification
+                                // Fonctionnalités: configuration, upload, test, gestion volume
                                 path: "notification-sounds",
                                 component: NotificationSounds,
                             },

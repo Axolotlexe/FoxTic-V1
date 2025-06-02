@@ -1,14 +1,20 @@
+<!--
+NotificationSoundLibrary.vue - Composant legacy de configuration des sons
+IMPORTANT: Ce composant est remplacé par src/components/settings/NotificationSounds.vue
+Gardé pour compatibilité mais non utilisé dans l'interface principale
+-->
 <template>
     <div class="notification-sound-library">
         <h4 class="mb-3">{{ $t("Notification Sound Library") }}</h4>
         
-        <!-- Current Sound Settings -->
+        <!-- Section configuration principale des sons -->
         <div class="card mb-4">
             <div class="card-header">
                 <h5>{{ $t("Current Sound Settings") }}</h5>
             </div>
             <div class="card-body">
                 <div class="row">
+                    <!-- Sélecteur son pour moniteur hors ligne -->
                     <div class="col-md-6">
                         <label class="form-label">{{ $t("Sound for Monitor Down") }}</label>
                         <select v-model="settings.downSound" class="form-select">
@@ -18,6 +24,7 @@
                             </option>
                         </select>
                     </div>
+                    <!-- Sélecteur son pour moniteur en ligne -->
                     <div class="col-md-6">
                         <label class="form-label">{{ $t("Sound for Monitor Up") }}</label>
                         <select v-model="settings.upSound" class="form-select">

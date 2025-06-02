@@ -158,16 +158,31 @@
 <script>
 import soundManager from "../SoundManager.js";
 
+/**
+ * NotificationSounds - Interface de configuration des sons de notification
+ * 
+ * Fonctionnalités principales:
+ * - Configuration sons pour moniteurs UP/DOWN
+ * - Contrôle volume et activation/désactivation
+ * - Bibliothèque de 5 sons intégrés
+ * - Upload et gestion de sons personnalisés
+ * - Test en temps réel des sons
+ * 
+ * Stockage: localStorage pour paramètres et sons personnalisés
+ * Integration: soundManager pour lecture automatique
+ */
 export default {
     name: "NotificationSounds",
     data() {
         return {
+            // Paramètres principaux avec valeurs par défaut
             settings: {
                 enabled: true,
                 downSound: "alert",
                 upSound: "success",
                 volume: 70
             },
+            // Sons disponibles: prédéfinis + personnalisés
             availableSounds: [
                 {
                     id: "alert",
@@ -178,7 +193,7 @@ export default {
                 },
                 {
                     id: "beep",
-                    name: "Bip",
+                    name: "Bip", 
                     description: "Son de bip simple",
                     generated: true,
                     custom: false
@@ -186,7 +201,7 @@ export default {
                 {
                     id: "chime",
                     name: "Carillon",
-                    description: "Son de carillon agréable",
+                    description: "Son de carillon agréable", 
                     generated: true,
                     custom: false
                 },
@@ -205,6 +220,7 @@ export default {
                     custom: false
                 }
             ],
+            // État interface upload
             showUploadModal: false,
             uploadForm: {
                 name: "",
@@ -223,25 +239,30 @@ export default {
         this.loadCustomSounds();
     },
     methods: {
+        /** Charge les paramètres depuis soundManager */
         loadSettings() {
             this.settings = { ...this.settings, ...soundManager.settings };
         },
         
+        /** Sauvegarde via soundManager */
         saveSettings() {
             soundManager.updateSettings(this.settings);
         },
         
+        /** Charge sons personnalisés depuis localStorage et les ajoute à la liste */
         loadCustomSounds() {
             const customSounds = JSON.parse(localStorage.getItem("foxtic-custom-sounds") || "[]");
             this.availableSounds = this.availableSounds.filter(s => !s.custom);
             this.availableSounds.push(...customSounds);
         },
         
+        /** Sauvegarde uniquement les sons personnalisés dans localStorage */
         saveCustomSounds() {
             const customSounds = this.availableSounds.filter(s => s.custom);
             localStorage.setItem("foxtic-custom-sounds", JSON.stringify(customSounds));
         },
         
+        /** Test lecture d'un son (généré ou fichier) avec volume actuel */
         async testSound(sound) {
             if (sound.generated) {
                 const audioGenerator = await import('../../utils/audioGenerator.js');
@@ -253,6 +274,7 @@ export default {
             }
         },
         
+        /** Validation et stockage du fichier audio sélectionné */
         handleFileUpload(event) {
             const file = event.target.files[0];
             if (file && file.type.startsWith('audio/')) {
@@ -262,6 +284,7 @@ export default {
             }
         },
         
+        /** Upload et ajout d'un son personnalisé à la bibliothèque */
         async uploadCustomSound() {
             if (!this.canUpload) return;
             
@@ -287,6 +310,7 @@ export default {
             }
         },
         
+        /** Conversion fichier vers Data URL pour stockage localStorage */
         fileToDataUrl(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -296,6 +320,7 @@ export default {
             });
         },
         
+        /** Suppression d'un son personnalisé avec mise à jour des paramètres */
         deleteCustomSound(sound) {
             if (!sound.custom) return;
             
@@ -305,7 +330,7 @@ export default {
                     this.availableSounds.splice(index, 1);
                     this.saveCustomSounds();
                     
-                    // Mettre à jour les paramètres si ce son était sélectionné
+                    // Réinitialiser si ce son était configuré
                     if (this.settings.downSound === sound.id) {
                         this.settings.downSound = "";
                     }
@@ -317,6 +342,7 @@ export default {
             }
         },
         
+        /** Fermeture modal et reset formulaire */
         closeUploadModal() {
             this.showUploadModal = false;
             this.uploadForm = { name: "", description: "", file: null };
