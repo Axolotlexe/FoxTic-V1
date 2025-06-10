@@ -1,0 +1,48 @@
+2025-06-10T15:34:34+02:00 [FOXTIC-CALC] DEBUG: Remove old data
+2025-06-10T15:34:34+02:00 [MONITOR] DEBUG: [rca0370038rsw155.SR7-1.U2] Send to socket
+2025-06-10T15:34:34+02:00 [MONITOR] DEBUG: [rca0370038rsw155.SR7-1.U2] Store
+2025-06-10T15:34:34+02:00 [MONITOR] DEBUG: No clients in the room, no need to send stats
+2025-06-10T15:34:34+02:00 [MONITOR] DEBUG: [rca0370038rsw155.SR7-1.U2] prometheus.update
+2025-06-10T15:34:34+02:00 [MONITOR] DEBUG: [rca0370038rsw155.SR7-1.U2] SetTimeout for next check.
+2025-06-10T15:34:34+02:00 [MONITOR] DEBUG: [rca0370038rsw155.SR7-1.U2] Next heartbeat in: 59750ms
+2025-06-10T15:34:35+02:00 [MONITOR] DEBUG: [rca0370038rsw155.SR7-1.U3] Prepare Options for axios
+2025-06-10T15:34:35+02:00 [MONITOR] DEBUG: [rca0370038rsw155.SR7-1.U3] Axios Options: {"url":"http://example.org","method":"get","timeout":48000000,"headers":{"Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"},"maxRedirects":10,"signal":{},"httpsAgent":{"_events":{},"_eventsCount":2,"defaultPort":443,"protocol":"https:","options":{"maxCachedSessions":0,"rejectUnauthorized":true,"secureOptions":4,"cookies":{"jar":{"version":"tough-cookie@4.1.4","storeType":"MemoryCookieStore","rejectPublicSuffixes":true,"enableLooseMode":false,"allowSpecialUseDomain":true,"prefixSecurity":"silent","cookies":[]}},"noDelay":true,"path":null},"requests":{},"sockets":{},"freeSockets":{},"keepAliveMsecs":1000,"keepAlive":false,"maxSockets":null,"maxFreeSockets":256,"scheduling":"lifo","maxTotalSockets":null,"totalSocketCount":0,"maxCachedSessions":0,"_sessionCache":{"map":{},"list":[]}}}
+2025-06-10T15:34:35+02:00 [MONITOR] DEBUG: [rca0370038rsw155.SR7-1.U3] Axios Request
+2025-06-10T15:34:35+02:00 [MONITOR] DEBUG: [rca0370038rsw155.SR7-1.U3] Check isImportant
+2025-06-10T15:34:35+02:00 [MONITOR] DEBUG: Monitor #7 'rca0370038rsw155.SR7-1.U3': Successful Response: 151 ms | Interval: 60 seconds | Type: http
+2025-06-10T15:34:35+02:00 [FOXTIC-CALC] DEBUG: Remove old data
+2025-06-10T15:34:35+02:00 [MONITOR] DEBUG: [rca0370038rsw155.SR7-1.U3] Send to socket
+2025-06-10T15:34:35+02:00 [MONITOR] DEBUG: [rca0370038rsw155.SR7-1.U3] Store
+2025-06-10T15:34:35+02:00 [MONITOR] DEBUG: No clients in the room, no need to send stats
+2025-06-10T15:34:35+02:00 [MONITOR] DEBUG: [rca0370038rsw155.SR7-1.U3] prometheus.update
+2025-06-10T15:34:35+02:00 [MONITOR] DEBUG: [rca0370038rsw155.SR7-1.U3] SetTimeout for next check.
+2025-06-10T15:34:35+02:00 [MONITOR] DEBUG: [rca0370038rsw155.SR7-1.U3] Next heartbeat in: 59800ms
+2025-06-10T15:34:35+02:00 [MONITOR] DEBUG: [rca0370038rsw156.SR4-2.#] Prepare Options for axios
+2025-06-10T15:34:35+02:00 [MONITOR] DEBUG: [rca0370038rsw156.SR4-2.#] Axios Options: {"url":"http://example.org","method":"get","timeout":48000000,"headers":{"Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"},"maxRedirects":10,"signal":{},"httpsAgent":{"_events":{},"_eventsCount":2,"defaultPort":443,"protocol":"https:","options":{"maxCachedSessions":0,"rejectUnauthorized":true,"secureOptions":4,"cookies":{"jar":{"version":"tough-cookie@4.1.4","storeType":"MemoryCookieStore","rejectPublicSuffixes":true,"enableLooseMode":false,"allowSpecialUseDomain":true,"prefixSecurity":"silent","cookies":[]}},"noDelay":true,"path":null},"requests":{},"sockets":{},"freeSockets":{},"keepAliveMsecs":1000,"keepAlive":false,"maxSockets":null,"maxFreeSockets":256,"scheduling":"lifo","maxTotalSockets":null,"totalSocketCount":0,"maxCachedSessions":0,"_sessionCache":{"map":{},"list":[]}}}
+2025-06-10T15:34:35+02:00 [MONITOR] DEBUG: [rca0370038rsw156.SR4-2.#] Axios Request
+2025-06-10T15:34:35+02:00 [MONITOR] DEBUG: [rca0370038rsw156.SR4-2.#] Check isImportant
+2025-06-10T15:34:35+02:00 [MONITOR] DEBUG: Monitor #8 'rca0370038rsw156.SR4-2.#': Successful Response: 151 ms | Interval: 60 seconds | Type: http
+2025-06-10T15:34:35+02:00 [FOXTIC-CALC] DEBUG: Remove old data
+2025-06-10T15:34:35+02:00 [MONITOR] DEBUG: [rca0370038rsw156.SR4-2.#] Send to socket
+2025-06-10T15:34:35+02:00 [MONITOR] DEBUG: [rca0370038rsw156.SR4-2.#] Store
+2025-06-10T15:34:35+02:00 [MONITOR] DEBUG: No clients in the room, no need to send stats
+2025-06-10T15:34:35+02:00 [MONITOR] DEBUG: [rca0370038rsw156.SR4-2.#] prometheus.update
+2025-06-10T15:34:35+02:00 [MONITOR] DEBUG: [rca0370038rsw156.SR4-2.#] SetTimeout for next check.
+2025-06-10T15:34:35+02:00 [MONITOR] DEBUG: [rca0370038rsw156.SR4-2.#] Next heartbeat in: 59804ms
+2025-06-10T15:34:36+02:00 [MONITOR] DEBUG: [rca0370038rsw157.SR20-1.3] Prepare Options for axios
+2025-06-10T15:34:36+02:00 [MONITOR] DEBUG: [rca0370038rsw157.SR20-1.3] Axios Options: {"url":"http://example.org","method":"get","timeout":48000000,"headers":{"Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"},"maxRedirects":10,"signal":{},"httpsAgent":{"_events":{},"_eventsCount":2,"defaultPort":443,"protocol":"https:","options":{"maxCachedSessions":0,"rejectUnauthorized":true,"secureOptions":4,"cookies":{"jar":{"version":"tough-cookie@4.1.4","storeType":"MemoryCookieStore","rejectPublicSuffixes":true,"enableLooseMode":false,"allowSpecialUseDomain":true,"prefixSecurity":"silent","cookies":[]}},"noDelay":true,"path":null},"requests":{},"sockets":{},"freeSockets":{},"keepAliveMsecs":1000,"keepAlive":false,"maxSockets":null,"maxFreeSockets":256,"scheduling":"lifo","maxTotalSockets":null,"totalSocketCount":0,"maxCachedSessions":0,"_sessionCache":{"map":{},"list":[]}}}
+2025-06-10T15:34:36+02:00 [MONITOR] DEBUG: [rca0370038rsw157.SR20-1.3] Axios Request
+2025-06-10T15:34:36+02:00 [MONITOR] DEBUG: [rca0370038rsw157.SR20-1.3] Check isImportant
+2025-06-10T15:34:36+02:00 [MONITOR] DEBUG: Monitor #9 'rca0370038rsw157.SR20-1.3': Successful Response: 152 ms | Interval: 60 seconds | Type: http
+2025-06-10T15:34:36+02:00 [FOXTIC-CALC] DEBUG: Remove old data
+2025-06-10T15:34:36+02:00 [MONITOR] DEBUG: [rca0370038rsw157.SR20-1.3] Send to socket
+2025-06-10T15:34:36+02:00 [MONITOR] DEBUG: [rca0370038rsw157.SR20-1.3] Store
+2025-06-10T15:34:36+02:00 [MONITOR] DEBUG: No clients in the room, no need to send stats
+2025-06-10T15:34:36+02:00 [MONITOR] DEBUG: [rca0370038rsw157.SR20-1.3] prometheus.update
+2025-06-10T15:34:36+02:00 [MONITOR] DEBUG: [rca0370038rsw157.SR20-1.3] SetTimeout for next check.
+2025-06-10T15:34:36+02:00 [MONITOR] DEBUG: [rca0370038rsw157.SR20-1.3] Next heartbeat in: 59772ms
+2025-06-10T15:34:37+02:00 [MONITOR] DEBUG: [rca0370038rsw158.#.#] Prepare Options for axios
+2025-06-10T15:34:37+02:00 [MONITOR] DEBUG: [rca0370038rsw158.#.#] Axios Options: {"url":"http://example.org","method":"get","timeout":48000000,"headers":{"Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"},"maxRedirects":10,"signal":{},"httpsAgent":{"_events":{},"_eventsCount":2,"defaultPort":443,"protocol":"https:","options":{"maxCachedSessions":0,"rejectUnauthorized":true,"secureOptions":4,"cookies":{"jar":{"version":"tough-cookie@4.1.4","storeType":"MemoryCookieStore","rejectPublicSuffixes":true,"enableLooseMode":false,"allowSpecialUseDomain":true,"prefixSecurity":"silent","cookies":[]}},"noDelay":true,"path":null},"requests":{},"sockets":{},"freeSockets":{},"keepAliveMsecs":1000,"keepAlive":false,"maxSockets":null,"maxFreeSockets":256,"scheduling":"lifo","maxTotalSockets":null,"totalSocketCount":0,"maxCachedSessions":0,"_sessionCache":{"map":{},"list":[]}}}
+2025-06-10T15:34:37+02:00 [MONITOR] DEBUG: [rca0370038rsw158.#.#] Axios Request
+2025-06-10T15:34:37+02:00 [MONITOR] DEBUG: [rca0370038rsw158.#.#] Check isImportant
+2025-06-10T15:34:37+02:00 [MONITOR] DEBUG: Monitor #10 'rca0370038rsw158.#.#': Successful Response: 152 ms | Interval: 60 seconds | Type: http

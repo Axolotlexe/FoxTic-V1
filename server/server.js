@@ -49,7 +49,7 @@ if (! process.env.NODE_ENV) {
 
 // Configure logging to hide debug messages for cleaner console output
 if (!process.env.FOXTIC_HIDE_LOG) {
-    process.env.FOXTIC_HIDE_LOG = "debug_settings,debug_incrementalvacuum,debug_db";
+    process.env.FOXTIC_HIDE_LOG = "debug_settings,debug_incrementalvacuum,debug_db,debug_monitor,debug_foxtic-calc";
 }
 
 if (!process.env.FOXTIC_WS_ORIGIN_CHECK) {
