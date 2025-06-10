@@ -199,7 +199,7 @@ import PingChart from "../components/PingChart.vue";
 import SimpleChart from "../components/SimpleChart.vue";
 import MonitorListFilter from "../components/MonitorListFilter.vue";
 import GridConfigDialog from "../components/GridConfigDialog.vue";
-import OptimizedModesInfo from "../components/OptimizedModesInfo.vue";
+
 import { websocketService } from "../services/websocket.js";
 import soundManager from '../components/SoundManager.js';
 
@@ -212,7 +212,7 @@ export default {
         SimpleChart,
         MonitorListFilter,
         GridConfigDialog,
-        OptimizedModesInfo,
+
     },
     props: {
         calculatedHeight: {
@@ -246,7 +246,7 @@ export default {
             },
             showGridConfig: false, // Contrôle l'affichage de la fenêtre de configuration de la grille
             gridConfig: null, // Configuration de la grille (chargée depuis localStorage)
-            showOptimizedInfo: true, // Afficher l'information sur le mode optimisé
+
         };
     },
     computed: {
