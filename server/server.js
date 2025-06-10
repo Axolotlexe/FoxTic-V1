@@ -1636,8 +1636,8 @@ let needSetup = false;
         checkVersion.startInterval();
     });
 
-    // Start cloudflared at the end if configured
-    await cloudflaredAutoStart(cloudflaredToken);
+    // Cloudflared functionality disabled in FoxTic optimization
+    // await cloudflaredAutoStart(cloudflaredToken);
 
 })();
 

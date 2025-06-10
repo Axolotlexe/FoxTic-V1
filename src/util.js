@@ -221,7 +221,8 @@ class Logger {
                 console.info(timePart, modulePart, levelPart, msgPart);
                 break;
             case "DEBUG":
-                if (exports.isDev) {
+                // FoxTic Performance Optimization: Disable debug spam for monitor operations
+                if (exports.isDev && !module.includes("MONITOR") && !module.includes("FOXTIC-CALC")) {
                     console.debug(timePart, modulePart, levelPart, msgPart);
                 }
                 break;
