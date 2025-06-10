@@ -184,7 +184,7 @@ class Monitor extends BeanModel {
                 tlsCa: this.tlsCa,
                 tlsCert: this.tlsCert,
                 tlsKey: this.tlsKey,
-                kafkaProducerSaslOptions: JSON.parse(this.kafkaProducerSaslOptions),
+                kafkaProducerSaslOptions: this.kafkaProducerSaslOptions ? JSON.parse(this.kafkaProducerSaslOptions) : {},
                 rabbitmqUsername: this.rabbitmqUsername,
                 rabbitmqPassword: this.rabbitmqPassword,
             };
