@@ -10,8 +10,7 @@
                 </h2>
             </div>
             
-            <!-- Information sur le mode optimisé -->
-            <OptimizedModesInfo class="mb-3" v-if="showOptimizedInfo" />
+
 
             <!-- Mode De Vue Table Card et Filtres -->
             <div class="shadow-box mb-3">

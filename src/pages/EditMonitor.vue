@@ -23,94 +23,29 @@
                                 <label for="type" class="form-label">{{ $t("Monitor Type") }}</label>
                                 <select id="type" v-model="monitor.type" class="form-select" data-testid="monitor-type-select">
                                     <optgroup :label="$t('General Monitor Type')">
-                                        <option value="group">
-                                            {{ $t("Group") }}
+                                        <option value="http">
+                                            HTTP(s) - Ping Recommandé
                                         </option>
                                         <option value="http">
-                                            HTTP(s)
+                                            HTTP(s) - Status Code
                                         </option>
-                                        <option value="port">
-                                            TCP Port
+                                        <option value="keyword">
+                                            HTTP(s) - Mot-clé
                                         </option>
                                         <option value="ping">
                                             Ping
                                         </option>
-                                        <option value="snmp">
-                                            SNMP
-                                        </option>
-                                        <option value="keyword">
-                                            HTTP(s) - {{ $t("Keyword") }}
-                                        </option>
-                                        <option value="json-query">
-                                            HTTP(s) - {{ $t("Json Query") }}
-                                        </option>
-                                        <option value="grpc-keyword">
-                                            gRPC(s) - {{ $t("Keyword") }}
+                                        <option value="port">
+                                            TCP
                                         </option>
                                         <option value="dns">
                                             DNS
                                         </option>
-                                        <option value="docker">
-                                            {{ $t("Docker Container") }}
-                                        </option>
-
-                                        <option value="real-browser">
-                                            HTTP(s) - Browser Engine (Chrome/Chromium) (Beta)
-                                        </option>
-                                    </optgroup>
-
-                                    <optgroup :label="$t('Passive Monitor Type')">
-                                        <option value="push">
-                                            Push
-                                        </option>
-                                    </optgroup>
-
-                                    <optgroup :label="$t('Specific Monitor Type')">
-                                        <option value="steam">
-                                            {{ $t("Steam Game Server") }}
-                                        </option>
-                                        <option value="gamedig">
-                                            GameDig
-                                        </option>
-                                        <option value="mqtt">
-                                            MQTT
-                                        </option>
-                                        <option value="rabbitmq">
-                                            RabbitMQ
-                                        </option>
-                                        <option value="kafka-producer">
-                                            Kafka Producer
-                                        </option>
-                                        <option value="sqlserver">
-                                            Microsoft SQL Server
-                                        </option>
-                                        <option value="postgres">
-                                            PostgreSQL
-                                        </option>
-                                        <option value="mysql">
-                                            MySQL/MariaDB
-                                        </option>
-                                        <option value="mongodb">
-                                            MongoDB
-                                        </option>
-                                        <option value="radius">
-                                            Radius
-                                        </option>
-                                        <option value="redis">
-                                            Redis
-                                        </option>
-                                        <option v-if="!$root.info.isContainer" value="tailscale-ping">
-                                            Tailscale Ping
+                                        <option value="group">
+                                            Groupe
                                         </option>
                                     </optgroup>
                                 </select>
-                                <i18n-t v-if="monitor.type === 'rabbitmq'" keypath="rabbitmqHelpText" tag="div" class="form-text">
-                                    <template #rabitmq_documentation>
-                                        <a href="https://www.rabbitmq.com/management" target="_blank" rel="noopener noreferrer">
-                                            RabbitMQ documentation
-                                        </a>
-                                    </template>
-                                </i18n-t>
                             </div>
 
                             <div v-if="monitor.type === 'tailscale-ping'" class="alert alert-warning" role="alert">
