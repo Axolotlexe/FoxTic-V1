@@ -144,7 +144,7 @@ class Monitor extends BeanModel {
             jsonPath: this.jsonPath,
             expectedValue: this.expectedValue,
             kafkaProducerTopic: this.kafkaProducerTopic,
-            kafkaProducerBrokers: JSON.parse(this.kafkaProducerBrokers),
+            kafkaProducerBrokers: this.kafkaProducerBrokers ? JSON.parse(this.kafkaProducerBrokers) : [],
             kafkaProducerSsl: this.getKafkaProducerSsl(),
             kafkaProducerAllowAutoTopicCreation: this.getKafkaProducerAllowAutoTopicCreation(),
             kafkaProducerMessage: this.kafkaProducerMessage,
@@ -154,8 +154,8 @@ class Monitor extends BeanModel {
             snmpOid: this.snmpOid,
             jsonPathOperator: this.jsonPathOperator,
             snmpVersion: this.snmpVersion,
-            rabbitmqNodes: JSON.parse(this.rabbitmqNodes),
-            conditions: JSON.parse(this.conditions),
+            rabbitmqNodes: this.rabbitmqNodes ? JSON.parse(this.rabbitmqNodes) : [],
+            conditions: this.conditions ? JSON.parse(this.conditions) : [],
         };
 
         if (includeSensitiveData) {
